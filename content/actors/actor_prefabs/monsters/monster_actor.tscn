@@ -1,0 +1,84 @@
+[gd_scene load_steps=21 format=3 uid="uid://d21crk01708ft"]
+
+[ext_resource type="Script" path="res://scripts/actor.gd" id="1_a6srw"]
+[ext_resource type="Script" path="res://scripts/actor_costume.gd" id="2_ewllx"]
+[ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_q7ubw"]
+[ext_resource type="Script" path="res://scripts/actor_visual_manager.gd" id="3_4stji"]
+[ext_resource type="Resource" uid="uid://coy4inm5tseip" path="res://resources/status_effects/debuffs/elemetal/main/STEFF_DB_CRYO.tres" id="3_25x3h"]
+[ext_resource type="Script" path="res://scripts/actor_stats.gd" id="3_lro7c"]
+[ext_resource type="Script" path="res://scripts/actor_com_input_manager.gd" id="4_a1qdl"]
+[ext_resource type="Script" path="res://scripts/actor_weakness.gd" id="4_jnq1d"]
+[ext_resource type="Script" path="res://scripts/actor_status.gd" id="4_nsqiy"]
+[ext_resource type="Resource" uid="uid://dppie5kd5t0nc" path="res://resources/status_effects/buffs/elemental_wards/STEFF_B_TOXI_WARD.tres" id="4_ryapi"]
+[ext_resource type="Script" path="res://scripts/acts/acts_manager.gd" id="5_40dta"]
+[ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://content/stage/select_actor_arrow.tscn" id="6_rwth2"]
+[ext_resource type="PackedScene" uid="uid://dpdwi44lrbolx" path="res://content/acts/mana_single_target.tscn" id="9_hqi6k"]
+[ext_resource type="PackedScene" uid="uid://cgxh03vjsyy5k" path="res://content/stage/mini_actor_info_container.tscn" id="10_l0moa"]
+[ext_resource type="Script" path="res://scripts/actor_status_effect_manager.gd" id="12_g60oh"]
+
+[sub_resource type="Resource" id="Resource_1sy5n"]
+script = ExtResource("4_jnq1d")
+_debuff = ExtResource("3_25x3h")
+_damage_boost_percentage = 1.0
+
+[sub_resource type="Resource" id="Resource_5bwyb"]
+script = ExtResource("3_lro7c")
+_substat_curves = ExtResource("2_q7ubw")
+_wards = Array[Resource("res://scripts/status_effects/status_effect.gd")]([ExtResource("4_ryapi")])
+_weaknesses = Array[ExtResource("4_jnq1d")]([SubResource("Resource_1sy5n")])
+_ATTK = 50
+_DFNS = 50
+_VTLY = 50
+
+[sub_resource type="Resource" id="Resource_s2blu"]
+script = ExtResource("4_nsqiy")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sskny"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_s4xhd"]
+lightmap_size_hint = Vector2i(17, 14)
+material = SubResource("StandardMaterial3D_sskny")
+radius = 0.32
+height = 1.37
+radial_segments = 8
+rings = 4
+
+[node name="MonsterActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
+script = ExtResource("1_a6srw")
+_stats = SubResource("Resource_5bwyb")
+_visual_manager = NodePath("ActorVisualManager")
+_costume = NodePath("ActorCostume")
+_input_manager = NodePath("ActorCOMInputManager")
+_acts_manager = NodePath("ActsManager")
+_status_effect_manager = NodePath("ActorStatusEffectManager")
+_status = SubResource("Resource_s2blu")
+
+[node name="ActorCostume" type="Node3D" parent="."]
+script = ExtResource("2_ewllx")
+
+[node name="Mesh" type="MeshInstance3D" parent="ActorCostume"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695273, 0)
+mesh = SubResource("CapsuleMesh_s4xhd")
+
+[node name="SelectActorArrow" parent="." instance=ExtResource("6_rwth2")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.699041, 0)
+visible = false
+
+[node name="MiniActorInfoContainer" parent="." instance=ExtResource("10_l0moa")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+
+[node name="ActorVisualManager" type="Node3D" parent="." node_paths=PackedStringArray("_select_actor_arrow", "_mini_actor_info_container")]
+script = ExtResource("3_4stji")
+_select_actor_arrow = NodePath("../SelectActorArrow")
+_mini_actor_info_container = NodePath("../MiniActorInfoContainer")
+
+[node name="ActorCOMInputManager" type="Node" parent="."]
+script = ExtResource("4_a1qdl")
+
+[node name="ActsManager" type="Node" parent="."]
+script = ExtResource("5_40dta")
+_basic_move = ExtResource("9_hqi6k")
+
+[node name="ActorStatusEffectManager" type="Node" parent="."]
+script = ExtResource("12_g60oh")

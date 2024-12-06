@@ -1,0 +1,27 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=8 format=3 uid="uid://cl2lrwwrjis51"]
+
+[ext_resource type="Resource" uid="uid://ctgknj4k2a0aw" path="res://resources/status_effects/debuffs/elemetal/sub/hydro_reactions/STEFF_DB_GLACIO.tres" id="1_25ja3"]
+[ext_resource type="Resource" uid="uid://cc7jn7k286y16" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_HYDRO.tres" id="2_vqqhr"]
+[ext_resource type="Resource" uid="uid://hxlccwpnf04p" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_VIRO.tres" id="3_v5m66"]
+[ext_resource type="Resource" uid="uid://nie8b3n4tc1e" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_MAGNETRO.tres" id="4_cotfs"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/combine_rule.gd" id="5_t4crk"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="6_v6i64"]
+
+[sub_resource type="Resource" id="Resource_chspd"]
+script = ExtResource("5_t4crk")
+_combination_rules = {
+"Hydro": ExtResource("1_25ja3"),
+"Pyro": ExtResource("2_vqqhr"),
+"Toxi": ExtResource("3_v5m66"),
+"Volt": ExtResource("4_cotfs")
+}
+
+[resource]
+script = ExtResource("6_v6i64")
+_name = "Cryo Ward"
+_brief_description = ""
+_long_description = ""
+_status_effect_type = 0
+_duration_turns = 0
+_duration_mode = 0
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([SubResource("Resource_chspd")])

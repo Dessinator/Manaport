@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WorldItem" load_steps=4 format=3 uid="uid://dq372jxiterym"]
+
+[ext_resource type="Script" path="res://scripts/items/world_item.gd" id="1_17ihw"]
+[ext_resource type="Script" path="res://scripts/items/item_components/ingredient_definition.gd" id="1_v4tk7"]
+
+[sub_resource type="Resource" id="Resource_gae0x"]
+script = ExtResource("1_v4tk7")
+_ingredient_type = 15
+
+[resource]
+script = ExtResource("1_17ihw")
+_item_name = "Bacon"
+_item_description = ""
+_consumable = false
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_gae0x")])

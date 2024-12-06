@@ -1,0 +1,51 @@
+[gd_resource type="Resource" script_class="ActorSubstatCurves" load_steps=11 format=3 uid="uid://ckncyt80r3idx"]
+
+[ext_resource type="Script" path="res://scripts/actor_substat_curves.gd" id="1_pv8ko"]
+
+[sub_resource type="Curve" id="Curve_3t1bc"]
+_data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_xl0k1"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_7ovc3"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.929256, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_sloie"]
+_data = [Vector2(0, 0), 0.0, 2.76116, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_tibxu"]
+_data = [Vector2(0, 0), 0.0, 0.542031, 0, 0, Vector2(1, 1), 1.99215, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_wuse6"]
+_data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 0.3), 0.929256, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_cnjxi"]
+_data = [Vector2(0, 0), 0.0, 0.715575, 0, 0, Vector2(1, 0.3), 0.0, 0.0, 0, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_4f3f5"]
+_data = [Vector2(0, 0), 0.0, 1.0, 0, 1, Vector2(1, 1), 1.0, 0.0, 1, 0]
+point_count = 2
+
+[sub_resource type="Curve" id="Curve_mcih6"]
+_data = [Vector2(0, 0), 0.0, 0.504405, 0, 1, Vector2(1, 0.504405), 0.504405, 0.0, 1, 0]
+point_count = 2
+
+[resource]
+script = ExtResource("1_pv8ko")
+_ATDM_curve = SubResource("Curve_xl0k1")
+_CRCH_curve = SubResource("Curve_sloie")
+_CRML_curve = SubResource("Curve_tibxu")
+_DMMT_curve = SubResource("Curve_cnjxi")
+_DBRS_curve = SubResource("Curve_wuse6")
+_BFRT_curve = SubResource("Curve_7ovc3")
+_MXHL_curve = SubResource("Curve_4f3f5")
+_MXST_curve = SubResource("Curve_mcih6")
+_AGLT_curve = SubResource("Curve_3t1bc")

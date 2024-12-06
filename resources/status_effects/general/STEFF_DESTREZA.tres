@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://bscnpcmcg6bld"]
+
+[ext_resource type="Texture2D" uid="uid://n7eotj2t6aon" path="res://resources/images/icons/STEFF_ICN_DESTREZA.jpg" id="1_agj36"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="1_q403w"]
+
+[resource]
+script = ExtResource("1_q403w")
+_name = "Destreza"
+_icon = ExtResource("1_agj36")
+_brief_description = ""
+_long_description = ""
+_duration_turns = 0
+_duration_mode = 0
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([])

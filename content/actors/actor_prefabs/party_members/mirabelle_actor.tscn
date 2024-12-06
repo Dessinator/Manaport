@@ -1,0 +1,77 @@
+[gd_scene load_steps=19 format=3 uid="uid://bbu5jb7gd1sp6"]
+
+[ext_resource type="Script" path="res://scripts/actor.gd" id="1_tb6jx"]
+[ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_t1qre"]
+[ext_resource type="PackedScene" uid="uid://hiqhb16vaec0" path="res://content/actors/actor_visual_manager.tscn" id="3_gefvd"]
+[ext_resource type="Script" path="res://scripts/actor_stats.gd" id="3_jdhxh"]
+[ext_resource type="Texture2D" uid="uid://bcauoe6qom5lb" path="res://resources/images/placeholder_mirabelle_portrait.jpg" id="4_50dhl"]
+[ext_resource type="Script" path="res://scripts/actor_status.gd" id="4_dmfgh"]
+[ext_resource type="PackedScene" uid="uid://bqx82ecciccke" path="res://content/actors/actor_costume.tscn" id="4_ef633"]
+[ext_resource type="Script" path="res://scripts/acts/acts_manager.gd" id="4_gc3b8"]
+[ext_resource type="PackedScene" uid="uid://bp5q1jvgjyu1v" path="res://content/actors/actor_player_input_manager.tscn" id="4_ipcd2"]
+[ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://content/stage/select_actor_arrow.tscn" id="7_gf0eb"]
+[ext_resource type="PackedScene" uid="uid://cfim0jrh7ri5d" path="res://content/acts/specific/mirabelle/basic/ACT_BASIC_M_WATCH-OUT-EVERYONE.tscn" id="11_lf0ji"]
+[ext_resource type="PackedScene" uid="uid://cf2exa06xmkrx" path="res://content/acts/specific/mirabelle/skill/ACT_SKILL_M_I-CAN-HELP.tscn" id="12_r7m8d"]
+[ext_resource type="PackedScene" uid="uid://btij8s72gwdfv" path="res://content/acts/specific/mirabelle/skill/ACT_SKILL_M_HOLD-ON-HOLD-ON.tscn" id="13_06pur"]
+[ext_resource type="Script" path="res://scripts/actor_status_effect_manager.gd" id="14_e2w3g"]
+
+[sub_resource type="Resource" id="Resource_m0ep7"]
+script = ExtResource("3_jdhxh")
+_substat_curves = ExtResource("2_t1qre")
+_wards = Array[Resource("res://scripts/status_effects/status_effect.gd")]([])
+_weaknesses = Array[Resource("res://scripts/actor_weakness.gd")]([])
+_ATTK = 10
+_DFNS = 5
+_VTLY = 20
+
+[sub_resource type="Resource" id="Resource_5bf3o"]
+script = ExtResource("4_dmfgh")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_42ylw"]
+albedo_color = Color(0, 0.862745, 0.87451, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_6dupv"]
+lightmap_size_hint = Vector2i(17, 14)
+material = SubResource("StandardMaterial3D_42ylw")
+radius = 0.3
+height = 1.3
+radial_segments = 8
+rings = 4
+
+[node name="MirabelleActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
+script = ExtResource("1_tb6jx")
+_is_party_member = true
+_stats = SubResource("Resource_m0ep7")
+_visual_manager = NodePath("ActorVisualManager")
+_costume = NodePath("ActorCostume")
+_input_manager = NodePath("ActorPlayerInputManager")
+_acts_manager = NodePath("ActsManager")
+_status_effect_manager = NodePath("ActorStatusEffectManager")
+_status = SubResource("Resource_5bf3o")
+
+[node name="ActorCostume" parent="." instance=ExtResource("4_ef633")]
+
+[node name="Mesh" type="MeshInstance3D" parent="ActorCostume"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.657569, 0)
+mesh = SubResource("CapsuleMesh_6dupv")
+skeleton = NodePath("")
+
+[node name="SelectActorArrow" parent="." instance=ExtResource("7_gf0eb")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65602, 0)
+visible = false
+
+[node name="ActorVisualManager" parent="." node_paths=PackedStringArray("_select_actor_arrow") instance=ExtResource("3_gefvd")]
+_portrait = ExtResource("4_50dhl")
+_action_order_icon = ExtResource("4_50dhl")
+_select_actor_arrow = NodePath("../SelectActorArrow")
+
+[node name="ActorPlayerInputManager" parent="." instance=ExtResource("4_ipcd2")]
+
+[node name="ActsManager" type="Node" parent="."]
+script = ExtResource("4_gc3b8")
+_basic_move = ExtResource("11_lf0ji")
+_skill_1 = ExtResource("12_r7m8d")
+_skill_2 = ExtResource("13_06pur")
+
+[node name="ActorStatusEffectManager" type="Node" parent="."]
+script = ExtResource("14_e2w3g")

@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://b26bohlg4nxh8"]
+
+[ext_resource type="Script" path="res://scripts/acts/act.gd" id="1_tdt8l"]
+[ext_resource type="PackedScene" uid="uid://wallrwlc3ebb" path="res://content/acts/act_components/mod_health/mod_health_blast.tscn" id="2_lsnt4"]
+
+[node name="ManaBlast" type="Node"]
+script = ExtResource("1_tdt8l")
+_name = "Mana Blast"
+_type = 2
+_element = 1
+_stamina_modifier = 1
+
+[node name="DamageBlast" parent="." instance=ExtResource("2_lsnt4")]
+_base_health_mod = 2
+_falloff = 0.5

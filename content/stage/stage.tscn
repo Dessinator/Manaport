@@ -1,0 +1,134 @@
+[gd_scene load_steps=26 format=3 uid="uid://b3hw1a0b73u4j"]
+
+[ext_resource type="Script" path="res://scripts/stage.gd" id="1_2obi2"]
+[ext_resource type="Resource" uid="uid://nqd76c0wsme" path="res://resources/items/world/dishes/plates/DISH_CRUDE_PLATE.tres" id="2_ady1r"]
+[ext_resource type="Script" path="res://scripts/items/item_components/food_preparer.gd" id="2_bhpth"]
+[ext_resource type="PackedScene" uid="uid://cdtv1rwt2vl2b" path="res://content/stage/stage_interface.tscn" id="2_g73d1"]
+[ext_resource type="Script" path="res://scripts/stage_inventory.gd" id="2_kne2o"]
+[ext_resource type="Resource" uid="uid://dq372jxiterym" path="res://resources/items/world/ingredients/FING_PROTEIN.tres" id="3_6j0jj"]
+[ext_resource type="PackedScene" uid="uid://dk20jrjub34s" path="res://content/actors/actor_prefabs/party_members/laurie_actor.tscn" id="3_7brol"]
+[ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="3_fkp4m"]
+[ext_resource type="Resource" uid="uid://ca7ttfgi6p2qh" path="res://resources/items/world/ingredients/FING_NOODLES.tres" id="4_3jg26"]
+[ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="4_33se1"]
+[ext_resource type="Texture2D" uid="uid://ceud3opo1yfkv" path="res://resources/images/textures/prototype/PNG/Dark/texture_01.png" id="4_j55o2"]
+[ext_resource type="Resource" uid="uid://b62myh2iu1ifn" path="res://resources/items/world/ingredients/FING_SPICES.tres" id="5_ksikv"]
+[ext_resource type="Script" path="res://scripts/actor_stats.gd" id="5_yjld2"]
+[ext_resource type="PackedScene" uid="uid://bbu5jb7gd1sp6" path="res://content/actors/actor_prefabs/party_members/mirabelle_actor.tscn" id="6_mae5r"]
+[ext_resource type="PackedScene" uid="uid://ckmyi0h6s1grm" path="res://content/actors/actor_prefabs/party_members/winsley_actor.tscn" id="7_rdy8d"]
+[ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://content/actors/actor_prefabs/monsters/monster_actor.tscn" id="8_vlvwy"]
+[ext_resource type="Script" path="res://scripts/acts/array_acts_manager.gd" id="9_6pw1b"]
+
+[sub_resource type="Resource" id="Resource_pridt"]
+script = ExtResource("2_bhpth")
+_dish = ExtResource("2_ady1r")
+_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([ExtResource("3_6j0jj"), ExtResource("4_3jg26"), ExtResource("5_ksikv")])
+
+[sub_resource type="Resource" id="Resource_7cr5t"]
+script = ExtResource("3_fkp4m")
+_item_name = "Food Base"
+_item_description = ""
+_consumable = true
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_pridt")])
+
+[sub_resource type="Resource" id="Resource_mndya"]
+script = ExtResource("2_kne2o")
+_starting_items = [SubResource("Resource_7cr5t")]
+
+[sub_resource type="Resource" id="Resource_t4rr1"]
+script = ExtResource("5_yjld2")
+_substat_curves = ExtResource("4_33se1")
+_wards = Array[Resource("res://scripts/status_effects/status_effect.gd")]([])
+_weaknesses = Array[Resource("res://scripts/actor_weakness.gd")]([])
+_ATTK = 10
+_DFNS = 10
+_VTLY = 10
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utxbh"]
+
+[sub_resource type="Sky" id="Sky_i5mas"]
+sky_material = SubResource("ProceduralSkyMaterial_utxbh")
+
+[sub_resource type="Environment" id="Environment_mt05j"]
+background_mode = 2
+sky = SubResource("Sky_i5mas")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jjj8"]
+albedo_texture = ExtResource("4_j55o2")
+
+[node name="Stage" type="Node"]
+script = ExtResource("1_2obi2")
+_starting_stage_inventory = SubResource("Resource_mndya")
+
+[node name="ArrayActsManager" type="Node" parent="."]
+script = ExtResource("9_6pw1b")
+
+[node name="StageInterface" parent="." instance=ExtResource("2_g73d1")]
+
+[node name="StageCamera3D" type="Camera3D" parent="."]
+current = true
+
+[node name="ReadyCamera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.927739, -0.180427, 0.326721, 0.185938, 0.982454, 0.0145668, -0.323616, 0.0472356, 0.945009, 1.93238, 1.30144, 6.95066)
+
+[node name="AttackCamera3D" type="Camera3D" parent="."]
+transform = Transform3D(0.917755, 0.0634965, 0.392039, 0, 0.987136, -0.159881, -0.397148, 0.146732, 0.905949, 2.168, 0.768, -1.454)
+
+[node name="DefendCamera3D" type="Camera3D" parent="."]
+transform = Transform3D(-0.917872, -0.0634871, -0.391765, -3.09789e-10, 0.987122, -0.159967, 0.396876, -0.14683, -0.906052, -2.16773, 0.767632, 1.4536)
+
+[node name="POIs" type="Node" parent="."]
+
+[node name="PartyMembers" type="Node" parent="POIs"]
+
+[node name="ReadyActorPosition" type="Marker3D" parent="POIs/PartyMembers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+
+[node name="NextReadyActorPosition" type="Marker3D" parent="POIs/PartyMembers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 4.5)
+
+[node name="LastReadyActorPosition" type="Marker3D" parent="POIs/PartyMembers"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 4.5)
+
+[node name="EnemySpawnPoint" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.82347, 0, -4.42025)
+
+[node name="EnemySpawnPoint2" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379322, 0, -3.28709)
+
+[node name="EnemySpawnPoint3" type="Marker3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03346, 0, -5.76756)
+
+[node name="Actors" type="Node" parent="."]
+
+[node name="WinsleyActor" parent="Actors" instance=ExtResource("7_rdy8d")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 4.5)
+
+[node name="MonsterActor" parent="Actors" instance=ExtResource("8_vlvwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.82347, 0, -4.42025)
+
+[node name="LaurieActor" parent="Actors" instance=ExtResource("3_7brol")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
+_stats = SubResource("Resource_t4rr1")
+
+[node name="MonsterActor2" parent="Actors" instance=ExtResource("8_vlvwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379322, 0, -3.28709)
+
+[node name="MirabelleActor" parent="Actors" instance=ExtResource("6_mae5r")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 4.5)
+
+[node name="MonsterActor3" parent="Actors" instance=ExtResource("8_vlvwy")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03346, 0, -5.76756)
+
+[node name="Environment" type="Node3D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_mt05j")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(124.965, 0, 0, 0, 1, 0, 0, 0, 124.965, 0, -0.5, 0)
+material = SubResource("StandardMaterial3D_5jjj8")

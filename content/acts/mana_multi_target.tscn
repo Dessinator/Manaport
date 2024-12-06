@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhi6fti73t6hi"]
+
+[ext_resource type="Script" path="res://scripts/acts/act.gd" id="1_380dw"]
+[ext_resource type="PackedScene" uid="uid://dmv2dp2m30lk3" path="res://content/acts/act_components/mod_health/mod_health_multi_target.tscn" id="2_imk2a"]
+
+[node name="ManaMultiTarget" type="Node"]
+script = ExtResource("1_380dw")
+_name = "Mana Multi-Target"
+_type = 1
+_element = 1
+_stamina_modifier = 1
+
+[node name="DamageMultiTarget" parent="." instance=ExtResource("2_imk2a")]
+_health_mod = 1

@@ -1,0 +1,26 @@
+[gd_scene load_steps=6 format=3 uid="uid://btij8s72gwdfv"]
+
+[ext_resource type="Script" path="res://scripts/acts/act.gd" id="1_oqu2h"]
+[ext_resource type="Script" path="res://scripts/acts/act_components/apply_status_effect/apply_status_effect_multi_target.gd" id="2_it3cn"]
+[ext_resource type="Resource" uid="uid://fvxkgvk65qew" path="res://resources/status_effects/buffs/STEFF_B_ILL-PROTECT-YOU.tres" id="3_ewyyb"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect_selection.gd" id="4_h6ktk"]
+
+[sub_resource type="Resource" id="Resource_m8xlc"]
+script = ExtResource("4_h6ktk")
+_status_effect = ExtResource("3_ewyyb")
+_ignore_bfrt_or_dbrs = true
+_chance = 1.0
+_stacks = 1
+
+[node name="ACT_SKILL_M_HOLD-ON-HOLD-ON" type="Node"]
+script = ExtResource("1_oqu2h")
+_name = "Wah! Hold On, Hold On!"
+_type = 1
+_brief_description = "Applies the I-I’ll Protect You! buff to all party members."
+_long_description = "100% chance to apply the I-I’ll Protect You! buff to all party members. I-I’ll Protect You! increases actor DMMT (Damage Mitigation) by 40% for 3 turns."
+_friendly_fire = true
+_stamina_modifier = 5
+
+[node name="ApplyStatusEffectMultiTarget" type="Node" parent="."]
+script = ExtResource("2_it3cn")
+_status_effects = Array[ExtResource("4_h6ktk")]([SubResource("Resource_m8xlc")])

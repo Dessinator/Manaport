@@ -1,0 +1,196 @@
+[gd_scene load_steps=14 format=3 uid="uid://cnc2vtdh23i1g"]
+
+[ext_resource type="Texture2D" uid="uid://bb7kpsrnike3k" path="res://resources/images/placeholder_portrait.png" id="1_ucbsx"]
+[ext_resource type="Script" path="res://scripts/actor_info.gd" id="1_vudqf"]
+[ext_resource type="PackedScene" uid="uid://cn4oi2guugl8k" path="res://content/stage/bar.tscn" id="3_8qhvp"]
+
+[sub_resource type="Animation" id="Animation_rtoji"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(-250, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_p2k73"]
+resource_name = "fall"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-290, -0.1, 0, 0.1, 0, -250, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="Animation" id="Animation_6m8y3"]
+resource_name = "rise"
+length = 0.2
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Background:position:y")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 0),
+"points": PackedFloat32Array(-250, -0.25, 0, 0.25, 0, -290, -0.1, 0, 0.1, 0),
+"times": PackedFloat32Array(0, 0.2)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_o75t0"]
+_data = {
+"RESET": SubResource("Animation_rtoji"),
+"fall": SubResource("Animation_p2k73"),
+"rise": SubResource("Animation_6m8y3")
+}
+
+[sub_resource type="Gradient" id="Gradient_3lqa3"]
+colors = PackedColorArray(0.682353, 0.705882, 0.717647, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_txkj7"]
+gradient = SubResource("Gradient_3lqa3")
+width = 100
+
+[sub_resource type="Gradient" id="Gradient_bjdny"]
+colors = PackedColorArray(0.490605, 0.549396, 1, 1, 0.227544, 0.897968, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_dfwx1"]
+gradient = SubResource("Gradient_bjdny")
+
+[sub_resource type="Gradient" id="Gradient_s48pq"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_qns2t"]
+gradient = SubResource("Gradient_s48pq")
+fill_from = Vector2(0, 0.747863)
+fill_to = Vector2(0, 0)
+
+[node name="ActorInfo" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+grow_vertical = 0
+size_flags_vertical = 8
+script = ExtResource("1_vudqf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_o75t0")
+}
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -250.0
+offset_right = 300.0
+grow_vertical = 0
+pivot_offset = Vector2(0, 250)
+
+[node name="PortraitBackground" type="Panel" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -2.0
+offset_right = -117.0
+offset_bottom = -74.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="TextureRect" type="TextureRect" parent="Background/PortraitBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 9.0
+offset_top = 9.0
+offset_right = -9.0
+offset_bottom = -9.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_ucbsx")
+expand_mode = 1
+
+[node name="BarsBackground" type="Panel" parent="Background"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 178.0
+offset_bottom = -2.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/BarsBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 34
+
+[node name="HLTHBar" parent="Background/BarsBackground/VBoxContainer" instance=ExtResource("3_8qhvp")]
+layout_mode = 2
+_progress_bar_gradient = SubResource("GradientTexture1D_txkj7")
+_name = "HLTH"
+
+[node name="STMABar" parent="Background/BarsBackground/VBoxContainer" instance=ExtResource("3_8qhvp")]
+layout_mode = 2
+_progress_bar_gradient = SubResource("GradientTexture1D_dfwx1")
+_name = "STMA"
+
+[node name="StatusEffectsBackground" type="Panel" parent="Background"]
+clip_contents = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 190.0
+offset_top = -2.0
+offset_bottom = -76.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Background/StatusEffectsBackground"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+offset_top = 4.0
+offset_right = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 45
+
+[node name="TextureRect" type="TextureRect" parent="Background/StatusEffectsBackground"]
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -52.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("GradientTexture2D_qns2t")
+expand_mode = 1

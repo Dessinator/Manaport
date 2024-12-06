@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=5 format=3 uid="uid://dyp14mj01rnw6"]
+
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="1_34akl"]
+[ext_resource type="Texture2D" uid="uid://dqqpmw4wakrbu" path="res://resources/images/icons/STEFF_ICN_KEEP-HITTING.jpg" id="1_h7cqx"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/mod_substat.gd" id="2_j7nvu"]
+
+[sub_resource type="Resource" id="Resource_7hnme"]
+script = ExtResource("2_j7nvu")
+_affected_substat = 0
+_use_percentage_of_base_stat_value_instead = false
+_mod_value = 1
+_percentage_of_base_stat = 1.0
+
+[resource]
+script = ExtResource("1_34akl")
+_name = "Keep Hitting!"
+_icon = ExtResource("1_h7cqx")
+_brief_description = "Increases actor ATDM (Attack Damage) for 3 turns."
+_long_description = "increases actor ATDM (Attack Damage) by 10% for 3 turns."
+_status_effect_type = 1
+_duration_turns = 3
+_duration_mode = 0
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([SubResource("Resource_7hnme")])

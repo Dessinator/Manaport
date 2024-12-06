@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://dx2n3g76husxh"]
+
+[ext_resource type="Script" path="res://scripts/acts/act_components/mod_health/mod_health_bounce.gd" id="1_w3qwo"]
+
+[node name="ModHealthBounce" type="Node"]
+script = ExtResource("1_w3qwo")

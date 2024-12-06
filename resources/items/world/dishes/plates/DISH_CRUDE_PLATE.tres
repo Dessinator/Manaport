@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WorldItem" load_steps=4 format=3 uid="uid://nqd76c0wsme"]
+
+[ext_resource type="Script" path="res://scripts/items/world_item.gd" id="1_pohq7"]
+[ext_resource type="Script" path="res://scripts/items/item_components/ingredient_definition.gd" id="1_wq8hy"]
+
+[sub_resource type="Resource" id="Resource_ry2sn"]
+script = ExtResource("1_wq8hy")
+_ingredient_type = 0
+
+[resource]
+script = ExtResource("1_pohq7")
+_item_name = "Crude Plate"
+_item_description = ""
+_consumable = false
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_ry2sn")])

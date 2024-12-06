@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cs75mxuu70jwt"]
+
+[ext_resource type="Script" path="res://scripts/acts/act.gd" id="1_p4lmw"]
+[ext_resource type="PackedScene" uid="uid://dx2n3g76husxh" path="res://content/acts/act_components/mod_health/mod_health_bounce.tscn" id="2_ufni3"]
+
+[node name="ManaBounce" type="Node"]
+script = ExtResource("1_p4lmw")
+_name = "Mana Bounce"
+_type = 3
+_element = 1
+_stamina_modifier = 1
+
+[node name="DamageBounce" parent="." instance=ExtResource("2_ufni3")]
+_base_health_mod = 2
+_falloff = 0.5
+_bounce_count = 4

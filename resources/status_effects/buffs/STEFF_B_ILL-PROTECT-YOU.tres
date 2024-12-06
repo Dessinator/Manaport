@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=5 format=3 uid="uid://fvxkgvk65qew"]
+
+[ext_resource type="Texture2D" uid="uid://0ow4vtsa57k1" path="res://resources/images/icons/STEFF_ICN_ILL-PROTECT-YOU.jpg" id="1_387pp"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="1_ubfoh"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/mod_substat.gd" id="2_i31mc"]
+
+[sub_resource type="Resource" id="Resource_q2kkq"]
+script = ExtResource("2_i31mc")
+_affected_substat = 3
+_use_percentage_of_base_stat_value_instead = false
+_mod_value = 4
+_percentage_of_base_stat = 1.0
+
+[resource]
+script = ExtResource("1_ubfoh")
+_name = "I-I'll Protect You!"
+_icon = ExtResource("1_387pp")
+_brief_description = "Increases actor DMMT (Damage Mitigation) for 3 turns."
+_long_description = "Increases actor DMMT (Damage Mitigation) by 40% for 3 turns."
+_status_effect_type = 0
+_duration_turns = 3
+_duration_mode = 0
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([SubResource("Resource_q2kkq")])

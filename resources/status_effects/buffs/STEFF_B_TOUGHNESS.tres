@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://c5yi22mo26pa4"]
+
+[ext_resource type="Texture2D" uid="uid://4vuvbmy8nrqd" path="res://resources/images/icons/STEFF_ICN_TOUGHNESS.png" id="1_tnsf4"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="1_tvhp3"]
+
+[resource]
+script = ExtResource("1_tvhp3")
+_name = "Toughness"
+_icon = ExtResource("1_tnsf4")
+_brief_description = "Increases actor Damage Mitigation (DMMT). Stacks of Toughness can only be removed with continuous attacks that match actor's Elemental Weakness."
+_long_description = "Increases actor Damage Mitigation (DMMT) by 30%. Stacks of Toughness can only be removed with continuous attacks that match actor's Elemental Weakness."
+_duration_turns = 0
+_duration_mode = 0
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([])
