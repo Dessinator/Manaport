@@ -3,7 +3,7 @@
 [ext_resource type="Script" path="res://scripts/items/world_item.gd" id="1_17ihw"]
 [ext_resource type="Script" path="res://scripts/items/item_components/ingredient_definition.gd" id="1_v4tk7"]
 
-[sub_resource type="Resource" id="Resource_gae0x"]
+[sub_resource type="Resource" id="Resource_i7yrx"]
 script = ExtResource("1_v4tk7")
 _ingredient_type = 15
 
@@ -14,4 +14,4 @@ _item_description = ""
 _consumable = false
 _friendly_fire = true
 _use_type = 0
-_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_gae0x")])
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_i7yrx")])

@@ -23,13 +23,13 @@ func initialize() -> Dictionary:
 		dict.merge(comp.initialize(self))
 	return dict
 
-func consume() -> Dictionary:
+func consume(receiving_actor: Actor) -> Dictionary:
 	if not _consumable:
 		return {}
 	
 	var dict = {}
 	for comp in _item_components:
-		dict.merge(comp.consume(self))
+		dict.merge(comp.consume(self, receiving_actor))
 	return dict
 
 func add(quantity: int):

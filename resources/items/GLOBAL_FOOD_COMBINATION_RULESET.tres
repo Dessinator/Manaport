@@ -1,25 +1,16 @@
-[gd_resource type="Resource" script_class="ItemCombinationRuleset" load_steps=8 format=3 uid="uid://c63hfhh5thi3h"]
+[gd_resource type="Resource" script_class="ItemCombinationRuleset" load_steps=7 format=3 uid="uid://c63hfhh5thi3h"]
 
-[ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="1_2rbx5"]
 [ext_resource type="Script" path="res://scripts/items/item_combination_ruleset.gd" id="1_qpf2l"]
 [ext_resource type="Resource" uid="uid://dq372jxiterym" path="res://resources/items/world/ingredients/FING_PROTEIN.tres" id="2_mvmxf"]
 [ext_resource type="Resource" uid="uid://ca7ttfgi6p2qh" path="res://resources/items/world/ingredients/FING_NOODLES.tres" id="3_8nr7w"]
 [ext_resource type="Resource" uid="uid://b62myh2iu1ifn" path="res://resources/items/world/ingredients/FING_SPICES.tres" id="4_t7bss"]
 [ext_resource type="Resource" uid="uid://nqd76c0wsme" path="res://resources/items/world/dishes/plates/DISH_CRUDE_PLATE.tres" id="5_arl8d"]
-
-[sub_resource type="Resource" id="Resource_gixb5"]
-script = ExtResource("1_2rbx5")
-_item_name = "Peppered Bacon Mac'N'Cheese"
-_item_description = ""
-_consumable = true
-_friendly_fire = true
-_use_type = 0
-_item_components = Array[Resource("res://scripts/items/item_component.gd")]([])
+[ext_resource type="Resource" uid="uid://ci0bfgo2jfxeo" path="res://resources/items/stage/FOOD_P_PEPPERED_BACON_MACNCHEESE.tres" id="5_hwan0"]
 
 [resource]
 script = ExtResource("1_qpf2l")
 _rules = Array[Dictionary]([{
 "dish": ExtResource("5_arl8d"),
 "ingredients": [ExtResource("2_mvmxf"), ExtResource("3_8nr7w"), ExtResource("4_t7bss")],
-"result": SubResource("Resource_gixb5")
+"result": ExtResource("5_hwan0")
 }])

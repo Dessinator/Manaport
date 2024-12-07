@@ -1,15 +1,22 @@
-[gd_resource type="Resource" script_class="StageItem" load_steps=4 format=3 uid="uid://hhr5malugdso"]
+[gd_resource type="Resource" script_class="StageItem" load_steps=8 format=3 uid="uid://hhr5malugdso"]
 
 [ext_resource type="Script" path="res://scripts/items/item_components/food_preparer.gd" id="1_p2fav"]
+[ext_resource type="Resource" uid="uid://nqd76c0wsme" path="res://resources/items/world/dishes/plates/DISH_CRUDE_PLATE.tres" id="1_qd6ml"]
 [ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="1_r4ifm"]
+[ext_resource type="Resource" uid="uid://ca7ttfgi6p2qh" path="res://resources/items/world/ingredients/FING_NOODLES.tres" id="2_87wfy"]
+[ext_resource type="Resource" uid="uid://dq372jxiterym" path="res://resources/items/world/ingredients/FING_PROTEIN.tres" id="3_c7g00"]
+[ext_resource type="Resource" uid="uid://b62myh2iu1ifn" path="res://resources/items/world/ingredients/FING_SPICES.tres" id="4_f1mh3"]
 
 [sub_resource type="Resource" id="Resource_f5kxh"]
 script = ExtResource("1_p2fav")
-_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([])
+_dish = ExtResource("1_qd6ml")
+_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([ExtResource("2_87wfy"), ExtResource("3_c7g00"), ExtResource("4_f1mh3")])
 
 [resource]
 script = ExtResource("1_r4ifm")
 _item_name = "Food Base"
 _item_description = ""
 _consumable = true
+_friendly_fire = true
+_use_type = 0
 _item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_f5kxh")])

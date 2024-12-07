@@ -45,7 +45,7 @@ func close_acts():
 	if _call_show_actor_basic_attack: _basic_move_button.get_button().pressed.disconnect(_call_show_actor_basic_attack)
 	if _call_show_actor_skills: _skill_button.get_button().pressed.disconnect(_call_show_actor_skills)
 	if _call_show_stage_items: _use_item_button.get_button().pressed.disconnect(_call_show_stage_items)
-	
+
 	_call_show_actor_basic_attack = func(): pass
 	_call_show_actor_skills = func(): pass
 	_call_show_stage_items = func(): pass
@@ -110,8 +110,11 @@ func _show_stage_items():
 		_act_button_container.add_child(button_instance)
 
 		button_instance.set_button_text(act.get_act_name())
-		button_instance.set_info_visible(true)
+		button_instance.set_info_visible(false)
 		button_instance.set_act_type(act.get_act_type())
+
+		if act.is_locked():
+			button_instance.set_unavailable()
 
 		button_instance.update_info_text()
 

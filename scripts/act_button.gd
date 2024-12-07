@@ -1,4 +1,4 @@
-class_name ActButton extends Control
+class_name 	ActButton extends Control
 
 @onready var _button: Button = $Button
 
@@ -13,12 +13,16 @@ class_name ActButton extends Control
 @export var _does_recover_stamina: bool
 @export var _stamina_modifier: int
 
+@export var _item_mode: bool = false
+@export var _item_quantity: int = 0
+
 func _ready():
 	set_button_text(_button_text)
 	set_info_visible(_show_info)
 	set_element(_element)
 	set_act_type(_act_type)
 	set_stamina_modifier(_does_recover_stamina, _stamina_modifier)
+	set_item_quantity(_element)
 
 	update_info_text()
 
@@ -36,11 +40,15 @@ func set_act_type(act_type: Act.Type):
 func set_stamina_modifier(does_recover_stamina: bool, stamina_modifier: int):
 	_does_recover_stamina = does_recover_stamina
 	_stamina_modifier = stamina_modifier
+func set_item_quantity(quantity: int):
+	_item_quantity = quantity
 
 func set_unavailable():
 	_button.disabled = true
 
 func update_info_text():
+	# var item_quantity_string = "x" + str(_item_quantity)
+
 	var element_string = str(Element.ELEMENT_TYPE_STRINGS[_element])
 	var act_type_string = str(Act.ACT_TYPE_STRINGS[_act_type])
 	var recover_stamina_string = "-"

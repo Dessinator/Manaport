@@ -159,7 +159,7 @@ func _select_all_targets():
 func _select_bell():
 	if _selected_actors.size() == 0:
 		# get middle index, then the two surrounding indexes if they are valid.
-		var middle_index = (int)(_selectable_target_actors.size() / 2)
+		var middle_index = _selectable_target_actors.size() / 2
 		var right_index = middle_index + 1
 		var left_index = middle_index - 1
 

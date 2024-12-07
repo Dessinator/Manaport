@@ -1,0 +1,20 @@
+[gd_resource type="Resource" script_class="StageItem" load_steps=7 format=3 uid="uid://ci0bfgo2jfxeo"]
+
+[ext_resource type="Resource" uid="uid://fvxkgvk65qew" path="res://resources/status_effects/buffs/STEFF_B_ILL-PROTECT-YOU.tres" id="1_7c32r"]
+[ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="1_t31xl"]
+[ext_resource type="Resource" uid="uid://dyp14mj01rnw6" path="res://resources/status_effects/buffs/STEFF_B_KEEP-HITTING.tres" id="2_7yv0a"]
+[ext_resource type="Resource" uid="uid://cl2lrwwrjis51" path="res://resources/status_effects/buffs/elemental_wards/STEFF_B_CRYO_WARD.tres" id="3_82pp4"]
+[ext_resource type="Script" path="res://scripts/items/item_components/apply_status_effects.gd" id="4_4jpr0"]
+
+[sub_resource type="Resource" id="Resource_1piks"]
+script = ExtResource("4_4jpr0")
+_status_effects = Array[Resource("res://scripts/status_effects/status_effect.gd")]([ExtResource("1_7c32r"), ExtResource("2_7yv0a"), ExtResource("3_82pp4")])
+
+[resource]
+script = ExtResource("1_t31xl")
+_item_name = "Peppered Bacon Mac'n'Cheese"
+_item_description = ""
+_consumable = true
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_1piks")])

@@ -48,6 +48,8 @@ var _stage: StageManager
 @export var _recover_stamina: bool
 @export var _stamina_modifier: int
 
+@export var _locked: bool = false
+
 var _act_components: Array[ActComponent]
 
 func _ready():
@@ -114,6 +116,9 @@ func remove_act_component(component: ActComponent):
 		_act_components.erase(comp)
 		break
 
+func set_locked(locked: bool):
+	_locked = locked
+
 func get_act_name() -> String:
 	return _name
 func get_act_type() -> int:
@@ -129,6 +134,8 @@ func get_components() -> Array:
 
 func do_friendly_fire() -> bool:
 	return _friendly_fire
+func is_locked() -> bool:
+	return _locked
 
 # returns a random 6-digit long integer
 static func create_modification_id() -> String:

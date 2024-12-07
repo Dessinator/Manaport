@@ -106,7 +106,7 @@ func update_actors(delta):
 func _on_actor_ready(actor: Actor):
 	_play_turn(actor)
 
-	if _actors.all(func(actor): return actor.has_risen() or actor.get_status().is_dead()):	
+	if _actors.all(func(a): return a.has_risen() or a.get_status().is_dead()):	
 		_new_cycle()
 
 func _play_turn(actor: Actor):

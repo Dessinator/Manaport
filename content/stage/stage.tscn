@@ -18,23 +18,23 @@
 [ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://content/actors/actor_prefabs/monsters/monster_actor.tscn" id="8_vlvwy"]
 [ext_resource type="Script" path="res://scripts/acts/array_acts_manager.gd" id="9_6pw1b"]
 
-[sub_resource type="Resource" id="Resource_pridt"]
+[sub_resource type="Resource" id="Resource_f5kxh"]
 script = ExtResource("2_bhpth")
 _dish = ExtResource("2_ady1r")
-_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([ExtResource("3_6j0jj"), ExtResource("4_3jg26"), ExtResource("5_ksikv")])
+_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([ExtResource("4_3jg26"), ExtResource("3_6j0jj"), ExtResource("5_ksikv")])
 
-[sub_resource type="Resource" id="Resource_7cr5t"]
+[sub_resource type="Resource" id="Resource_ykdir"]
 script = ExtResource("3_fkp4m")
 _item_name = "Food Base"
 _item_description = ""
 _consumable = true
 _friendly_fire = true
 _use_type = 0
-_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_pridt")])
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_f5kxh")])
 
 [sub_resource type="Resource" id="Resource_mndya"]
 script = ExtResource("2_kne2o")
-_starting_items = [SubResource("Resource_7cr5t")]
+_starting_items = [SubResource("Resource_ykdir")]
 
 [sub_resource type="Resource" id="Resource_t4rr1"]
 script = ExtResource("5_yjld2")
