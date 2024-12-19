@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=3 uid="uid://dww7j00ccgwgr"]
 
-[ext_resource type="Script" path="res://scripts/actor_com_input_manager.gd" id="1_oy6jj"]
+[ext_resource type="Script" path="res://scripts/actor/actor_com_input_manager.gd" id="1_oy6jj"]
 
 [node name="ActorCOMInputManager" type="Node"]
 script = ExtResource("1_oy6jj")

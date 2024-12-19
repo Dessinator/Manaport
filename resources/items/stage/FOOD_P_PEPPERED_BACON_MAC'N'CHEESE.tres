@@ -1,0 +1,38 @@
+[gd_resource type="Resource" script_class="StageItem" load_steps=9 format=3 uid="uid://ci0bfgo2jfxeo"]
+
+[ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="1_t31xl"]
+[ext_resource type="Texture2D" uid="uid://d3r537n07pchw" path="res://resources/images/icons/STEFF_ICN_CRCH-UP.png" id="1_vf0cb"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/mod_substat.gd" id="2_imsf7"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="3_umcac"]
+[ext_resource type="Script" path="res://scripts/items/item_components/apply_status_effects.gd" id="4_4jpr0"]
+
+[sub_resource type="Resource" id="Resource_1uv8b"]
+script = ExtResource("2_imsf7")
+_affected_substat = 1
+_use_percentage_of_base_stat_value_instead = false
+_mod_value = 100.0
+_percentage_of_base_stat = 1.0
+
+[sub_resource type="Resource" id="Resource_tsdax"]
+script = ExtResource("3_umcac")
+_name = "Crit. Chance UP!"
+_icon = ExtResource("1_vf0cb")
+_brief_description = "Increases Critical Chance (CRCH)."
+_long_description = ""
+_status_effect_type = 1
+_duration_turns = 1
+_duration_mode = 3
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([SubResource("Resource_1uv8b")])
+
+[sub_resource type="Resource" id="Resource_1piks"]
+script = ExtResource("4_4jpr0")
+_status_effects = Array[ExtResource("3_umcac")]([SubResource("Resource_tsdax")])
+
+[resource]
+script = ExtResource("1_t31xl")
+_item_name = "Peppered Bacon Mac'n'Cheese"
+_item_description = ""
+_consumable = true
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_1piks")])

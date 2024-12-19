@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="StageItem" load_steps=2 format=3 uid="uid://drhafev7v7qmm"]
+
+[ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="1_so06m"]
+
+[resource]
+script = ExtResource("1_so06m")
+_item_name = "Chicken Gumbo"
+_item_description = ""
+_consumable = true
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([])

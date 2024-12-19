@@ -1,5 +1,8 @@
 class_name StageManager extends Node
 
+signal cut(condition: StageCutCondition)
+enum StageCutCondition { CONDITION_WIN, CONDITION_LOSS }
+
 const TOUGHNESS_STATUS_EFFECT = preload("res://resources/status_effects/buffs/STEFF_B_TOUGHNESS.tres")
 
 const CRYO_WARD_STATUS_EFFECT = preload("res://resources/status_effects/buffs/elemental_wards/STEFF_B_CRYO_WARD.tres")
@@ -129,6 +132,16 @@ func _play_turn(actor: Actor):
 	ActsPool.get_instance().return_to_pool(chosen_act)
 	_ready_actor.fall()
 	_ready_actor = null
+	
+	#var alive_actors_string = "Alive actors\n"
+	#for i in range(get_alive_actors().size()):
+		#var a = get_alive_actors()[i]
+		#alive_actors_string += a.name + " "
+		##actor.set_ready_delay(READY_DELAY_FACTOR * i)
+		##actor.reset()
+	#print(alive_actors_string)
+	
+	_handle_cut()
 
 func _new_cycle():
 	_cycle += 1
@@ -139,6 +152,19 @@ func _new_cycle():
 		actor.set_ready_delay(READY_DELAY_FACTOR * i)
 		actor.reset()
 	print(alive_actors_string)
+
+func _handle_cut():
+	var alive_actors = get_alive_actors()
+	
+	if alive_actors.all(func(actor): return actor.is_party_member() == true):
+		print("yuo won!!!!")
+		cut.emit(StageCutCondition.CONDITION_WIN)
+		get_tree().quit()
+	elif alive_actors.all(func(actor): return actor.is_party_member() == false):
+		print("you loss,,,,")
+		cut.emit(StageCutCondition.CONDITION_LOSS)
+		get_tree().quit()
+	
 
 func get_alive_actors() -> Array:
 	return _actors.filter(func(actor): return not actor.get_status().is_dead())

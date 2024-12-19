@@ -17,6 +17,11 @@ signal quantity_decreased(old: int, new: int)
 
 var _quantity: int = 1
 
+func handle_item_name_fallback():
+	if _item_name.is_empty():
+		_item_name = create_modification_id()
+		# print(_item_name)
+
 func initialize() -> Dictionary:
 	var dict = {}
 	for comp in _item_components:

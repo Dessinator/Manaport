@@ -37,75 +37,58 @@ var _stats: ActorStats
 # number of this same modifier affecting _affected_actor
 var _stacks: Array = []
 
-# ideally should be called before apply()
+func get_status_effect_instance() -> Dictionary:
+	var instance = {
+		"metadata" 		 : {
+			"name"				: _name,
+			"icon"				: _icon,
+			"brief_description"	: _brief_description,
+			"long_description"	: _long_description
+		},
+
+		"functional"	 : {
+			"type"				: _status_effect_type,
+			"duration_turns"	: _duration_turns,
+			"duration_mode"		: _duration_mode,
+			"components"		: _status_effect_components,		
+		},
+
+		"affected_actor" : null,
+		"attached_stats" : _stats,
+		"stacks"		 : [],
+
+		"on_stack_applied"		 : Signal(self, "stack_applied"),
+		"on_ticked"		 		 : Signal(self, "ticked"),
+		"on_stack_removed"		 : Signal(self, "stack_removed")
+	}
+
+	return instance
+
 func set_stats(stats: ActorStats):
 	_stats = stats
 
-func apply(affected_actor: Actor):
-	_affected_actor = affected_actor
-	_stacks.append(_duration_turns)
-
-	for comp in _status_effect_components:
-		comp.apply(self, _affected_actor)
+static func get_turns_left_for_status_effect_instance(status_effect_instance: Dictionary) -> int:
+	# if infinite, just return zero
+	if status_effect_instance["functional"]["duration_turns"] == 0:
+		return 0
 	
-	applied.emit(self)
-
-# should be called every turn, should increase the _internal_turn_count by 1
-# unless _internal_turn_count == _duration_turns. 
-func tick():
-	for comp in _status_effect_components:
-		comp.tick(self, _affected_actor)
-	
-	# update individual stack counters UNLESS _duration_mode == MODE_QUEUE_STACK OR _duration_turns == 0
-	if _duration_turns == 0:
-		ticked.emit(self)
-		return
-	
-	if (_duration_mode == StatusEffectDurationMode.MODE_QUEUE_STACK):
-		_stacks[0] -= 1
-	else:
-		for i in range(_stacks.size()):
-			_stacks[i] -= 1
-	ticked.emit(self)
-
-	var stacks_to_end = []
-	for i in range(_stacks.size()):
-		if _stacks[i] == 0:
-			stacks_to_end.append(i)
-	for i in stacks_to_end:
-		if _stacks.is_empty():
-			return
-		_end_stack(_stacks[i])
-
-func _end_stack(stack_index: int):
-	match _duration_mode:
+	match status_effect_instance["functional"]["duration_mode"]:
 		StatusEffectDurationMode.MODE_PER_STACK:
-			remove_stack(stack_index)
-
-			if not _stacks.is_empty():
-				return
-			
-			for comp in _status_effect_components:
-				comp.end(self, _affected_actor)
-			
-			ended.emit(self)
+			var max = -1
+			for stack in status_effect_instance["stacks"]:
+				max = max(stack, max)
+			return max
 		StatusEffectDurationMode.MODE_QUEUE_STACK:
-			remove_stack(stack_index)
-
-			if not _stacks.is_empty():
-				return
-			
-			for comp in _status_effect_components:
-				comp.end(self, _affected_actor)
-			
-			ended.emit(self)
+			var sum = 0
+			for stack in status_effect_instance["stacks"]:
+				sum += stack
+			return sum
 		_:
-			for comp in _status_effect_components:
-				comp.end(self, _affected_actor)
-			for i in range(_stacks.size(), -1, -1):
-				remove_stack(i)
-
-			ended.emit(self)
+			# return the stack closest to 0
+			var min = 999999
+			for stack in status_effect_instance["stacks"]:
+				min = min(stack, min)
+			return min
 
 func get_status_effect_name() -> String:
 	return _name
@@ -121,47 +104,8 @@ func get_status_effect_type() -> StatusEffectType:
 func get_duration_mode() -> StatusEffectDurationMode:
 	return _duration_mode
 
-func get_affected_actor() -> Actor:
-	return _affected_actor
-
 func get_duration_turns() -> int:
 	return _duration_turns
-func get_turns_left() -> int:
-	# if infinite, just return zero
-	if _duration_turns == 0:
-		return 0
-	
-	match _duration_mode:
-		StatusEffectDurationMode.MODE_PER_STACK:
-			var max = -1
-			for stack in _stacks:
-				max = max(stack, max)
-			return max
-		StatusEffectDurationMode.MODE_QUEUE_STACK:
-			var sum = 0
-			for stack in _stacks:
-				sum += stack
-			return sum
-		_:
-			# return the stack closest to 0
-			var min = 999999
-			for stack in _stacks:
-				min = min(stack, min)
-			return min
 
-func add_stack():
-	_stacks.append(_duration_turns)
-
-	if _duration_mode == StatusEffectDurationMode.MODE_RESET_ON_NEW_STACK:
-		for i in range(_stacks.size()):
-			_stacks[i] = _duration_turns
-
-	stack_applied.emit(self)
-func remove_stack(stack_index: int):
-	_stacks.remove_at(stack_index)
-	stack_removed.emit(self)
-
-func get_stacks() -> int:
-	return _stacks.size()
 func get_components() -> Array:
 	return _status_effect_components

@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WorldItem" load_steps=4 format=3 uid="uid://c53ofmkk1t465"]
+
+[ext_resource type="Script" path="res://scripts/items/world_item.gd" id="1_drmja"]
+[ext_resource type="Script" path="res://scripts/items/item_components/ingredient_definition.gd" id="1_mnun2"]
+
+[sub_resource type="Resource" id="Resource_2mwkf"]
+script = ExtResource("1_mnun2")
+_ingredient_type = 18
+
+[resource]
+script = ExtResource("1_drmja")
+_item_name = "Darkened Roux"
+_item_description = ""
+_consumable = false
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_2mwkf")])

@@ -1,10 +1,10 @@
 [gd_scene load_steps=19 format=3 uid="uid://dk20jrjub34s"]
 
-[ext_resource type="Script" path="res://scripts/actor.gd" id="1_kjchi"]
+[ext_resource type="Script" path="res://scripts/actor/actor.gd" id="1_kjchi"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_wowl7"]
-[ext_resource type="Script" path="res://scripts/actor_stats.gd" id="3_jngl3"]
+[ext_resource type="Script" path="res://scripts/actor/actor_stats.gd" id="3_jngl3"]
 [ext_resource type="PackedScene" uid="uid://bqx82ecciccke" path="res://content/actors/actor_costume.tscn" id="4_o0yl8"]
-[ext_resource type="Script" path="res://scripts/actor_status.gd" id="4_vd2bx"]
+[ext_resource type="Script" path="res://scripts/actor/actor_status.gd" id="4_vd2bx"]
 [ext_resource type="Texture2D" uid="uid://dfp4wvsw7dgx3" path="res://resources/images/placeholder_laurie_portrait.jpg" id="5_4qajc"]
 [ext_resource type="PackedScene" uid="uid://hiqhb16vaec0" path="res://content/actors/actor_visual_manager.tscn" id="6_k8h3y"]
 [ext_resource type="PackedScene" uid="uid://bp5q1jvgjyu1v" path="res://content/actors/actor_player_input_manager.tscn" id="8_jl02q"]
@@ -13,13 +13,13 @@
 [ext_resource type="PackedScene" uid="uid://1rut0yaysrfq" path="res://content/acts/specific/laurie/basic/ACT_BASIC_L_LIKE-THIS.tscn" id="11_t0lms"]
 [ext_resource type="PackedScene" uid="uid://uqhtmgvmx4ao" path="res://content/acts/specific/laurie/skill/ACT_SKILL_L_A-LITTLE-MORE.tscn" id="12_mna1j"]
 [ext_resource type="PackedScene" uid="uid://dmxuffal1ub35" path="res://content/acts/specific/laurie/skill/ACT_SKILL_L_LIKE-THAT.tscn" id="13_rh37v"]
-[ext_resource type="Script" path="res://scripts/actor_status_effect_manager.gd" id="14_70w2g"]
+[ext_resource type="Script" path="res://scripts/actor/actor_status_effect_manager.gd" id="14_70w2g"]
 
 [sub_resource type="Resource" id="Resource_r04x6"]
 script = ExtResource("3_jngl3")
 _substat_curves = ExtResource("2_wowl7")
 _wards = Array[Resource("res://scripts/status_effects/status_effect.gd")]([])
-_weaknesses = Array[Resource("res://scripts/actor_weakness.gd")]([])
+_weaknesses = Array[Resource("res://scripts/actor/actor_weakness.gd")]([])
 _ATTK = 15
 _DFNS = 20
 _VTLY = 15

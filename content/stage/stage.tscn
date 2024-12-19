@@ -1,46 +1,82 @@
-[gd_scene load_steps=26 format=3 uid="uid://b3hw1a0b73u4j"]
+[gd_scene load_steps=38 format=3 uid="uid://b3hw1a0b73u4j"]
 
 [ext_resource type="Script" path="res://scripts/stage.gd" id="1_2obi2"]
 [ext_resource type="Resource" uid="uid://nqd76c0wsme" path="res://resources/items/world/dishes/plates/DISH_CRUDE_PLATE.tres" id="2_ady1r"]
 [ext_resource type="Script" path="res://scripts/items/item_components/food_preparer.gd" id="2_bhpth"]
 [ext_resource type="PackedScene" uid="uid://cdtv1rwt2vl2b" path="res://content/stage/stage_interface.tscn" id="2_g73d1"]
 [ext_resource type="Script" path="res://scripts/stage_inventory.gd" id="2_kne2o"]
-[ext_resource type="Resource" uid="uid://dq372jxiterym" path="res://resources/items/world/ingredients/FING_PROTEIN.tres" id="3_6j0jj"]
 [ext_resource type="PackedScene" uid="uid://dk20jrjub34s" path="res://content/actors/actor_prefabs/party_members/laurie_actor.tscn" id="3_7brol"]
 [ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="3_fkp4m"]
-[ext_resource type="Resource" uid="uid://ca7ttfgi6p2qh" path="res://resources/items/world/ingredients/FING_NOODLES.tres" id="4_3jg26"]
+[ext_resource type="Resource" uid="uid://ctn0rrkndttko" path="res://resources/items/world/ingredients/noodles/FING_N_MACARONI.tres" id="3_ok8qn"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="4_33se1"]
 [ext_resource type="Texture2D" uid="uid://ceud3opo1yfkv" path="res://resources/images/textures/prototype/PNG/Dark/texture_01.png" id="4_j55o2"]
-[ext_resource type="Resource" uid="uid://b62myh2iu1ifn" path="res://resources/items/world/ingredients/FING_SPICES.tres" id="5_ksikv"]
-[ext_resource type="Script" path="res://scripts/actor_stats.gd" id="5_yjld2"]
+[ext_resource type="Resource" uid="uid://b8p6so4qq32re" path="res://resources/items/world/ingredients/protein/FING_P_BACON.tres" id="4_qll8s"]
+[ext_resource type="Resource" uid="uid://dg0c20a4ol705" path="res://resources/items/world/ingredients/spices/FING_S_PEPPERJACK-CHEESE.tres" id="5_fmn6o"]
+[ext_resource type="Script" path="res://scripts/actor/actor_stats.gd" id="5_yjld2"]
 [ext_resource type="PackedScene" uid="uid://bbu5jb7gd1sp6" path="res://content/actors/actor_prefabs/party_members/mirabelle_actor.tscn" id="6_mae5r"]
 [ext_resource type="PackedScene" uid="uid://ckmyi0h6s1grm" path="res://content/actors/actor_prefabs/party_members/winsley_actor.tscn" id="7_rdy8d"]
+[ext_resource type="Resource" uid="uid://dsiu7oqfa3rwl" path="res://resources/items/world/dishes/bowls/DISH_CRUDE_BOWL.tres" id="8_saw44"]
 [ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://content/actors/actor_prefabs/monsters/monster_actor.tscn" id="8_vlvwy"]
+[ext_resource type="Resource" uid="uid://c0wmqtsjepeuc" path="res://resources/items/world/dishes/teacups/DISH_CRUDE_TEACUP.tres" id="8_xne1s"]
+[ext_resource type="Resource" uid="uid://gmhytqq03om3" path="res://resources/items/world/ingredients/leaves/FING_LE_CHAMOMILE.tres" id="9_3pe1r"]
 [ext_resource type="Script" path="res://scripts/acts/array_acts_manager.gd" id="9_6pw1b"]
+[ext_resource type="Resource" uid="uid://c53ofmkk1t465" path="res://resources/items/world/ingredients/liquids/FING_L_DARKENED-ROUX.tres" id="9_xi54x"]
+[ext_resource type="Resource" uid="uid://lh7ayqmhgqi8" path="res://resources/items/world/ingredients/protein/FING_P_CHICKEN.tres" id="10_ih8q3"]
+[ext_resource type="Resource" uid="uid://chv78adu1jccf" path="res://resources/items/world/ingredients/liquids/FING_L_WATER.tres" id="10_mmfct"]
+[ext_resource type="Resource" uid="uid://m2pl2ofv3q22" path="res://resources/items/world/ingredients/sugars/FING_S_RAW_CANE_SUGAR.tres" id="11_3krs5"]
+[ext_resource type="Resource" uid="uid://b1qe2vlwxbc6t" path="res://resources/items/world/ingredients/vegetables/FING_V_HOLY-TRINITY.tres" id="11_jg4jo"]
 
 [sub_resource type="Resource" id="Resource_f5kxh"]
 script = ExtResource("2_bhpth")
 _dish = ExtResource("2_ady1r")
-_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([ExtResource("4_3jg26"), ExtResource("3_6j0jj"), ExtResource("5_ksikv")])
+_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([ExtResource("3_ok8qn"), ExtResource("4_qll8s"), ExtResource("5_fmn6o")])
 
 [sub_resource type="Resource" id="Resource_ykdir"]
 script = ExtResource("3_fkp4m")
-_item_name = "Food Base"
+_item_name = ""
 _item_description = ""
 _consumable = true
 _friendly_fire = true
 _use_type = 0
 _item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_f5kxh")])
 
+[sub_resource type="Resource" id="Resource_bg0gi"]
+script = ExtResource("2_bhpth")
+_dish = ExtResource("8_xne1s")
+_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([ExtResource("9_3pe1r"), ExtResource("10_mmfct"), ExtResource("11_3krs5")])
+
+[sub_resource type="Resource" id="Resource_wo1gr"]
+script = ExtResource("3_fkp4m")
+_item_name = ""
+_item_description = ""
+_consumable = true
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_bg0gi")])
+
+[sub_resource type="Resource" id="Resource_b35da"]
+script = ExtResource("2_bhpth")
+_dish = ExtResource("8_saw44")
+_ingredients = Array[Resource("res://scripts/items/world_item.gd")]([ExtResource("9_xi54x"), ExtResource("10_ih8q3"), ExtResource("11_jg4jo")])
+
+[sub_resource type="Resource" id="Resource_dqhfy"]
+script = ExtResource("3_fkp4m")
+_item_name = ""
+_item_description = ""
+_consumable = true
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_b35da")])
+
 [sub_resource type="Resource" id="Resource_mndya"]
 script = ExtResource("2_kne2o")
-_starting_items = [SubResource("Resource_ykdir")]
+_starting_items = [SubResource("Resource_ykdir"), SubResource("Resource_wo1gr"), SubResource("Resource_dqhfy")]
 
 [sub_resource type="Resource" id="Resource_t4rr1"]
 script = ExtResource("5_yjld2")
 _substat_curves = ExtResource("4_33se1")
 _wards = Array[Resource("res://scripts/status_effects/status_effect.gd")]([])
-_weaknesses = Array[Resource("res://scripts/actor_weakness.gd")]([])
+_weaknesses = Array[Resource("res://scripts/actor/actor_weakness.gd")]([])
 _ATTK = 10
 _DFNS = 10
 _VTLY = 10

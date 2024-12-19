@@ -1,20 +1,6 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=8 format=3 uid="uid://bbaroc50qyrei"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://bbaroc50qyrei"]
 
-[ext_resource type="Resource" uid="uid://nie8b3n4tc1e" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_MAGNETRO.tres" id="1_8miov"]
-[ext_resource type="Resource" uid="uid://kw7tc7igmntj" path="res://resources/status_effects/debuffs/elemetal/sub/hydro_reactions/STEFF_DB_ELECTRA.tres" id="2_2ha72"]
-[ext_resource type="Resource" uid="uid://dwu8y8m7pe181" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_RADIO.tres" id="3_j04mr"]
-[ext_resource type="Resource" uid="uid://ds0iogpxdb83u" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_CORROSI.tres" id="4_sbrws"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/combine_rule.gd" id="5_4vyhc"]
 [ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="6_s4ujd"]
-
-[sub_resource type="Resource" id="Resource_jykni"]
-script = ExtResource("5_4vyhc")
-_combination_rules = {
-"Cryo": ExtResource("1_8miov"),
-"Hydro": ExtResource("2_2ha72"),
-"Pyro": ExtResource("3_j04mr"),
-"Toxi": ExtResource("4_sbrws")
-}
 
 [resource]
 script = ExtResource("6_s4ujd")
@@ -24,4 +10,4 @@ _long_description = ""
 _status_effect_type = 0
 _duration_turns = 0
 _duration_mode = 0
-_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([SubResource("Resource_jykni")])
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([])

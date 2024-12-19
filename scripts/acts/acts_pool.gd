@@ -19,7 +19,7 @@ func add_to_pool(act_scene: PackedScene) -> Act:
     _pool[instance.name] = instance
     add_child(instance)
     instance._stage = _stage
-    _print_pool()
+    # _print_pool()
 
     return instance
 

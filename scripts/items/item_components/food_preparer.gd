@@ -79,6 +79,7 @@ func initialize(item: Item):
 		assert(rule.has("result"), "A rule on the Global Food Combination Ruleset does not contain a 'result' definition.")
 		var result = rule["result"]
 		var resulting_food = result.duplicate()
+		print(resulting_food.get_item_name())
 		return {
 			"add_item_" + Item.create_modification_id(): [resulting_food],
 			"remove_item_" + Item.create_modification_id(): [item.get_item_name()]

@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ActorSubstatCurves" load_steps=11 format=3 uid="uid://ckncyt80r3idx"]
 
-[ext_resource type="Script" path="res://scripts/actor_substat_curves.gd" id="1_pv8ko"]
+[ext_resource type="Script" path="res://scripts/actor/actor_substat_curves.gd" id="1_pv8ko"]
 
 [sub_resource type="Curve" id="Curve_3t1bc"]
 _data = [Vector2(0, 1), 0.0, -1.0, 0, 1, Vector2(1, 0), -1.0, 0.0, 1, 0]

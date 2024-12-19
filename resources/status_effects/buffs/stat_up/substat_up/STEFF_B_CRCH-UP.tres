@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=5 format=3 uid="uid://4wrtjdpu2hfl"]
+
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="1_8m0pi"]
+[ext_resource type="Texture2D" uid="uid://d3r537n07pchw" path="res://resources/images/icons/STEFF_ICN_CRCH-UP.png" id="1_qnfct"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/mod_substat.gd" id="2_5wjmj"]
+
+[sub_resource type="Resource" id="Resource_dn8h2"]
+script = ExtResource("2_5wjmj")
+_affected_substat = 1
+_use_percentage_of_base_stat_value_instead = false
+_mod_value = 100.0
+_percentage_of_base_stat = 1.0
+
+[resource]
+script = ExtResource("1_8m0pi")
+_name = "Crit. Chance UP!"
+_icon = ExtResource("1_qnfct")
+_brief_description = "Increases Critical Chance (CRCH)."
+_long_description = ""
+_status_effect_type = 1
+_duration_turns = 0
+_duration_mode = 3
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([SubResource("Resource_dn8h2")])

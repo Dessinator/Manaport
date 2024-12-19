@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://scripts/acts/act.gd" id="1_crs6v"]
 [ext_resource type="Script" path="res://scripts/acts/act_components/apply_status_effect/apply_status_effect_single_target.gd" id="2_ada20"]
-[ext_resource type="Resource" uid="uid://chy3swbutkksw" path="res://resources/status_effects/buffs/ST_DFNS_UP.tres" id="3_2o3ah"]
+[ext_resource type="Resource" uid="uid://chy3swbutkksw" path="res://resources/status_effects/buffs/stat_up/STEFF_B_DFNS_UP.tres" id="3_2o3ah"]
 
 [node name="DefendSingleTarget" type="Node"]
 script = ExtResource("1_crs6v")

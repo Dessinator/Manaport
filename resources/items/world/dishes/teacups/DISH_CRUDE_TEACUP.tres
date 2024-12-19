@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WorldItem" load_steps=4 format=3 uid="uid://c0wmqtsjepeuc"]
+
+[ext_resource type="Script" path="res://scripts/items/item_components/ingredient_definition.gd" id="1_lrjus"]
+[ext_resource type="Script" path="res://scripts/items/world_item.gd" id="1_o258m"]
+
+[sub_resource type="Resource" id="Resource_ad53a"]
+script = ExtResource("1_lrjus")
+_ingredient_type = 8
+
+[resource]
+script = ExtResource("1_o258m")
+_item_name = "Crude Teacup"
+_item_description = ""
+_consumable = false
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_ad53a")])

@@ -1,20 +1,6 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=8 format=3 uid="uid://d15eefd5gkiy3"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://d15eefd5gkiy3"]
 
-[ext_resource type="Resource" uid="uid://cc7jn7k286y16" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_HYDRO.tres" id="1_pcky6"]
-[ext_resource type="Resource" uid="uid://b63wcef68po16" path="res://resources/status_effects/debuffs/elemetal/sub/hydro_reactions/STEFF_DB_STEAMRO.tres" id="2_tnu7p"]
-[ext_resource type="Resource" uid="uid://dxfb8ep786bf5" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_VAPRO.tres" id="3_c0kki"]
-[ext_resource type="Resource" uid="uid://dwu8y8m7pe181" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_RADIO.tres" id="4_pt3ds"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/combine_rule.gd" id="5_uu4oi"]
 [ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="6_h8pgj"]
-
-[sub_resource type="Resource" id="Resource_onojo"]
-script = ExtResource("5_uu4oi")
-_combination_rules = {
-"Cryo": ExtResource("1_pcky6"),
-"Hydro": ExtResource("2_tnu7p"),
-"Toxi": ExtResource("3_c0kki"),
-"Volt": ExtResource("4_pt3ds")
-}
 
 [resource]
 script = ExtResource("6_h8pgj")
@@ -24,4 +10,4 @@ _long_description = ""
 _status_effect_type = 0
 _duration_turns = 0
 _duration_mode = 0
-_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([SubResource("Resource_onojo")])
+_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([])

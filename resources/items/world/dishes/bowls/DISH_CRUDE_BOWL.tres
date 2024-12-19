@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="WorldItem" load_steps=4 format=3 uid="uid://dsiu7oqfa3rwl"]
+
+[ext_resource type="Script" path="res://scripts/items/item_components/ingredient_definition.gd" id="1_d5kvx"]
+[ext_resource type="Script" path="res://scripts/items/world_item.gd" id="1_v5m4v"]
+
+[sub_resource type="Resource" id="Resource_3ulf8"]
+script = ExtResource("1_d5kvx")
+_ingredient_type = 4
+
+[resource]
+script = ExtResource("1_v5m4v")
+_item_name = "Crude Bowl"
+_item_description = ""
+_consumable = false
+_friendly_fire = true
+_use_type = 0
+_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_3ulf8")])

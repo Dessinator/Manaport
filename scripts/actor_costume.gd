@@ -1,1 +1,0 @@
-class_name ActorCostume extends Node3D

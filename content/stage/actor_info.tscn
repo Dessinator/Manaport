@@ -1,7 +1,7 @@
 [gd_scene load_steps=14 format=3 uid="uid://cnc2vtdh23i1g"]
 
 [ext_resource type="Texture2D" uid="uid://bb7kpsrnike3k" path="res://resources/images/placeholder_portrait.png" id="1_ucbsx"]
-[ext_resource type="Script" path="res://scripts/actor_info.gd" id="1_vudqf"]
+[ext_resource type="Script" path="res://scripts/actor/actor_info.gd" id="1_vudqf"]
 [ext_resource type="PackedScene" uid="uid://cn4oi2guugl8k" path="res://content/stage/bar.tscn" id="3_8qhvp"]
 
 [sub_resource type="Animation" id="Animation_rtoji"]
