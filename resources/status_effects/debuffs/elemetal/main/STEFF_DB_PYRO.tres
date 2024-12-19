@@ -1,7 +1,8 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=9 format=3 uid="uid://c0dfgbglmxyav"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=10 format=3 uid="uid://c0dfgbglmxyav"]
 
 [ext_resource type="Texture2D" uid="uid://0futfxea57da" path="res://resources/images/icons/STEFF_ICN_PYRO.png" id="1_vrkhm"]
 [ext_resource type="Resource" uid="uid://cc7jn7k286y16" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_HYDRO.tres" id="2_7agmo"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/status_effect_component.gd" id="2_yxx0p"]
 [ext_resource type="Resource" uid="uid://dxfb8ep786bf5" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_VAPRO.tres" id="3_7ym1p"]
 [ext_resource type="Resource" uid="uid://dwu8y8m7pe181" path="res://resources/status_effects/debuffs/elemetal/sub/STEFF_DB_RADIO.tres" id="4_y6fv7"]
 [ext_resource type="Resource" uid="uid://b63wcef68po16" path="res://resources/status_effects/debuffs/elemetal/sub/hydro_reactions/STEFF_DB_STEAMRO.tres" id="5_rchhu"]
@@ -29,4 +30,4 @@ _long_description = ""
 _status_effect_type = 2
 _duration_turns = 5
 _duration_mode = 0
-_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([SubResource("Resource_pmc0l")])
+_status_effect_components = Array[ExtResource("2_yxx0p")]([SubResource("Resource_pmc0l")])

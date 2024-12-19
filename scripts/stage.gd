@@ -193,4 +193,3 @@ func get_stage_inventory() -> StageInventory:
 
 func get_stage_acts_manager() -> ArrayActsManager:
 	return _stage_acts_manager
-

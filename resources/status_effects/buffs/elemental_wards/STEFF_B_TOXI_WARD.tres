@@ -1,6 +1,7 @@
-[gd_resource type="Resource" script_class="StatusEffect" load_steps=2 format=3 uid="uid://dppie5kd5t0nc"]
+[gd_resource type="Resource" script_class="StatusEffect" load_steps=3 format=3 uid="uid://dppie5kd5t0nc"]
 
 [ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="1_1yj6t"]
+[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/status_effect_component.gd" id="1_vw3cd"]
 
 [resource]
 script = ExtResource("1_1yj6t")
@@ -10,4 +11,4 @@ _long_description = ""
 _status_effect_type = 0
 _duration_turns = 0
 _duration_mode = 0
-_status_effect_components = Array[Resource("res://scripts/status_effects/status_effect_components/status_effect_component.gd")]([])
+_status_effect_components = Array[ExtResource("1_vw3cd")]([])
