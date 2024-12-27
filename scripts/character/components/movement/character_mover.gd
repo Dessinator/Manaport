@@ -2,6 +2,11 @@ class_name CharacterMover extends Node
 
 # handles simple movement in a 3D space
 
+var _character: Character
+
+var _fsm: FiniteStateMachine
+var _blackboard: Blackboard
+
 # Gamplay mechanics and Inspector tweakables
 @export var gravity = 9.8
 @export var jump_force = 9
@@ -10,10 +15,10 @@ class_name CharacterMover extends Node
 @export var dash_power = 12
 
 # Condition States
-var is_attacking: bool
-var is_rolling: bool
-var is_walking: bool
-var is_running: bool
+#var is_attacking: bool
+#var is_rolling: bool
+#var is_walking: bool
+#var is_running: bool
 
 # Physics values
 var direction: Vector3
@@ -25,10 +30,17 @@ var movement_speed: int
 var angular_acceleration: int
 var acceleration: int
 
+func initialize(character: Character):
+	_character = character
+	
+	_fsm = _character.get_fsm()
+	_blackboard = _fsm.blackboard
+
 # calculate velocity for movement all in one function
 # does NOT normalize direction
 # returns velocity as Vec3
 func move(delta, direction, is_on_floor, is_sprinting) -> Vector3:
+	print("move " + str(direction))
 	var new_velocity: Vector3
 	
 	movement_speed = 0
@@ -44,24 +56,34 @@ func move(delta, direction, is_on_floor, is_sprinting) -> Vector3:
 	
 	# Movement input, state and mechanics. *Note: movement stops if attacking
 	if not direction.is_zero_approx():
-		is_walking = true
+		_blackboard.set_value("is_moving", true)
+		_blackboard.set_value("is_walking", true)
+		_fsm.fire_event("start_walking")
 		
-	# Sprint input, dash state and movement speed
-		if is_sprinting and $DashTimer.is_stopped() and (is_walking == true ):
+	# Sprint input and movement speed
+		if is_sprinting and (_blackboard.get_value("is_walking")):
 			movement_speed = run_speed
-			is_running = true
+			
+			_blackboard.set_value("is_sprinting", true)
+			_fsm.fire_event("start_sprinting")
 		else: # Walk State and speed
 			movement_speed = walk_speed
-			is_running = false
+			
+			_blackboard.set_value("is_sprinting", false)
+			_fsm.fire_event("stop_sprinting")
 	else: 
-		is_walking = false
-		is_running = false
+		if _blackboard.get_value("is_walking"):
+			_blackboard.set_value("is_walking", false)
+			_fsm.fire_event("stop_walking")
+		if _blackboard.get_value("is_sprinting"):
+			_blackboard.set_value("is_sprinting", false)
+			_fsm.fire_event("stop_sprinting")
 	
-	# Movment mechanics with limitations during rolls/attacks
-	if ((is_attacking == true) or (is_rolling == true)): 
-		horizontal_velocity = horizontal_velocity.lerp(direction * .01 , acceleration * delta)
-	else: # Movement mechanics without limitations 
-		horizontal_velocity = horizontal_velocity.lerp(direction * movement_speed, acceleration * delta)
+	## Movment mechanics with limitations during rolls/attacks
+	#if ((is_attacking == true) or (is_rolling == true)): 
+		#horizontal_velocity = horizontal_velocity.lerp(direction * .01 , acceleration * delta)
+	#else: # Movement mechanics without limitations 
+	horizontal_velocity = horizontal_velocity.lerp(direction * movement_speed, acceleration * delta)
 	
 	# The Physics Sauce. Movement, gravity and velocity in a perfect dance.
 	new_velocity.z = horizontal_velocity.z + vertical_velocity.z

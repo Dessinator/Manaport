@@ -1,5 +1,6 @@
-[gd_resource type="Resource" script_class="WorldItem" load_steps=4 format=3 uid="uid://c53ofmkk1t465"]
+[gd_resource type="Resource" script_class="WorldItem" load_steps=5 format=3 uid="uid://c53ofmkk1t465"]
 
+[ext_resource type="Script" path="res://scripts/items/item_component.gd" id="1_2q32m"]
 [ext_resource type="Script" path="res://scripts/items/world_item.gd" id="1_drmja"]
 [ext_resource type="Script" path="res://scripts/items/item_components/ingredient_definition.gd" id="1_mnun2"]
 
@@ -14,4 +15,4 @@ _item_description = ""
 _consumable = false
 _friendly_fire = true
 _use_type = 0
-_item_components = Array[Resource("res://scripts/items/item_component.gd")]([SubResource("Resource_2mwkf")])
+_item_components = Array[ExtResource("1_2q32m")]([SubResource("Resource_2mwkf")])

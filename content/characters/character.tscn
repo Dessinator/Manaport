@@ -1,10 +1,6 @@
-[gd_scene load_steps=3 format=3 uid="uid://bo3mb33yn2y5f"]
+[gd_scene load_steps=2 format=3 uid="uid://bo3mb33yn2y5f"]
 
 [ext_resource type="Script" path="res://scripts/character/character.gd" id="1_onrtf"]
-[ext_resource type="Script" path="res://scripts/character/character_mover.gd" id="2_v8yqs"]
 
-[node name="Character" type="Node3D"]
+[node name="Character" type="CharacterBody3D"]
 script = ExtResource("1_onrtf")
-
-[node name="CharacterMover" type="Node" parent="."]
-script = ExtResource("2_v8yqs")

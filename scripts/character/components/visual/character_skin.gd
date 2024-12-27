@@ -1,0 +1,1 @@
+class_name CharacterSkin extends Node3D
