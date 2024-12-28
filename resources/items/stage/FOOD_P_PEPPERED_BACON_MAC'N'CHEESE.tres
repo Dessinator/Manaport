@@ -1,12 +1,12 @@
 [gd_resource type="Resource" script_class="StageItem" load_steps=11 format=3 uid="uid://ci0bfgo2jfxeo"]
 
-[ext_resource type="Script" path="res://scripts/items/item_component.gd" id="1_lyvkr"]
-[ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="1_t31xl"]
+[ext_resource type="Script" path="res://resources/items/item_components/item_component.gd" id="1_r6btg"]
+[ext_resource type="Script" path="res://resources/items/stage_item.gd" id="1_t31xl"]
 [ext_resource type="Texture2D" uid="uid://d3r537n07pchw" path="res://resources/images/icons/STEFF_ICN_CRCH-UP.png" id="1_vf0cb"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/mod_substat.gd" id="2_imsf7"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="3_umcac"]
-[ext_resource type="Script" path="res://scripts/items/item_components/apply_status_effects.gd" id="4_4jpr0"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/status_effect_component.gd" id="4_ujc3r"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect_components/mod_substat.gd" id="2_imsf7"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="3_umcac"]
+[ext_resource type="Script" path="res://resources/items/item_components/apply_status_effects.gd" id="4_4jpr0"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect_components/status_effect_component.gd" id="4_ujc3r"]
 
 [sub_resource type="Resource" id="Resource_1uv8b"]
 script = ExtResource("2_imsf7")
@@ -37,4 +37,4 @@ _item_description = ""
 _consumable = true
 _friendly_fire = true
 _use_type = 0
-_item_components = Array[ExtResource("1_lyvkr")]([SubResource("Resource_1piks")])
+_item_components = Array[ExtResource("1_r6btg")]([SubResource("Resource_1piks")])

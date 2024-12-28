@@ -1,0 +1,40 @@
+[gd_scene load_steps=8 format=3 uid="uid://72r0std4efp7"]
+
+[ext_resource type="Texture2D" uid="uid://ceud3opo1yfkv" path="res://resources/images/textures/prototype/PNG/Dark/texture_01.png" id="1_var3l"]
+[ext_resource type="PackedScene" uid="uid://bymecv7dxhxtg" path="res://nodes/characters/character_prefabs/laurie_character.tscn" id="2_o5ibh"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qo1ty"]
+
+[sub_resource type="Sky" id="Sky_i5mas"]
+sky_material = SubResource("ProceduralSkyMaterial_qo1ty")
+
+[sub_resource type="Environment" id="Environment_7qt18"]
+background_mode = 2
+sky = SubResource("Sky_i5mas")
+ambient_light_source = 2
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8x3b"]
+albedo_texture = ExtResource("1_var3l")
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_tnd4l"]
+size = Vector3(125, 1, 125)
+
+[node name="Overworld" type="Node3D"]
+
+[node name="Environment" type="Node3D" parent="."]
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+environment = SubResource("Environment_7qt18")
+
+[node name="CSGBox3D" type="CSGBox3D" parent="Environment"]
+transform = Transform3D(124.965, 0, 0, 0, 1, 0, 0, 0, 124.965, 0, -0.5, 0)
+material = SubResource("StandardMaterial3D_n8x3b")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="Environment"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Environment/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
+shape = SubResource("BoxShape3D_tnd4l")
+
+[node name="Laurie" parent="." instance=ExtResource("2_o5ibh")]

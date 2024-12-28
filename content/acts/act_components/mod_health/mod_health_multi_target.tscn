@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dmv2dp2m30lk3"]
-
-[ext_resource type="Script" path="res://scripts/acts/act_components/mod_health/mod_health_multi_target.gd" id="1_80rsg"]
-
-[node name="ModHealthMultiTarget" type="Node"]
-script = ExtResource("1_80rsg")

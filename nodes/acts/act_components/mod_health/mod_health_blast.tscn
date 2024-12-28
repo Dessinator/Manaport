@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://wallrwlc3ebb"]
+
+[ext_resource type="Script" path="res://nodes/acts/act_components/mod_health/mod_health_blast.gd" id="1_552y8"]
+
+[node name="ModHealthBlast" type="Node"]
+script = ExtResource("1_552y8")

@@ -1,0 +1,77 @@
+[gd_scene load_steps=21 format=3 uid="uid://dk20jrjub34s"]
+
+[ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_kjchi"]
+[ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_wowl7"]
+[ext_resource type="Script" path="res://resources/actor/actor_stats.gd" id="3_jngl3"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="3_kf80m"]
+[ext_resource type="PackedScene" uid="uid://bqx82ecciccke" path="res://nodes/actors/actor_costume.tscn" id="4_o0yl8"]
+[ext_resource type="Script" path="res://resources/actor/actor_status.gd" id="4_vd2bx"]
+[ext_resource type="Script" path="res://resources/actor/actor_weakness.gd" id="4_xa4jf"]
+[ext_resource type="Texture2D" uid="uid://dfp4wvsw7dgx3" path="res://resources/images/placeholder_laurie_portrait.jpg" id="5_4qajc"]
+[ext_resource type="PackedScene" uid="uid://hiqhb16vaec0" path="res://nodes/actors/actor_visual_manager.tscn" id="6_k8h3y"]
+[ext_resource type="PackedScene" uid="uid://bp5q1jvgjyu1v" path="res://nodes/actors/actor_player_input_manager.tscn" id="8_jl02q"]
+[ext_resource type="PackedScene" uid="uid://cbcuevdtoxla5" path="res://nodes/acts/acts_manager.tscn" id="9_84bpm"]
+[ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://nodes/stage/select_actor_arrow.tscn" id="11_cbhsx"]
+[ext_resource type="PackedScene" uid="uid://1rut0yaysrfq" path="res://nodes/acts/specific/laurie/basic/ACT_BASIC_L_LIKE-THIS.tscn" id="11_t0lms"]
+[ext_resource type="PackedScene" uid="uid://uqhtmgvmx4ao" path="res://nodes/acts/specific/laurie/skill/ACT_SKILL_L_A-LITTLE-MORE.tscn" id="12_mna1j"]
+[ext_resource type="PackedScene" uid="uid://dmxuffal1ub35" path="res://nodes/acts/specific/laurie/skill/ACT_SKILL_L_LIKE-THAT.tscn" id="13_rh37v"]
+[ext_resource type="Script" path="res://nodes/actors/actor_status_effect_manager.gd" id="14_70w2g"]
+
+[sub_resource type="Resource" id="Resource_r04x6"]
+script = ExtResource("3_jngl3")
+_substat_curves = ExtResource("2_wowl7")
+_wards = Array[ExtResource("3_kf80m")]([])
+_weaknesses = Array[ExtResource("4_xa4jf")]([])
+_ATTK = 15
+_DFNS = 20
+_VTLY = 15
+
+[sub_resource type="Resource" id="Resource_anw6g"]
+script = ExtResource("4_vd2bx")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_jbnst"]
+albedo_color = Color(0.627451, 0, 0.772549, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_uit7h"]
+lightmap_size_hint = Vector2i(17, 14)
+material = SubResource("StandardMaterial3D_jbnst")
+radius = 0.32
+height = 1.37
+radial_segments = 8
+rings = 4
+
+[node name="LaurieActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
+script = ExtResource("1_kjchi")
+_is_party_member = true
+_stats = SubResource("Resource_r04x6")
+_visual_manager = NodePath("ActorVisualManager")
+_costume = NodePath("ActorCostume")
+_input_manager = NodePath("ActorPlayerInputManager")
+_acts_manager = NodePath("ActsManager")
+_status_effect_manager = NodePath("ActorStatusEffectManager")
+_status = SubResource("Resource_anw6g")
+
+[node name="ActorCostume" parent="." instance=ExtResource("4_o0yl8")]
+
+[node name="Mesh" type="MeshInstance3D" parent="ActorCostume"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695273, 0)
+mesh = SubResource("CapsuleMesh_uit7h")
+
+[node name="SelectActorArrow" parent="." instance=ExtResource("11_cbhsx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.699041, 0)
+visible = false
+
+[node name="ActorVisualManager" parent="." node_paths=PackedStringArray("_select_actor_arrow") instance=ExtResource("6_k8h3y")]
+_portrait = ExtResource("5_4qajc")
+_action_order_icon = ExtResource("5_4qajc")
+_select_actor_arrow = NodePath("../SelectActorArrow")
+
+[node name="ActorPlayerInputManager" parent="." instance=ExtResource("8_jl02q")]
+
+[node name="ActsManager" parent="." instance=ExtResource("9_84bpm")]
+_basic_move = ExtResource("11_t0lms")
+_skill_1 = ExtResource("12_mna1j")
+_skill_2 = ExtResource("13_rh37v")
+
+[node name="ActorStatusEffectManager" type="Node" parent="."]
+script = ExtResource("14_70w2g")

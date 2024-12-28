@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="ItemCombinationRuleset" load_steps=17 format=3 uid="uid://c63hfhh5thi3h"]
 
-[ext_resource type="Script" path="res://scripts/items/item_combination_ruleset.gd" id="1_qpf2l"]
+[ext_resource type="Script" path="res://resources/items/item_combination_ruleset.gd" id="1_qpf2l"]
 [ext_resource type="Resource" uid="uid://ctn0rrkndttko" path="res://resources/items/world/ingredients/noodles/FING_N_MACARONI.tres" id="2_n0j5w"]
 [ext_resource type="Resource" uid="uid://b8p6so4qq32re" path="res://resources/items/world/ingredients/protein/FING_P_BACON.tres" id="3_8nwqx"]
 [ext_resource type="Resource" uid="uid://dg0c20a4ol705" path="res://resources/items/world/ingredients/spices/FING_S_PEPPERJACK-CHEESE.tres" id="4_csgs1"]

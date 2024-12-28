@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://cf2exa06xmkrx"]
+
+[ext_resource type="Script" path="res://nodes/acts/act.gd" id="1_6qdu1"]
+[ext_resource type="Script" path="res://nodes/acts/act_components/mod_health/mod_health_single_target.gd" id="2_rebp8"]
+
+[node name="ACT_SKILL_M_I-CAN-HELP" type="Node"]
+script = ExtResource("1_6qdu1")
+_name = "D-don’t Worry, I Can Help!"
+_brief_description = "Heals a party member a small amount."
+_long_description = "Heals a party member for 15% of their MXHL (Max Health)."
+_friendly_fire = true
+_stamina_modifier = 1
+
+[node name="ModHealthSingleTarget" type="Node" parent="."]
+script = ExtResource("2_rebp8")
+_heal = true
+_health_mod_percentage = 0.15
+_reference_receiving_actor = true
+_reference_stat = 9

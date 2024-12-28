@@ -1,0 +1,58 @@
+[gd_scene load_steps=5 format=3 uid="uid://bd7celuayaws6"]
+
+[ext_resource type="Script" path="res://nodes/stage/status_effect_visual.gd" id="1_ajh32"]
+[ext_resource type="Texture2D" uid="uid://22d80ld16v4l" path="res://resources/images/placeholder_(de)buff_icon.png" id="1_xurjt"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_uied7"]
+bg_color = Color(0.0784314, 0.0784314, 0.0784314, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ho3so"]
+outline_size = 4
+outline_color = Color(0, 0, 0, 1)
+
+[node name="StatusEffectVisual" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_ajh32")
+
+[node name="Background" type="Panel" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_right = 89.0
+offset_bottom = 42.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_uied7")
+
+[node name="IconTextureRect" type="TextureRect" parent="Background"]
+layout_mode = 1
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 40.0
+offset_bottom = 41.0
+texture = ExtResource("1_xurjt")
+expand_mode = 1
+
+[node name="DurationLabel" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 49.0
+offset_top = 2.0
+offset_right = 87.0
+offset_bottom = 40.0
+theme_override_font_sizes/font_size = 26
+text = "99"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="StackLabel" type="Label" parent="Background"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 40.0
+offset_bottom = 41.0
+theme_override_font_sizes/font_size = 26
+text = "
+"
+label_settings = SubResource("LabelSettings_ho3so")
+horizontal_alignment = 2
+vertical_alignment = 2

@@ -1,0 +1,51 @@
+[gd_scene load_steps=6 format=3 uid="uid://cn4oi2guugl8k"]
+
+[ext_resource type="Script" path="res://nodes/stage/bar.gd" id="1_cis0c"]
+
+[sub_resource type="Gradient" id="Gradient_v5dxs"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_ebiaf"]
+gradient = SubResource("Gradient_v5dxs")
+width = 1
+
+[sub_resource type="Gradient" id="Gradient_3lqa3"]
+colors = PackedColorArray(0.682353, 0.705882, 0.717647, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_5d87q"]
+gradient = SubResource("Gradient_3lqa3")
+width = 100
+
+[node name="Bar" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_cis0c")
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="."]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 28.0
+grow_horizontal = 2
+max_value = 1.0
+step = 0.0
+value = 1.0
+nine_patch_stretch = true
+texture_under = SubResource("GradientTexture1D_ebiaf")
+texture_progress = SubResource("GradientTexture1D_5d87q")
+
+[node name="Label" type="Label" parent="TextureProgressBar"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
+theme_override_constants/outline_size = 10
+theme_override_font_sizes/font_size = 22
+text = "????: ???"
+vertical_alignment = 1

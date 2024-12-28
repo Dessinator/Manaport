@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://cbcuevdtoxla5"]
+
+[ext_resource type="Script" path="res://nodes/acts/acts_manager.gd" id="1_pk7ui"]
+
+[node name="ActsManager" type="Node"]
+script = ExtResource("1_pk7ui")
+_basic_move = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":Resource("res://nodes/acts/act.gd"),"_recover_stamina":false,"_stamina_modifier":0)
+

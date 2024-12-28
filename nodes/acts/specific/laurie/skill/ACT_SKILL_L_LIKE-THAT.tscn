@@ -1,0 +1,41 @@
+[gd_scene load_steps=9 format=3 uid="uid://dmxuffal1ub35"]
+
+[ext_resource type="Script" path="res://nodes/acts/act.gd" id="1_08d1m"]
+[ext_resource type="Script" path="res://nodes/acts/act_components/mod_health/mod_health_multi_target.gd" id="2_lh620"]
+[ext_resource type="Script" path="res://nodes/acts/act_components/apply_status_effect/apply_status_effect_multi_target.gd" id="3_h3ibv"]
+[ext_resource type="Resource" uid="uid://c0dfgbglmxyav" path="res://resources/status_effects/debuffs/elemetal/main/STEFF_DB_PYRO.tres" id="4_0h22m"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect_selection.gd" id="4_bt5ar"]
+[ext_resource type="Resource" uid="uid://bq5jwwxfvrich" path="res://resources/status_effects/debuffs/STEFF_DB_STILL-SMOKING.tres" id="4_fqhhv"]
+
+[sub_resource type="Resource" id="Resource_x031a"]
+script = ExtResource("4_bt5ar")
+_status_effect = ExtResource("4_0h22m")
+_ignore_bfrt_or_dbrs = false
+_chance = 1.0
+_stacks = 1
+
+[sub_resource type="Resource" id="Resource_hn6bj"]
+script = ExtResource("4_bt5ar")
+_status_effect = ExtResource("4_fqhhv")
+_ignore_bfrt_or_dbrs = false
+_chance = 1.0
+_stacks = 1
+
+[node name="ACT_SKILL_L_LIKE-THAT" type="Node"]
+script = ExtResource("1_08d1m")
+_name = "Like That! Right?"
+_type = 1
+_element = 2
+_brief_description = "Deals minor Pyro damage and applies Still Smoking to all enemies."
+_long_description = "Deals Pyro damage equal to 10% of Laurie’s ATDM (Attack Damage) to all enemies with an additional 100% chance to apply the Still Smoking debuff to all enemies. The Still Smoking debuff decreases the enemy’s DMMT (Damage Mitigation) by 20% for 2 turn.
+"
+_stamina_modifier = 2
+
+[node name="ModHealthMultiTarget" type="Node" parent="."]
+script = ExtResource("2_lh620")
+_health_mod_percentage = 0.1
+_reference_stat = 3
+
+[node name="ApplyStatusEffectMultiTarget" type="Node" parent="."]
+script = ExtResource("3_h3ibv")
+_status_effects = Array[ExtResource("4_bt5ar")]([SubResource("Resource_x031a"), SubResource("Resource_hn6bj")])

@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://0qg1ij55knhm"]
-
-[ext_resource type="Script" path="res://scripts/actor/actor_status_effect_manager.gd" id="1_dyqjk"]
-
-[node name="ActorStatusEffectManager" type="Node"]
-script = ExtResource("1_dyqjk")

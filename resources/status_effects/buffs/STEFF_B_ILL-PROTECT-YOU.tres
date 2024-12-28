@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://fvxkgvk65qew"]
 
 [ext_resource type="Texture2D" uid="uid://0ow4vtsa57k1" path="res://resources/images/icons/STEFF_ICN_ILL-PROTECT-YOU.jpg" id="1_387pp"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="1_ubfoh"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/status_effect_component.gd" id="2_4ufg7"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/mod_substat.gd" id="2_i31mc"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="1_ubfoh"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect_components/status_effect_component.gd" id="2_4ufg7"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect_components/mod_substat.gd" id="2_i31mc"]
 
 [sub_resource type="Resource" id="Resource_q2kkq"]
 script = ExtResource("2_i31mc")

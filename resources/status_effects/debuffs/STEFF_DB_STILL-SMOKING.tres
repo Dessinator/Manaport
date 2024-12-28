@@ -1,9 +1,9 @@
 [gd_resource type="Resource" script_class="StatusEffect" load_steps=6 format=3 uid="uid://bq5jwwxfvrich"]
 
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect.gd" id="1_gsn2l"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="1_gsn2l"]
 [ext_resource type="Texture2D" uid="uid://dghg2hmr6d835" path="res://resources/images/icons/STEFF_ICN_STILL-SMOKING.jpg" id="1_wyw4g"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/mod_substat.gd" id="2_1hxju"]
-[ext_resource type="Script" path="res://scripts/status_effects/status_effect_components/status_effect_component.gd" id="2_okq26"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect_components/mod_substat.gd" id="2_1hxju"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect_components/status_effect_component.gd" id="2_okq26"]
 
 [sub_resource type="Resource" id="Resource_2ftb1"]
 script = ExtResource("2_1hxju")

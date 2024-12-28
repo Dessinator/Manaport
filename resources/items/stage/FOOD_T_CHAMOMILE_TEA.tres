@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="StageItem" load_steps=3 format=3 uid="uid://d14q21u2x0jy7"]
 
-[ext_resource type="Script" path="res://scripts/items/item_component.gd" id="1_ey3ek"]
-[ext_resource type="Script" path="res://scripts/items/stage_item.gd" id="1_miphs"]
+[ext_resource type="Script" path="res://resources/items/stage_item.gd" id="1_miphs"]
+[ext_resource type="Script" path="res://resources/items/item_components/item_component.gd" id="1_rinsi"]
 
 [resource]
 script = ExtResource("1_miphs")
@@ -10,4 +10,4 @@ _item_description = ""
 _consumable = true
 _friendly_fire = true
 _use_type = 0
-_item_components = Array[ExtResource("1_ey3ek")]([])
+_item_components = Array[ExtResource("1_rinsi")]([])

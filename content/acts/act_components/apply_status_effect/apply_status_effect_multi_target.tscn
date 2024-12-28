@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://dpxom3c2oewuv"]
-
-[ext_resource type="Script" path="res://scripts/acts/act_components/apply_status_effect/apply_status_effect_multi_target.gd" id="1_7kw27"]
-
-[node name="ApplyStatusEffectMultiTarget" type="Node"]
-script = ExtResource("1_7kw27")

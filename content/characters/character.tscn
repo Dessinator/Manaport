@@ -1,6 +1,0 @@
-[gd_scene load_steps=2 format=3 uid="uid://bo3mb33yn2y5f"]
-
-[ext_resource type="Script" path="res://scripts/character/character.gd" id="1_onrtf"]
-
-[node name="Character" type="CharacterBody3D"]
-script = ExtResource("1_onrtf")

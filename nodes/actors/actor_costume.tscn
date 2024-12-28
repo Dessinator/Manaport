@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqx82ecciccke"]
+
+[ext_resource type="Script" path="res://nodes/actors/actor_costume.gd" id="1_81ykv"]
+
+[node name="ActorCostume" type="Node3D"]
+script = ExtResource("1_81ykv")

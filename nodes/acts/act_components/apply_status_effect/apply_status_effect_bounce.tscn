@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://cu5vb6cmu4p8f"]
+
+[ext_resource type="Script" path="res://nodes/acts/act_components/apply_status_effect/apply_status_effect_bounce.gd" id="1_jmdrp"]
+
+[node name="ApplyStatusEffectBounce" type="Node"]
+script = ExtResource("1_jmdrp")

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://08vxd3yxtl0t"]
+
+[ext_resource type="Script" path="res://nodes/acts/act_components/apply_status_effect/apply_status_effect_single_target.gd" id="1_bb6jv"]
+
+[node name="ApplyStatusEffectSingleTarget" type="Node"]
+script = ExtResource("1_bb6jv")

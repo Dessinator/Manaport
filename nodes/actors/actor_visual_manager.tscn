@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://hiqhb16vaec0"]
+
+[ext_resource type="Script" path="res://nodes/actors/actor_visual_manager.gd" id="1_aik8r"]
+
+[node name="ActorVisualManager" type="Node3D"]
+script = ExtResource("1_aik8r")
