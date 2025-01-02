@@ -1,50 +1,46 @@
-class_name CharacterPlayerInput extends CharacterInputManager
+class_name CharacterPlayerInputManager extends CharacterInputManager
 
-@export var camera_component: CharacterCameraManager
+@export var _camera_manager: CharacterCameraManager
 
 func _input(event):
 	if not event is InputEventMouseMotion:
 		return
 	var horizontal = -event.relative.x
 	var vertical = event.relative.y
-	look.emit(Vector2(horizontal, vertical))
+	on_look.emit(Vector2(horizontal, vertical))
 
 func _process(delta):
 	if (Input.is_action_pressed("move")):
-		var h_rot = camera_component.get_node("horizontal").global_transform.basis.get_euler().y
+		var h_rot = _camera_manager.get_node("horizontal").global_transform.basis.get_euler().y
 		var velocity = Vector3(
 			Input.get_action_strength("strafe_left") - Input.get_action_strength("strafe_right"),
 			0,
 			Input.get_action_strength("forward") - Input.get_action_strength("backward"))
 		velocity = velocity.rotated(Vector3.UP, h_rot).normalized()
-		move.emit(velocity)
+		on_move.emit(velocity)
 	else:
-		move.emit(Vector3.ZERO)
+		on_move.emit(Vector3.ZERO)
 	
 	if Input.is_action_just_pressed("sprint"):
-		sprint.emit(true)
+		on_sprint.emit(true)
 	if Input.is_action_just_released("sprint"):
-		sprint.emit(false)
+		on_sprint.emit(false)
 	
 	if Input.is_action_just_pressed("crawl"):
-		crawl.emit(true)
+		on_crawl.emit(true)
 	if Input.is_action_just_released("crawl"):
-		crawl.emit(false)
+		on_crawl.emit(false)
 	
 	
 	if (Input.is_action_pressed("look")):
 		var view = Vector2(
 			Input.get_action_strength("look_left") - Input.get_action_strength("look_right"),
 			Input.get_action_strength("look_up") - Input.get_action_strength("look_down"))
-		look.emit(view)
-	#if Input.is_action_pressed("primary"):
-		#primary_attack.emit()
-	#if Input.is_action_pressed("secondary"):
-		#secondary_attack.emit()
-	#if Input.is_action_just_pressed("target"):
-		#target.emit()
+		on_look.emit(view)
 	if Input.is_action_just_pressed("next"):
-		next.emit()
+		on_next.emit()
 	if Input.is_action_just_pressed("previous"):
-		previous.emit()
-	
+		on_previous.emit()
+
+func set_camera_manager(camera_manager: CharacterCameraManager):
+	_camera_manager = camera_manager

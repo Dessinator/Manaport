@@ -1,9 +1,9 @@
-class_name CharacterInputManager extends Node
+class_name CharacterInputManager extends Node3D
 
-signal move(velocity)
-signal sprint(is_sprinting)
-signal look(view)
-signal crawl(is_crawling)
+signal on_move(velocity)
+signal on_sprint(is_sprinting)
+signal on_look(view)
+signal on_crawl(is_crawling)
 
-signal next
-signal previous
+signal on_next
+signal on_previous

@@ -25,13 +25,10 @@ func initialize():
 	connect_input_component_signals()
 
 func connect_input_component_signals():
-	_character_input_manager.move.connect(_on_move)
-	_character_input_manager.sprint.connect(_on_sprint)
-	_character_input_manager.look.connect(_on_look)
-	_character_input_manager.crawl.connect(_on_crawl)
-
-	_character_input_manager.next.connect(_on_next)
-	_character_input_manager.previous.connect(_on_previous)
+	_character_input_manager.on_move.connect(_on_move)
+	_character_input_manager.on_sprint.connect(_on_sprint)
+	_character_input_manager.on_look.connect(_on_look)
+	_character_input_manager.on_crawl.connect(_on_crawl)
 
 func _on_move(movement_velocity):
 	_input_movement_velocity = movement_velocity
@@ -41,19 +38,6 @@ func _on_look(view):
 	_character_camera_manager.look(view)
 func _on_crawl(is_crawling):
 	_input_is_crawling = is_crawling
-
-func _on_next():
-	pass
-	#if targeting_component._is_targeting:
-		#targeting_component.next_target()
-		#return
-	#party.next_party_leader()
-func _on_previous():
-	pass
-	#if targeting_component._is_targeting:
-		#targeting_component.previous_target()
-		#return
-	#party.previous_party_leader()
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

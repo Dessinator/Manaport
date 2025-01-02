@@ -4,6 +4,7 @@
 
 [node name="CharacterCameraManager" type="Node3D"]
 script = ExtResource("1_n0ydo")
+_lerp_camera_position = true
 
 [node name="horizontal" type="Node3D" parent="."]
 
@@ -14,3 +15,4 @@ spring_length = -3.0
 [node name="Camera3D" type="Camera3D" parent="horizontal/vertical"]
 transform = Transform3D(-1, 1.45794e-08, -8.61985e-08, 0, 0.985996, 0.166769, 8.74228e-08, 0.166769, -0.985996, 0, 0, 0)
 keep_aspect = 0
+current = true

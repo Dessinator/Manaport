@@ -40,7 +40,6 @@ func initialize(character: Character):
 # does NOT normalize direction
 # returns velocity as Vec3
 func move(delta, direction, is_on_floor, is_sprinting) -> Vector3:
-	print("move " + str(direction))
 	var new_velocity: Vector3
 	
 	movement_speed = 0

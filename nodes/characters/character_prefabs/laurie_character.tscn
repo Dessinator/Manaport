@@ -1,14 +1,16 @@
-[gd_scene load_steps=13 format=3 uid="uid://bymecv7dxhxtg"]
+[gd_scene load_steps=15 format=3 uid="uid://bymecv7dxhxtg"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_f66w4"]
-[ext_resource type="Script" path="res://nodes/characters/components/input/character_player_input_manager.gd" id="2_w1hgb"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="2_w7kn7"]
 [ext_resource type="PackedScene" uid="uid://dk20jrjub34s" path="res://nodes/actors/actor_prefabs/party_members/laurie_actor.tscn" id="2_w17qf"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state.gd" id="3_akoyt"]
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="4_j1pkq"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_skin.gd" id="4_ta4ci"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="5_a8bu3"]
-[ext_resource type="PackedScene" uid="uid://ds1bp67gst5d1" path="res://nodes/characters/character_camera_manager.tscn" id="8_ouphx"]
+[ext_resource type="PackedScene" uid="uid://ds1bp67gst5d1" path="res://nodes/characters/components/camera/character_camera_manager.tscn" id="8_ouphx"]
+[ext_resource type="PackedScene" uid="uid://dav06vxnfhyrt" path="res://nodes/characters/components/input/character_party_input_manager.tscn" id="10_3rm1p"]
+[ext_resource type="Script" path="res://nodes/characters/party/character_party_reference.gd" id="10_bv2uv"]
+[ext_resource type="Script" path="res://nodes/characters/party/character_party_interface.gd" id="11_73fss"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0peiy"]
 radius = 0.32
@@ -32,7 +34,7 @@ _actor_scene = ExtResource("2_w17qf")
 _character_visual_manager = NodePath("CharacterVisualManager")
 _character_skin = NodePath("CharacterSkin")
 _character_mover = NodePath("CharacterMover")
-_character_input_manager = NodePath("CharacterPlayerInput")
+_character_input_manager = NodePath("CharacterPartyInputManager")
 _character_camera_manager = NodePath("CharacterCameraManager")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
@@ -91,10 +93,16 @@ jump_force = 5
 walk_speed = 4.0
 run_speed = 7.0
 
-[node name="CharacterPlayerInput" type="Node" parent="." node_paths=PackedStringArray("camera_component")]
-script = ExtResource("2_w1hgb")
-camera_component = NodePath("../CharacterCameraManager")
-
 [node name="CharacterCameraManager" parent="." instance=ExtResource("8_ouphx")]
 _camera_distance = 2
-_lerp_camera_position = true
+
+[node name="CharacterPartyReference" type="Node" parent="."]
+script = ExtResource("10_bv2uv")
+
+[node name="CharacterPartyInputManager" parent="." node_paths=PackedStringArray("_party_reference") instance=ExtResource("10_3rm1p")]
+_party_reference = NodePath("../CharacterPartyReference")
+
+[node name="CharacterPartyInterface" type="Node" parent="." node_paths=PackedStringArray("_character_party_reference", "_character_input_manager")]
+script = ExtResource("11_73fss")
+_character_party_reference = NodePath("../CharacterPartyReference")
+_character_input_manager = NodePath("../CharacterPartyInputManager")

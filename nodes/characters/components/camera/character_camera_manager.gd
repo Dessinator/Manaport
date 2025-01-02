@@ -1,6 +1,6 @@
 class_name CharacterCameraManager extends Node3D
 
-@export_category("General")
+@export_category("General Settings")
 @export var _camera_distance = 1
 @export var _lerp_camera_position: bool = false
 
@@ -36,6 +36,10 @@ func _ready():
 func look(view):
 	_camera_rotation_horizontal += view.x * _horizontal_sensitivity
 	_camera_rotation_vertical += view.y * _vertical_sensitivity
+	_camera_rotation_vertical = clamp(
+		_camera_rotation_vertical,
+		deg_to_rad(_camera_rotation_vertical_min),
+		deg_to_rad(_camera_rotation_vertical_max))
 
 func look_at_target(target: Vector3) -> void:
 	var direction = (target - global_position).normalized()
@@ -44,11 +48,6 @@ func look_at_target(target: Vector3) -> void:
 
 func _physics_process(delta):
 	_handle_position_lerp(_lerp_camera_position, delta)
-	
-	_camera_rotation_vertical = clamp(
-		_camera_rotation_vertical,
-		deg_to_rad(_camera_rotation_vertical_min),
-		deg_to_rad(_camera_rotation_vertical_max))
 
 	$horizontal.rotation.y = lerpf(
 		$horizontal.rotation.y,

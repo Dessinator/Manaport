@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://buja2j3vs068o"]
+
+[ext_resource type="Script" path="res://nodes/characters/components/input/character_com_input_manager.gd" id="1_vco8f"]
+
+[node name="CharacterCOMInputManager" type="Node3D"]
+script = ExtResource("1_vco8f")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+unique_name_in_owner = true
+avoidance_enabled = true
