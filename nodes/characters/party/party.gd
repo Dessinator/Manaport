@@ -6,6 +6,7 @@ signal on_party_leader_set(new_leader: CharacterPartyReference)
 
 var _members: Array
 var _current_party_leader: CharacterPartyReference
+var _last_party_leader: CharacterPartyReference
 
 var _changed_party_leader_this_frame: bool = false
 
@@ -13,6 +14,7 @@ func _ready():
 	_add_children_to_party()
 	_setup_party_input_components()
 	
+	_last_party_leader = _members[1]
 	set_party_leader(_members[0])
 
 func _add_children_to_party():
@@ -52,9 +54,14 @@ func set_party_leader(member: CharacterPartyReference) -> void:
 	if not _members.has(member):
 		return
 	
+	if _current_party_leader:
+		_last_party_leader = _current_party_leader
 	_current_party_leader = member
 	_changed_party_leader_this_frame = true
 	on_party_leader_set.emit(_current_party_leader)
+	
+	print("Last Party Member: " + _last_party_leader.get_parent().name)
+	print("Current Party Member: " + _current_party_leader.get_parent().name)
 func next_party_leader() -> void:
 	if _members.find(_current_party_leader) + 1 >= _members.size():
 		set_party_leader(_members[0])

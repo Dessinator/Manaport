@@ -4,7 +4,13 @@
 
 [node name="CharacterCOMInputManager" type="Node3D"]
 script = ExtResource("1_vco8f")
+_recalcuation_delay_seconds = 0.2
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 unique_name_in_owner = true
 avoidance_enabled = true
+debug_enabled = true
+
+[node name="RecalculatePathTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+autostart = true

@@ -7,13 +7,16 @@ func _get_configuration_warnings():
 	return ["CharacterCOMInputManager requires a NavigationAgent3D child.
 			Have you added the node as a child or instantiated a child scene?"]
 
-@export_category("Pathfinding")
+@export var _recalcuation_delay_seconds: float = 1.0
+
+@export_category("Nav Agent Settings")
+@export_subgroup("Pathfinding")
 @export var _path_desired_distance: float = 1.0
 @export var _target_desired_distance: float = 1.0
 @export var _path_height_offset: float = 0.0
 @export var _path_max_distance: float = 5.0
 
-@export_category("Avoidance")
+@export_subgroup("Avoidance")
 @export var _avoidance_enabled: bool = true
 @export var _avoidance_height: float = 1.0
 @export var _avoidance_radius: float = 0.5
@@ -28,12 +31,20 @@ func _get_configuration_warnings():
 @export var _avoidance_priority: int = 1
 
 @onready var _nav_agent: NavigationAgent3D = %NavigationAgent3D
+@onready var _recalculate_path_timer: Timer = %RecalculatePathTimer
 
 #@onready var area_3d = $Area3D
 
 var _target_node: Node3D
 
 func _ready():
+	if Engine.is_editor_hint():
+		return
+	
+	_setup_nav_agent()
+	_setup_recalculation_delay()
+
+func _setup_nav_agent():
 	if Engine.is_editor_hint():
 		return
 	
@@ -52,19 +63,27 @@ func _ready():
 	_nav_agent.use_3d_avoidance = _use_3D_avoidance
 	_nav_agent.keep_y_velocity = _keep_Y_velocity
 	_nav_agent.avoidance_priority = _avoidance_priority
+	
+	_nav_agent.velocity_computed.connect(_on_avoidance_velocity_computed)
 
-func set_target_node(node: Node3D):
+func _setup_recalculation_delay():
 	if Engine.is_editor_hint():
 		return
 	
-	_target_node = node
+	_recalculate_path_timer.wait_time = _recalcuation_delay_seconds
+	_recalculate_path_timer.start()
+	_recalculate_path_timer.timeout.connect(_on_recalculate_path_timeout)
+
+func _on_recalculate_path_timeout():
+	if Engine.is_editor_hint():
+		return
+	
+	if _target_node:
+		_nav_agent.set_target_position(_target_node.global_position)
 
 func _physics_process(delta):
 	if Engine.is_editor_hint():
 		return
-		
-	if _target_node != null:
-		_nav_agent.set_target_position(_target_node.global_position)
 	
 	#var overlapping_bodies = area_3d.get_overlapping_bodies()
 	
@@ -77,3 +96,9 @@ func _on_avoidance_velocity_computed(safe_velocity):
 	
 	safe_velocity.y = 0
 	on_move.emit(safe_velocity)
+
+func set_target_node(node: Node3D):
+	if Engine.is_editor_hint():
+		return
+	
+	_target_node = node

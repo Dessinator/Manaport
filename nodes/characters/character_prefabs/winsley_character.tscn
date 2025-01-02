@@ -1,9 +1,7 @@
-[gd_scene load_steps=15 format=3 uid="uid://b2kqja31tsv2g"]
+[gd_scene load_steps=13 format=3 uid="uid://b2kqja31tsv2g"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_4nf4s"]
 [ext_resource type="PackedScene" uid="uid://ckmyi0h6s1grm" path="res://nodes/actors/actor_prefabs/party_members/winsley_actor.tscn" id="2_j6jgy"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="3_a4ia4"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state.gd" id="4_r7mid"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_skin.gd" id="5_clkvx"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="6_y7c88"]
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="7_teixn"]
@@ -27,9 +25,8 @@ height = 1.5
 radial_segments = 8
 rings = 4
 
-[node name="Winsley" type="CharacterBody3D" node_paths=PackedStringArray("_fsm", "_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
+[node name="Winsley" type="CharacterBody3D" node_paths=PackedStringArray("_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
 script = ExtResource("1_4nf4s")
-_fsm = NodePath("FiniteStateMachine")
 _actor_scene = ExtResource("2_j6jgy")
 _character_visual_manager = NodePath("CharacterVisualManager")
 _character_skin = NodePath("CharacterSkin")
@@ -40,42 +37,6 @@ _character_camera_manager = NodePath("CharacterCameraManager")
 [node name="CollisionShape3D" type="CollisionShape3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.694401, 0)
 shape = SubResource("CapsuleShape3D_0peiy")
-
-[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "actor")]
-script = ExtResource("3_a4ia4")
-autostart = true
-initial_state = NodePath("Idle")
-actor = NodePath("..")
-
-[node name="Idle" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Crawling" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Walking" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Jumping" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Diving" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Sprinting" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Skampering" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Sliding" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Mantling" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
-
-[node name="Wallrunning" type="Node" parent="FiniteStateMachine"]
-script = ExtResource("4_r7mid")
 
 [node name="CharacterSkin" type="Node3D" parent="."]
 script = ExtResource("5_clkvx")
@@ -89,9 +50,6 @@ script = ExtResource("6_y7c88")
 
 [node name="CharacterMover" type="Node" parent="."]
 script = ExtResource("7_teixn")
-jump_force = 5
-walk_speed = 4.0
-run_speed = 7.0
 
 [node name="CharacterCameraManager" parent="." instance=ExtResource("9_trji3")]
 _camera_distance = 2

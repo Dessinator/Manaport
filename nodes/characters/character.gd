@@ -1,6 +1,5 @@
 class_name Character extends CharacterBody3D
 
-@export var _fsm: FiniteStateMachine
 @export var _actor_scene: PackedScene
 
 @export_category("Components")
@@ -53,6 +52,3 @@ func _physics_process(delta):
 		.80)
 	
 	move_and_slide()
-
-func get_fsm() -> FiniteStateMachine:
-	return _fsm
