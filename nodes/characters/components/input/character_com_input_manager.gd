@@ -95,7 +95,7 @@ func _on_avoidance_velocity_computed(safe_velocity):
 		return
 	
 	safe_velocity.y = 0
-	on_move.emit(safe_velocity)
+	on_move.emit(safe_velocity.normalized())
 
 func set_target_node(node: Node3D):
 	if Engine.is_editor_hint():
