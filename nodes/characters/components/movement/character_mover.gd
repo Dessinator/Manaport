@@ -3,6 +3,7 @@ class_name CharacterMover extends Node
 # handles simple movement in a 3D space
 
 var _character: Character
+var _character_skin: CharacterSkin
 
 # Gamplay mechanics and Inspector tweakables
 @export var _gravity = 9.8
@@ -60,6 +61,10 @@ func move(delta, direction, is_on_floor, is_sprinting) -> Vector3:
 			_is_walking = false
 		if _is_sprinting:
 			_is_sprinting = false
+	
+	
+	if not direction.is_zero_approx():
+		_character.rotation.y = lerp_angle(_character.rotation.y, atan2(direction.x, direction.z), delta * _angular_acceleration)
 	
 	_horizontal_velocity = _horizontal_velocity.lerp(direction * _movement_speed, _acceleration * delta)
 	
