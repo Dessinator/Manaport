@@ -4,6 +4,8 @@
 
 [node name="PartyCameraManager" type="Node3D"]
 script = ExtResource("1_i2t8h")
+_camera_rotation_vertical_max = 65
+_camera_rotation_vertical_min = -35
 
 [node name="horizontal" type="Node3D" parent="."]
 

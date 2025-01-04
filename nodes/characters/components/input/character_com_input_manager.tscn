@@ -8,6 +8,8 @@ _recalcuation_delay_seconds = 0.2
 
 [node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
 unique_name_in_owner = true
+path_desired_distance = 0.1
+target_desired_distance = 0.1
 avoidance_enabled = true
 debug_enabled = true
 

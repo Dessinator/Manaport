@@ -38,9 +38,22 @@ func _on_was_set_as_party_leader():
 	_connect_player_input_signals()
 func _on_was_set_as_party_member():
 	_reset_input()
-	_connect_ai_input_signals()
+	_connect_com_input_signals()
 	
-	_com_input_manager.set_target_node(_party_reference.get_current_party().get_current_party_leader().get_parent())
+	# get the party leader's formation
+	var current_party = _party_reference.get_current_party()
+	var leader = current_party.get_current_party_leader()
+	var formation = leader.get_formation()
+	
+	# make the CharacterCOMInputManager follow the matching Marker3D on the formation
+	var target
+	if _party_reference == current_party.get_last_party_leader():
+		target = formation.get_child(0)
+	else:
+		target = formation.get_child(1)
+	
+	# set the target node of the CharacterCOMInputManager
+	_com_input_manager.set_target_node(target)
 
 func _connect_player_input_signals():
 		_player_input_manager.on_move.connect(_on_move)
@@ -54,7 +67,7 @@ func _connect_player_input_signals():
 		_com_input_manager.on_look.disconnect(_on_look)
 		_com_input_manager.on_next.disconnect(_on_next)
 		_com_input_manager.on_previous.disconnect(_on_previous)
-func _connect_ai_input_signals():
+func _connect_com_input_signals():
 		_com_input_manager.on_move.connect(_on_move)
 		_com_input_manager.on_sprint.connect(_on_sprint)
 		_com_input_manager.on_look.connect(_on_look)

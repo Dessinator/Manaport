@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://b2kqja31tsv2g"]
+[gd_scene load_steps=14 format=3 uid="uid://b2kqja31tsv2g"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_4nf4s"]
 [ext_resource type="PackedScene" uid="uid://ckmyi0h6s1grm" path="res://nodes/actors/actor_prefabs/party_members/winsley_actor.tscn" id="2_j6jgy"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="6_y7c88"]
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="7_teixn"]
 [ext_resource type="PackedScene" uid="uid://ds1bp67gst5d1" path="res://nodes/characters/components/camera/character_camera_manager.tscn" id="9_trji3"]
+[ext_resource type="Script" path="res://nodes/characters/party/character_party_formation.gd" id="10_32br3"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_reference.gd" id="10_i5802"]
 [ext_resource type="PackedScene" uid="uid://dav06vxnfhyrt" path="res://nodes/characters/components/input/character_party_input_manager.tscn" id="10_kg0c1"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_interface.gd" id="11_q2tc2"]
@@ -54,8 +55,9 @@ script = ExtResource("7_teixn")
 [node name="CharacterCameraManager" parent="." instance=ExtResource("9_trji3")]
 _camera_distance = 2
 
-[node name="CharacterPartyReference" type="Node" parent="."]
+[node name="CharacterPartyReference" type="Node" parent="." node_paths=PackedStringArray("_formation")]
 script = ExtResource("10_i5802")
+_formation = NodePath("../CharacterPartyFormation")
 
 [node name="CharacterPartyInputManager" parent="." node_paths=PackedStringArray("_party_reference") instance=ExtResource("10_kg0c1")]
 _party_reference = NodePath("../CharacterPartyReference")
@@ -64,3 +66,12 @@ _party_reference = NodePath("../CharacterPartyReference")
 script = ExtResource("11_q2tc2")
 _character_party_reference = NodePath("../CharacterPartyReference")
 _character_input_manager = NodePath("../CharacterPartyInputManager")
+
+[node name="CharacterPartyFormation" type="Node3D" parent="."]
+script = ExtResource("10_32br3")
+
+[node name="Marker3D" type="Marker3D" parent="CharacterPartyFormation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1.5)
+
+[node name="Marker3D2" type="Marker3D" parent="CharacterPartyFormation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1.5)

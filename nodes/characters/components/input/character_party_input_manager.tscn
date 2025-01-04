@@ -9,7 +9,7 @@ script = ExtResource("1_pth7b")
 
 [node name="CharacterCOMInputManager" parent="." instance=ExtResource("2_ypmwn")]
 unique_name_in_owner = true
-_recalcuation_delay_seconds = 0.2
+_target_desired_distance = 0.01
 
 [node name="CharacterPlayerInput" type="Node3D" parent="."]
 unique_name_in_owner = true

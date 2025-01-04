@@ -75,3 +75,5 @@ func previous_party_leader() -> void:
 
 func get_current_party_leader() -> CharacterPartyReference:
 	return _current_party_leader
+func get_last_party_leader() -> CharacterPartyReference:
+	return _last_party_leader

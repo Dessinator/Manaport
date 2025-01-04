@@ -1,4 +1,4 @@
-[gd_scene load_steps=13 format=3 uid="uid://bymecv7dxhxtg"]
+[gd_scene load_steps=17 format=3 uid="uid://bymecv7dxhxtg"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_f66w4"]
 [ext_resource type="PackedScene" uid="uid://dk20jrjub34s" path="res://nodes/actors/actor_prefabs/party_members/laurie_actor.tscn" id="2_w17qf"]
@@ -8,7 +8,11 @@
 [ext_resource type="PackedScene" uid="uid://ds1bp67gst5d1" path="res://nodes/characters/components/camera/character_camera_manager.tscn" id="8_ouphx"]
 [ext_resource type="PackedScene" uid="uid://dav06vxnfhyrt" path="res://nodes/characters/components/input/character_party_input_manager.tscn" id="10_3rm1p"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_reference.gd" id="10_bv2uv"]
+[ext_resource type="Script" path="res://nodes/characters/party/character_party_formation.gd" id="10_qcb6o"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_interface.gd" id="11_73fss"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_root.gd" id="11_fagr1"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_selector.gd" id="12_tfoab"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_sequence.gd" id="13_bmayd"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0peiy"]
 radius = 0.32
@@ -54,8 +58,9 @@ script = ExtResource("4_j1pkq")
 [node name="CharacterCameraManager" parent="." instance=ExtResource("8_ouphx")]
 _camera_distance = 2
 
-[node name="CharacterPartyReference" type="Node" parent="."]
+[node name="CharacterPartyReference" type="Node" parent="." node_paths=PackedStringArray("_formation")]
 script = ExtResource("10_bv2uv")
+_formation = NodePath("../CharacterPartyFormation")
 
 [node name="CharacterPartyInputManager" parent="." node_paths=PackedStringArray("_party_reference") instance=ExtResource("10_3rm1p")]
 _party_reference = NodePath("../CharacterPartyReference")
@@ -64,3 +69,30 @@ _party_reference = NodePath("../CharacterPartyReference")
 script = ExtResource("11_73fss")
 _character_party_reference = NodePath("../CharacterPartyReference")
 _character_input_manager = NodePath("../CharacterPartyInputManager")
+
+[node name="CharacterPartyFormation" type="Node3D" parent="."]
+script = ExtResource("10_qcb6o")
+
+[node name="Marker3D" type="Marker3D" parent="CharacterPartyFormation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="Marker3D2" type="Marker3D" parent="CharacterPartyFormation"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="COMBehaviourTree" type="Node" parent="."]
+script = ExtResource("11_fagr1")
+
+[node name="Select" type="Node" parent="COMBehaviourTree"]
+script = ExtResource("12_tfoab")
+
+[node name="ReturnToFormation" type="Node" parent="COMBehaviourTree/Select"]
+script = ExtResource("13_bmayd")
+
+[node name="Patrol" type="Node" parent="COMBehaviourTree/Select"]
+script = ExtResource("13_bmayd")
+
+[node name="Inspect" type="Node" parent="COMBehaviourTree/Select"]
+script = ExtResource("13_bmayd")
+
+[node name="EvadeEnemy" type="Node" parent="COMBehaviourTree/Select"]
+script = ExtResource("13_bmayd")

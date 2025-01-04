@@ -87,7 +87,7 @@ func _physics_process(delta):
 	
 	#var overlapping_bodies = area_3d.get_overlapping_bodies()
 	
-	_nav_agent.velocity = (_nav_agent.get_next_path_position() - get_node("..").global_position).normalized()
+	_nav_agent.velocity = (_nav_agent.get_next_path_position() - global_position).normalized()
 	_nav_agent.velocity.y = 0
 
 func _on_avoidance_velocity_computed(safe_velocity):

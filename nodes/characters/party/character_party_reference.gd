@@ -3,6 +3,8 @@ class_name CharacterPartyReference extends Node
 signal was_set_as_party_leader
 signal was_set_as_party_member
 
+@export var _formation: CharacterPartyFormation
+
 var _current_party: Party
 
 func join_party(party: Party):
@@ -21,5 +23,7 @@ func _on_party_leader_set(new_leader):
 	
 	was_set_as_party_leader.emit()
 
+func get_formation() -> CharacterPartyFormation:
+	return _formation
 func get_current_party() -> Party:
 	return _current_party
