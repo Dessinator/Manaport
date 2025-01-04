@@ -1,11 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://72r0std4efp7"]
+[gd_scene load_steps=14 format=3 uid="uid://72r0std4efp7"]
 
 [ext_resource type="Texture2D" uid="uid://ceud3opo1yfkv" path="res://resources/images/textures/prototype/PNG/Dark/texture_01.png" id="1_var3l"]
 [ext_resource type="Script" path="res://nodes/characters/party/party.gd" id="2_8s2g2"]
-[ext_resource type="PackedScene" uid="uid://bymecv7dxhxtg" path="res://nodes/characters/character_prefabs/laurie_character.tscn" id="2_o5ibh"]
-[ext_resource type="PackedScene" uid="uid://3o3qmldlg564" path="res://nodes/characters/character_prefabs/mirabelle_character.tscn" id="3_8xud8"]
-[ext_resource type="PackedScene" uid="uid://b2kqja31tsv2g" path="res://nodes/characters/character_prefabs/winsley_character.tscn" id="4_107bj"]
+[ext_resource type="PackedScene" uid="uid://bymecv7dxhxtg" path="res://nodes/characters/character_prefabs/party_members/laurie_character.tscn" id="2_o5ibh"]
+[ext_resource type="PackedScene" uid="uid://3o3qmldlg564" path="res://nodes/characters/character_prefabs/party_members/mirabelle_character.tscn" id="3_8xud8"]
+[ext_resource type="PackedScene" uid="uid://b2kqja31tsv2g" path="res://nodes/characters/character_prefabs/party_members/winsley_character.tscn" id="4_107bj"]
 [ext_resource type="PackedScene" uid="uid://ijg3lgicwmst" path="res://nodes/characters/party/party_camera_manager.tscn" id="6_cwe5b"]
+[ext_resource type="PackedScene" uid="uid://cxkulf8fdecod" path="res://nodes/characters/character_prefabs/monsters/monster_character.tscn" id="7_1uo1w"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_4lg0r"]
 vertices = PackedVector3Array(-61.9825, 0.5, -61.9825, -61.9825, 0.5, 62.0175, 62.0175, 0.5, 62.0175, 62.0175, 0.5, -61.9825)
@@ -62,3 +63,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 [node name="PartyCameraManager" parent="PlayerParty" instance=ExtResource("6_cwe5b")]
 _camera_distance = 2
 _lerp_camera_position = true
+
+[node name="Monster" parent="." instance=ExtResource("7_1uo1w")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)

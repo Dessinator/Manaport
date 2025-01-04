@@ -1,0 +1,99 @@
+[gd_scene load_steps=19 format=3 uid="uid://cxkulf8fdecod"]
+
+[ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_m0ywq"]
+[ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://nodes/actors/actor_prefabs/monsters/monster_actor.tscn" id="2_hn23o"]
+[ext_resource type="Script" path="res://nodes/characters/components/visual/character_skin.gd" id="3_jtrt1"]
+[ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="4_n0byt"]
+[ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="5_eblls"]
+[ext_resource type="PackedScene" uid="uid://buja2j3vs068o" path="res://nodes/characters/components/input/character_com_input_manager.tscn" id="6_qpy51"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_root.gd" id="7_sy6rd"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_selector.gd" id="8_6l2h2"]
+[ext_resource type="PackedScene" uid="uid://cgox4re8bjvki" path="res://nodes/characters/components/detection/character_detection_range.tscn" id="9_rfisy"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_sequence.gd" id="10_1nl56"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_leaf.gd" id="11_0vc7h"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_integrated_fsm.gd" id="12_2c2b1"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="13_8c6wa"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state.gd" id="14_ymvpr"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state_integration_return.gd" id="15_ebw8v"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0uaoh"]
+radius = 0.32
+height = 1.37
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sskny"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_8bdrj"]
+lightmap_size_hint = Vector2i(17, 14)
+material = SubResource("StandardMaterial3D_sskny")
+radius = 0.32
+height = 1.37
+radial_segments = 8
+rings = 4
+
+[node name="Monster" type="CharacterBody3D" node_paths=PackedStringArray("_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager")]
+script = ExtResource("1_m0ywq")
+_actor_scene = ExtResource("2_hn23o")
+_character_visual_manager = NodePath("CharacterVisualManager")
+_character_skin = NodePath("CharacterSkin")
+_character_mover = NodePath("CharacterMover")
+_character_input_manager = NodePath("CharacterCOMInputManager")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695148, 0)
+shape = SubResource("CapsuleShape3D_0uaoh")
+
+[node name="CharacterSkin" type="Node3D" parent="."]
+script = ExtResource("3_jtrt1")
+
+[node name="Mesh" type="MeshInstance3D" parent="CharacterSkin"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695273, 0)
+mesh = SubResource("CapsuleMesh_8bdrj")
+
+[node name="CharacterVisualManager" type="Node" parent="."]
+script = ExtResource("4_n0byt")
+
+[node name="CharacterMover" type="Node" parent="."]
+script = ExtResource("5_eblls")
+
+[node name="CharacterCOMInputManager" parent="." instance=ExtResource("6_qpy51")]
+
+[node name="CharacterDetectionRange" parent="." instance=ExtResource("9_rfisy")]
+_radius = 4.0
+
+[node name="COMBehaviourTree" type="Node" parent="."]
+script = ExtResource("7_sy6rd")
+
+[node name="Select" type="Node" parent="COMBehaviourTree"]
+script = ExtResource("8_6l2h2")
+
+[node name="Chase" type="Node" parent="COMBehaviourTree/Select"]
+script = ExtResource("10_1nl56")
+
+[node name="IsPlayerPartyLeaderInDetectionRange" type="Node" parent="COMBehaviourTree/Select/Chase"]
+script = ExtResource("11_0vc7h")
+
+[node name="ChaseBehaviour" type="Node" parent="COMBehaviourTree/Select/Chase"]
+script = ExtResource("12_2c2b1")
+
+[node name="ChaseFSM" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour"]
+script = ExtResource("13_8c6wa")
+
+[node name="Alert" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
+script = ExtResource("14_ymvpr")
+
+[node name="Pursue" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
+script = ExtResource("14_ymvpr")
+
+[node name="Search" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
+script = ExtResource("14_ymvpr")
+
+[node name="LoseTarget" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
+script = ExtResource("15_ebw8v")
+return_value = 1
+
+[node name="CatchTarget" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
+script = ExtResource("15_ebw8v")
+
+[node name="Patrol" type="Node" parent="COMBehaviourTree/Select"]
+script = ExtResource("10_1nl56")

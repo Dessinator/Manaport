@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://d21crk01708ft"]
+[gd_scene load_steps=22 format=3 uid="uid://d21crk01708ft"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_a6srw"]
 [ext_resource type="Script" path="res://nodes/actors/actor_costume.gd" id="2_ewllx"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://nodes/actors/actor_visual_manager.gd" id="3_4stji"]
 [ext_resource type="Resource" uid="uid://coy4inm5tseip" path="res://resources/status_effects/debuffs/elemetal/main/STEFF_DB_CRYO.tres" id="3_25x3h"]
 [ext_resource type="Script" path="res://resources/actor/actor_stats.gd" id="3_lro7c"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="3_ve7t4"]
 [ext_resource type="Script" path="res://nodes/actors/actor_com_input_manager.gd" id="4_a1qdl"]
 [ext_resource type="Script" path="res://resources/actor/actor_weakness.gd" id="4_jnq1d"]
 [ext_resource type="Script" path="res://resources/actor/actor_status.gd" id="4_nsqiy"]
@@ -24,7 +25,7 @@ _damage_boost_percentage = 1.0
 [sub_resource type="Resource" id="Resource_5bwyb"]
 script = ExtResource("3_lro7c")
 _substat_curves = ExtResource("2_q7ubw")
-_wards = Array[Resource("res://resources/status_effects/status_effect.gd")]([ExtResource("4_ryapi")])
+_wards = Array[ExtResource("3_ve7t4")]([ExtResource("4_ryapi")])
 _weaknesses = Array[ExtResource("4_jnq1d")]([SubResource("Resource_1sy5n")])
 _ATTK = 10
 _DFNS = 10
@@ -33,12 +34,12 @@ _VTLY = 10
 [sub_resource type="Resource" id="Resource_s2blu"]
 script = ExtResource("4_nsqiy")
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_sskny"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n1frw"]
 albedo_color = Color(1, 0, 0, 1)
 
 [sub_resource type="CapsuleMesh" id="CapsuleMesh_s4xhd"]
 lightmap_size_hint = Vector2i(17, 14)
-material = SubResource("StandardMaterial3D_sskny")
+material = SubResource("StandardMaterial3D_n1frw")
 radius = 0.32
 height = 1.37
 radial_segments = 8
