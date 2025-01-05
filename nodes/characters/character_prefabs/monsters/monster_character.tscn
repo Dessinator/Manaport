@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://cxkulf8fdecod"]
+[gd_scene load_steps=21 format=3 uid="uid://cxkulf8fdecod"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_m0ywq"]
 [ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://nodes/actors/actor_prefabs/monsters/monster_actor.tscn" id="2_hn23o"]
@@ -6,15 +6,17 @@
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="4_n0byt"]
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="5_eblls"]
 [ext_resource type="PackedScene" uid="uid://buja2j3vs068o" path="res://nodes/characters/components/input/character_com_input_manager.tscn" id="6_qpy51"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_root.gd" id="7_sy6rd"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_selector.gd" id="8_6l2h2"]
+[ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="8_fbe2n"]
 [ext_resource type="PackedScene" uid="uid://cgox4re8bjvki" path="res://nodes/characters/components/detection/character_detection_range.tscn" id="9_rfisy"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_sequence.gd" id="10_1nl56"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/bt_leaf.gd" id="11_0vc7h"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/behaviour_tree/composites/bt_integrated_fsm.gd" id="12_2c2b1"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="13_8c6wa"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state.gd" id="14_ymvpr"]
-[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_state_integration_return.gd" id="15_ebw8v"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_aggroed.gd" id="12_dycax"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_player_in_detection_range.gd" id="14_gsegd"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="16_m4ea7"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="17_lfl0b"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="18_fjtcx"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/condition.gd" id="19_1x335"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="20_imcat"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/action.gd" id="21_b8fyw"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="22_vcrmy"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0uaoh"]
 radius = 0.32
@@ -61,39 +63,92 @@ script = ExtResource("5_eblls")
 [node name="CharacterDetectionRange" parent="." instance=ExtResource("9_rfisy")]
 _radius = 4.0
 
-[node name="COMBehaviourTree" type="Node" parent="."]
-script = ExtResource("7_sy6rd")
+[node name="Blackboard" type="Node" parent="."]
+script = ExtResource("8_fbe2n")
+blackboard = {
+"aggro": false,
+"detection_range": NodePath("../CharacterDetectionRange")
+}
 
-[node name="Select" type="Node" parent="COMBehaviourTree"]
-script = ExtResource("8_6l2h2")
+[node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
+script = ExtResource("16_m4ea7")
+blackboard = NodePath("@Node@19927")
+actor = NodePath("..")
 
-[node name="Chase" type="Node" parent="COMBehaviourTree/Select"]
-script = ExtResource("10_1nl56")
+[node name="Select" type="Node" parent="BeehaveTree"]
+script = ExtResource("17_lfl0b")
 
-[node name="IsPlayerPartyLeaderInDetectionRange" type="Node" parent="COMBehaviourTree/Select/Chase"]
-script = ExtResource("11_0vc7h")
+[node name="Alert" type="Node" parent="BeehaveTree/Select"]
+script = ExtResource("18_fjtcx")
 
-[node name="ChaseBehaviour" type="Node" parent="COMBehaviourTree/Select/Chase"]
-script = ExtResource("12_2c2b1")
+[node name="IsNotAggroed" type="Node" parent="BeehaveTree/Select/Alert"]
+script = ExtResource("20_imcat")
 
-[node name="ChaseFSM" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour"]
-script = ExtResource("13_8c6wa")
+[node name="IsAggroed" type="Node" parent="BeehaveTree/Select/Alert/IsNotAggroed"]
+script = ExtResource("12_dycax")
 
-[node name="Alert" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
-script = ExtResource("14_ymvpr")
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/Select/Alert"]
+script = ExtResource("14_gsegd")
 
-[node name="Pursue" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
-script = ExtResource("14_ymvpr")
+[node name="BuildAggro" type="Node" parent="BeehaveTree/Select/Alert"]
+script = ExtResource("21_b8fyw")
 
-[node name="Search" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
-script = ExtResource("14_ymvpr")
+[node name="Pursue" type="Node" parent="BeehaveTree/Select"]
+script = ExtResource("18_fjtcx")
 
-[node name="LoseTarget" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
-script = ExtResource("15_ebw8v")
-return_value = 1
+[node name="IsAggroed" type="Node" parent="BeehaveTree/Select/Pursue"]
+script = ExtResource("19_1x335")
 
-[node name="CatchTarget" type="Node" parent="COMBehaviourTree/Select/Chase/ChaseBehaviour/ChaseFSM"]
-script = ExtResource("15_ebw8v")
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/Select/Pursue"]
+script = ExtResource("19_1x335")
 
-[node name="Patrol" type="Node" parent="COMBehaviourTree/Select"]
-script = ExtResource("10_1nl56")
+[node name="FollowAndTryToCatchPlayer" type="Node" parent="BeehaveTree/Select/Pursue"]
+script = ExtResource("22_vcrmy")
+
+[node name="FollowPlayer" type="Node" parent="BeehaveTree/Select/Pursue/FollowAndTryToCatchPlayer"]
+script = ExtResource("21_b8fyw")
+
+[node name="TryToCatchPlayer" type="Node" parent="BeehaveTree/Select/Pursue/FollowAndTryToCatchPlayer"]
+script = ExtResource("18_fjtcx")
+
+[node name="IsTouchingPlayer" type="Node" parent="BeehaveTree/Select/Pursue/FollowAndTryToCatchPlayer/TryToCatchPlayer"]
+script = ExtResource("19_1x335")
+
+[node name="CatchPlayer" type="Node" parent="BeehaveTree/Select/Pursue/FollowAndTryToCatchPlayer/TryToCatchPlayer"]
+script = ExtResource("21_b8fyw")
+
+[node name="Search" type="Node" parent="BeehaveTree/Select"]
+script = ExtResource("18_fjtcx")
+
+[node name="IsAggroed" type="Node" parent="BeehaveTree/Select/Search"]
+script = ExtResource("19_1x335")
+
+[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/Select/Search"]
+script = ExtResource("20_imcat")
+
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/Select/Search/IsPlayerOutsideDetectionRange"]
+script = ExtResource("19_1x335")
+
+[node name="DecayAggro" type="Node" parent="BeehaveTree/Select/Search"]
+script = ExtResource("21_b8fyw")
+
+[node name="PatrolArea" type="Node" parent="BeehaveTree/Select/Search"]
+script = ExtResource("21_b8fyw")
+
+[node name="Patrol" type="Node" parent="BeehaveTree/Select"]
+script = ExtResource("18_fjtcx")
+
+[node name="IsNotAggroed" type="Node" parent="BeehaveTree/Select/Patrol"]
+script = ExtResource("20_imcat")
+
+[node name="IsAggroed" type="Node" parent="BeehaveTree/Select/Patrol/IsNotAggroed"]
+script = ExtResource("19_1x335")
+
+[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/Select/Patrol"]
+script = ExtResource("20_imcat")
+
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/Select/Patrol/IsPlayerOutsideDetectionRange"]
+script = ExtResource("19_1x335")
+
+[node name="PatrolArea" type="Node" parent="BeehaveTree/Select/Patrol"]
+script = ExtResource("21_b8fyw")

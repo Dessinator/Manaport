@@ -48,7 +48,7 @@ material = SubResource("StandardMaterial3D_n8x3b")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.5, 0)
 shape = SubResource("BoxShape3D_tnd4l")
 
-[node name="PlayerParty" type="Node" parent="." node_paths=PackedStringArray("_party_camera_manager")]
+[node name="PlayerParty" type="Node" parent="." node_paths=PackedStringArray("_party_camera_manager") groups=["player_party"]]
 script = ExtResource("2_8s2g2")
 _party_camera_manager = NodePath("PartyCameraManager")
 
