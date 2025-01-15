@@ -1,6 +1,8 @@
 @tool
 class_name CharacterCOMInputManager extends CharacterInputManager
 
+signal target_reached
+
 func _get_configuration_warnings():
 	if %NavigationAgent3D:
 		return []
@@ -36,6 +38,7 @@ func _get_configuration_warnings():
 #@onready var area_3d = $Area3D
 
 var _target_node: Node3D
+var _target_reached: bool = false
 
 func _ready():
 	if Engine.is_editor_hint():
@@ -64,7 +67,7 @@ func _setup_nav_agent():
 	_nav_agent.keep_y_velocity = _keep_Y_velocity
 	_nav_agent.avoidance_priority = _avoidance_priority
 	
-	_nav_agent.velocity_computed.connect(_on_avoidance_velocity_computed)
+	#_nav_agent.velocity_computed.connect(_on_avoidance_velocity_computed)
 
 func _setup_recalculation_delay():
 	if Engine.is_editor_hint():
@@ -85,20 +88,54 @@ func _physics_process(delta):
 	if Engine.is_editor_hint():
 		return
 	
-	#var overlapping_bodies = area_3d.get_overlapping_bodies()
 	
-	_nav_agent.velocity = (_nav_agent.get_next_path_position() - global_position).normalized()
-	_nav_agent.velocity.y = 0
+	_handle_navigation()
 
-func _on_avoidance_velocity_computed(safe_velocity):
+func _handle_navigation():
 	if Engine.is_editor_hint():
 		return
+		
+	var velocity = Vector3.ZERO
 	
-	safe_velocity.y = 0
-	on_move.emit(safe_velocity.normalized())
+	if not _target_node:
+		_target_reached = false
+		
+		_nav_agent.set_velocity(velocity)
+		on_move.emit(velocity)
+		return
+		
+	var is_within_target_desired_distance = global_position.distance_to(_nav_agent.get_final_position()) <= _nav_agent.target_desired_distance
+	if is_within_target_desired_distance:
+		_target_reached = true
+		
+		_nav_agent.set_velocity(velocity)
+		on_move.emit(velocity)
+		return
+	
+	velocity = (_nav_agent.get_next_path_position() - global_position).normalized()
+	_nav_agent.set_velocity(velocity)
+	on_move.emit(velocity)
+
+#func _on_avoidance_velocity_computed(safe_velocity):
+	#if Engine.is_editor_hint():
+		#return
+	#
+	#safe_velocity.y = 0
+	##on_move.emit(safe_velocity.normalized() * 3.0)
 
 func set_target_node(node: Node3D):
 	if Engine.is_editor_hint():
 		return
 	
 	_target_node = node
+	_target_reached = false
+func clear_target_node():
+	if Engine.is_editor_hint():
+		return
+	
+	_target_node = null
+
+func has_reached_target() -> bool:
+	return _target_reached
+func get_target_node() -> Node3D:
+	return _target_node

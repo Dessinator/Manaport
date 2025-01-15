@@ -1,22 +1,39 @@
-[gd_scene load_steps=21 format=3 uid="uid://cxkulf8fdecod"]
+[gd_scene load_steps=38 format=3 uid="uid://cxkulf8fdecod"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_m0ywq"]
 [ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://nodes/actors/actor_prefabs/monsters/monster_actor.tscn" id="2_hn23o"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_skin.gd" id="3_jtrt1"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="4_n0byt"]
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="5_eblls"]
+[ext_resource type="PackedScene" uid="uid://ck64qyankcs5d" path="res://nodes/characters/components/visual/character_aggro_visual.tscn" id="5_lh6t3"]
 [ext_resource type="PackedScene" uid="uid://buja2j3vs068o" path="res://nodes/characters/components/input/character_com_input_manager.tscn" id="6_qpy51"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="8_fbe2n"]
+[ext_resource type="Script" path="res://nodes/characters/components/aggro/character_aggro_manager.gd" id="8_sglj1"]
+[ext_resource type="PackedScene" uid="uid://4guxmwi5dg8w" path="res://nodes/characters/components/patrol/character_patrol_range.tscn" id="9_fju26"]
 [ext_resource type="PackedScene" uid="uid://cgox4re8bjvki" path="res://nodes/characters/components/detection/character_detection_range.tscn" id="9_rfisy"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_aggroed.gd" id="12_dycax"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="13_ak3ih"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="14_7i86b"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_player_in_detection_range.gd" id="14_gsegd"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/build_aggro.gd" id="16_aroxt"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="16_m4ea7"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="17_lfl0b"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/decorators/succeeder.gd" id="17_h3272"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="18_fjtcx"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/clear_destination.gd" id="18_ji25r"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/cache_player_reference.gd" id="18_jvt6c"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/leaves/condition.gd" id="19_1x335"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/follow_player.gd" id="19_exmoe"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="20_imcat"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/aggro_is_above_0.gd" id="20_kaulg"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/decay_aggro.gd" id="20_v5jko"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/leaves/action.gd" id="21_b8fyw"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="22_vcrmy"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/clear_player_reference.gd" id="24_4o6n6"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/create_patrol_range.gd" id="24_u3obr"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/set_random_destination_within_patrol_range.gd" id="30_mudld"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/await_arrival.gd" id="31_5l48h"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="32_lyxgo"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/wait.gd" id="33_3hw5x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0uaoh"]
 radius = 0.32
@@ -52,103 +69,237 @@ script = ExtResource("3_jtrt1")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695273, 0)
 mesh = SubResource("CapsuleMesh_8bdrj")
 
-[node name="CharacterVisualManager" type="Node" parent="."]
-script = ExtResource("4_n0byt")
-
 [node name="CharacterMover" type="Node" parent="."]
 script = ExtResource("5_eblls")
 
 [node name="CharacterCOMInputManager" parent="." instance=ExtResource("6_qpy51")]
+_target_desired_distance = 0.75
+
+[node name="CharacterVisualManager" type="Node3D" parent="."]
+script = ExtResource("4_n0byt")
+
+[node name="CharacterAggroVisual" parent="CharacterVisualManager" instance=ExtResource("5_lh6t3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
 [node name="CharacterDetectionRange" parent="." instance=ExtResource("9_rfisy")]
 _radius = 4.0
 
+[node name="CharacterPatrolRange" parent="." instance=ExtResource("9_fju26")]
+top_level = false
+monitorable = false
+_radius = 10.0
+
+[node name="CharacterAggroManager" type="Node" parent="."]
+script = ExtResource("8_sglj1")
+_decay_speed_seconds = 8.0
+
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("8_fbe2n")
 blackboard = {
-"aggro": false,
-"detection_range": NodePath("../CharacterDetectionRange")
+"aggro_manager": NodePath("../CharacterAggroManager"),
+"com_input_manager": NodePath("../CharacterCOMInputManager"),
+"detection_range": NodePath("../CharacterDetectionRange"),
+"patrol_range": NodePath("../CharacterPatrolRange")
 }
 
 [node name="BeehaveTree" type="Node" parent="." node_paths=PackedStringArray("blackboard", "actor")]
 script = ExtResource("16_m4ea7")
-blackboard = NodePath("@Node@19927")
+blackboard = NodePath("../Blackboard")
 actor = NodePath("..")
 
-[node name="Select" type="Node" parent="BeehaveTree"]
-script = ExtResource("17_lfl0b")
+[node name="SelectorReactiveComposite" type="Node" parent="BeehaveTree"]
+script = ExtResource("13_ak3ih")
 
-[node name="Alert" type="Node" parent="BeehaveTree/Select"]
-script = ExtResource("18_fjtcx")
+[node name="Alert" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
+script = ExtResource("14_7i86b")
 
-[node name="IsNotAggroed" type="Node" parent="BeehaveTree/Select/Alert"]
+[node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Alert"]
 script = ExtResource("20_imcat")
 
-[node name="IsAggroed" type="Node" parent="BeehaveTree/Select/Alert/IsNotAggroed"]
+[node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Alert/IsNotAggroed"]
 script = ExtResource("12_dycax")
 
-[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/Select/Alert"]
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Alert"]
 script = ExtResource("14_gsegd")
 
-[node name="BuildAggro" type="Node" parent="BeehaveTree/Select/Alert"]
-script = ExtResource("21_b8fyw")
+[node name="ClearDestination" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Alert"]
+script = ExtResource("18_ji25r")
 
-[node name="Pursue" type="Node" parent="BeehaveTree/Select"]
-script = ExtResource("18_fjtcx")
+[node name="BuildAggro" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Alert"]
+script = ExtResource("16_aroxt")
 
-[node name="IsAggroed" type="Node" parent="BeehaveTree/Select/Pursue"]
-script = ExtResource("19_1x335")
+[node name="Sussy" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
+script = ExtResource("14_7i86b")
 
-[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/Select/Pursue"]
-script = ExtResource("19_1x335")
+[node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy"]
+script = ExtResource("20_imcat")
 
-[node name="FollowAndTryToCatchPlayer" type="Node" parent="BeehaveTree/Select/Pursue"]
+[node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/IsNotAggroed"]
+script = ExtResource("12_dycax")
+
+[node name="AggroIsAbove0" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy"]
+script = ExtResource("20_kaulg")
+
+[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy"]
+script = ExtResource("20_imcat")
+
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/IsPlayerOutsideDetectionRange"]
+script = ExtResource("14_gsegd")
+
+[node name="Decay aggro and patrol last seen player area" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy"]
 script = ExtResource("22_vcrmy")
 
-[node name="FollowPlayer" type="Node" parent="BeehaveTree/Select/Pursue/FollowAndTryToCatchPlayer"]
-script = ExtResource("21_b8fyw")
+[node name="DecayAggro" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area"]
+script = ExtResource("20_v5jko")
 
-[node name="TryToCatchPlayer" type="Node" parent="BeehaveTree/Select/Pursue/FollowAndTryToCatchPlayer"]
+[node name="Patrol last seen player area" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area"]
 script = ExtResource("18_fjtcx")
 
-[node name="IsTouchingPlayer" type="Node" parent="BeehaveTree/Select/Pursue/FollowAndTryToCatchPlayer/TryToCatchPlayer"]
-script = ExtResource("19_1x335")
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area/Patrol last seen player area"]
+script = ExtResource("17_h3272")
 
-[node name="CatchPlayer" type="Node" parent="BeehaveTree/Select/Pursue/FollowAndTryToCatchPlayer/TryToCatchPlayer"]
-script = ExtResource("21_b8fyw")
+[node name="CreatePatrolRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area/Patrol last seen player area/AlwaysSucceedDecorator"]
+script = ExtResource("24_u3obr")
+_range_name = "sussy_patrol_range"
+_range_radius = 5.0
 
-[node name="Search" type="Node" parent="BeehaveTree/Select"]
+[node name="Set random destination within 5m" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area/Patrol last seen player area"]
+script = ExtResource("30_mudld")
+_patrol_range_name = "sussy_patrol_range"
+
+[node name="AwaitArrival" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area/Patrol last seen player area"]
+script = ExtResource("31_5l48h")
+
+[node name="Wait random amount of time" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area/Patrol last seen player area"]
+script = ExtResource("32_lyxgo")
+
+[node name="Wait 0,5 Second" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area/Patrol last seen player area/Wait random amount of time"]
+script = ExtResource("33_3hw5x")
+_time_seconds = 0.5
+
+[node name="Wait 1 Second" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/Decay aggro and patrol last seen player area/Patrol last seen player area/Wait random amount of time"]
+script = ExtResource("33_3hw5x")
+
+[node name="Pursue" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("12_dycax")
+
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("14_gsegd")
+
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("17_h3272")
+
+[node name="CachePlayerReference" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/AlwaysSucceedDecorator"]
+script = ExtResource("18_jvt6c")
+
+[node name="BuildAggro" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("16_aroxt")
+
+[node name="FollowAndTryToCatchPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("22_vcrmy")
+
+[node name="FollowPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/FollowAndTryToCatchPlayer"]
+script = ExtResource("19_exmoe")
+
+[node name="TryToCatchPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/FollowAndTryToCatchPlayer"]
 script = ExtResource("18_fjtcx")
 
-[node name="IsAggroed" type="Node" parent="BeehaveTree/Select/Search"]
+[node name="IsTouchingPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/FollowAndTryToCatchPlayer/TryToCatchPlayer"]
 script = ExtResource("19_1x335")
 
-[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/Select/Search"]
+[node name="CatchPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/FollowAndTryToCatchPlayer/TryToCatchPlayer"]
+script = ExtResource("21_b8fyw")
+
+[node name="Search" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search"]
+script = ExtResource("12_dycax")
+
+[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search"]
 script = ExtResource("20_imcat")
 
-[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/Select/Search/IsPlayerOutsideDetectionRange"]
-script = ExtResource("19_1x335")
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/IsPlayerOutsideDetectionRange"]
+script = ExtResource("14_gsegd")
 
-[node name="DecayAggro" type="Node" parent="BeehaveTree/Select/Search"]
-script = ExtResource("21_b8fyw")
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search"]
+script = ExtResource("17_h3272")
 
-[node name="PatrolArea" type="Node" parent="BeehaveTree/Select/Search"]
-script = ExtResource("21_b8fyw")
+[node name="ClearPlayerReference" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/AlwaysSucceedDecorator"]
+script = ExtResource("24_4o6n6")
+key = "player"
 
-[node name="Patrol" type="Node" parent="BeehaveTree/Select"]
+[node name="Decay aggro and patrol last seen player area" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search"]
+script = ExtResource("22_vcrmy")
+
+[node name="DecayAggro" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/Decay aggro and patrol last seen player area"]
+script = ExtResource("20_v5jko")
+
+[node name="Patrol last seen player area" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/Decay aggro and patrol last seen player area"]
 script = ExtResource("18_fjtcx")
 
-[node name="IsNotAggroed" type="Node" parent="BeehaveTree/Select/Patrol"]
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/Decay aggro and patrol last seen player area/Patrol last seen player area"]
+script = ExtResource("17_h3272")
+
+[node name="CreatePatrolRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/Decay aggro and patrol last seen player area/Patrol last seen player area/AlwaysSucceedDecorator"]
+script = ExtResource("24_u3obr")
+_range_name = "search_patrol_range"
+_range_radius = 10.0
+
+[node name="Set random destination within 10m" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/Decay aggro and patrol last seen player area/Patrol last seen player area"]
+script = ExtResource("30_mudld")
+_patrol_range_name = "search_patrol_range"
+
+[node name="AwaitArrival" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/Decay aggro and patrol last seen player area/Patrol last seen player area"]
+script = ExtResource("31_5l48h")
+
+[node name="Patrol" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol"]
 script = ExtResource("20_imcat")
 
-[node name="IsAggroed" type="Node" parent="BeehaveTree/Select/Patrol/IsNotAggroed"]
-script = ExtResource("19_1x335")
+[node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/IsNotAggroed"]
+script = ExtResource("12_dycax")
 
-[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/Select/Patrol"]
+[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol"]
 script = ExtResource("20_imcat")
 
-[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/Select/Patrol/IsPlayerOutsideDetectionRange"]
-script = ExtResource("19_1x335")
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/IsPlayerOutsideDetectionRange"]
+script = ExtResource("14_gsegd")
 
-[node name="PatrolArea" type="Node" parent="BeehaveTree/Select/Patrol"]
-script = ExtResource("21_b8fyw")
+[node name="Decay aggro and patrol" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol"]
+script = ExtResource("22_vcrmy")
+delay_mode = true
+
+[node name="DecayAggro" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/Decay aggro and patrol"]
+script = ExtResource("20_v5jko")
+
+[node name="Patrol" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/Decay aggro and patrol"]
+script = ExtResource("18_fjtcx")
+
+[node name="Set random destination within default patrol range" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/Decay aggro and patrol/Patrol"]
+script = ExtResource("30_mudld")
+_patrol_range_name = "patrol_range"
+
+[node name="AwaitArrival" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/Decay aggro and patrol/Patrol"]
+script = ExtResource("31_5l48h")
+
+[node name="Wait random amount of time" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/Decay aggro and patrol/Patrol"]
+script = ExtResource("32_lyxgo")
+
+[node name="Wait 1 Second" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/Decay aggro and patrol/Patrol/Wait random amount of time"]
+script = ExtResource("33_3hw5x")
+
+[node name="Wait 2,5 Seconds" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/Decay aggro and patrol/Patrol/Wait random amount of time"]
+script = ExtResource("33_3hw5x")
+_time_seconds = 2.5
+
+[node name="Wait 5 Seconds" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/Decay aggro and patrol/Patrol/Wait random amount of time"]
+script = ExtResource("33_3hw5x")
+_time_seconds = 5.0
+
+[connection signal="on_aggro_changed" from="CharacterAggroManager" to="CharacterVisualManager/CharacterAggroVisual" method="set_value"]

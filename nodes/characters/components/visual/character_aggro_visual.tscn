@@ -1,0 +1,31 @@
+[gd_scene load_steps=4 format=3 uid="uid://ck64qyankcs5d"]
+
+[ext_resource type="Script" path="res://nodes/characters/components/visual/character_aggro_visual.gd" id="1_wcp1y"]
+[ext_resource type="Texture2D" uid="uid://bbm2v0k1md76f" path="res://resources/images/element_emblems/64x64/[12] Magma@2x.png" id="2_0p5hg"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_hmwll"]
+viewport_path = NodePath("SubViewport")
+
+[node name="CharacterAggroVisual" type="Node3D"]
+script = ExtResource("1_wcp1y")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = SubResource("ViewportTexture_hmwll")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+size = Vector2i(64, 64)
+size_2d_override = Vector2i(512, 512)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="SubViewport/CanvasLayer"]
+unique_name_in_owner = true
+offset_right = 512.0
+offset_bottom = 512.0
+size_flags_horizontal = 0
+size_flags_vertical = 0
+step = 0.0
+fill_mode = 4
+texture_progress = ExtResource("2_0p5hg")

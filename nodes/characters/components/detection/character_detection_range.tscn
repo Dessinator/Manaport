@@ -3,6 +3,7 @@
 [ext_resource type="Script" path="res://nodes/characters/components/detection/character_detection_range.gd" id="1_1dsqw"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_qc6ig"]
+radius = 4.0
 
 [node name="CharacterDetectionRange" type="Area3D"]
 monitorable = false

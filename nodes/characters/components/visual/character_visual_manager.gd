@@ -1,1 +1,1 @@
-class_name CharacterVisualManager extends Node
+class_name CharacterVisualManager extends Node3D

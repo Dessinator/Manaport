@@ -1,5 +1,4 @@
-extends ConditionLeaf
-
+extends ActionLeaf
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
 	var detection_range = blackboard.get_node(blackboard.get_value("detection_range"))
@@ -20,6 +19,6 @@ func tick(actor: Node, blackboard: Blackboard) -> int:
 			continue
 		
 		if character_party_reference.is_party_leader():
+			blackboard.set_value("player", body)
 			return SUCCESS
 	return FAILURE
-	

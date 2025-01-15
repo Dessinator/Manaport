@@ -65,4 +65,4 @@ _camera_distance = 2
 _lerp_camera_position = true
 
 [node name="Monster" parent="." instance=ExtResource("7_1uo1w")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.8236, 1.90735e-06, 15.6047)

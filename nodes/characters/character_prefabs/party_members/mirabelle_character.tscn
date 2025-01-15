@@ -26,10 +26,9 @@ height = 1.3
 radial_segments = 8
 rings = 4
 
-[node name="Mirabelle" type="CharacterBody3D" node_paths=PackedStringArray("_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
+[node name="Mirabelle" type="CharacterBody3D" node_paths=PackedStringArray("_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
 script = ExtResource("1_p3s52")
 _actor_scene = ExtResource("2_t6e3b")
-_character_visual_manager = NodePath("CharacterVisualManager")
 _character_skin = NodePath("CharacterSkin")
 _character_mover = NodePath("CharacterMover")
 _character_input_manager = NodePath("CharacterPartyInputManager")
@@ -46,7 +45,7 @@ script = ExtResource("5_b64xg")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.652755, 0)
 mesh = SubResource("CapsuleMesh_vkyra")
 
-[node name="CharacterVisualManager" type="Node" parent="."]
+[node name="CharacterVisualManager" type="Node3D" parent="."]
 script = ExtResource("6_5nv5h")
 
 [node name="CharacterMover" type="Node" parent="."]
