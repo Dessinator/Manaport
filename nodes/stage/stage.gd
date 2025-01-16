@@ -12,13 +12,13 @@ const VOLT_WARD_STATUS_EFFECT = preload("res://resources/status_effects/buffs/el
 
 const READY_DELAY_FACTOR = 0.1
 
-@onready var _stage_interface: StageInterface = $StageInterface
-@onready var _stage_acts_manager: ArrayActsManager = $ArrayActsManager
-@onready var _actors_container = $Actors
+@onready var _stage_interface: StageInterface = %StageInterface
+@onready var _stage_acts_manager: ArrayActsManager = %ArrayActsManager
+@onready var _actors_container = %Actors
 
-@onready var _ready_actor_position = $POIs/PartyMembers/ReadyActorPosition
-@onready var _next_ready_actor_position = $POIs/PartyMembers/NextReadyActorPosition
-@onready var _last_ready_actor_position = $POIs/PartyMembers/LastReadyActorPosition
+@onready var _ready_actor_position = %ReadyActorPosition
+@onready var _next_ready_actor_position = %NextReadyActorPosition
+@onready var _last_ready_actor_position = %LastReadyActorPosition
 
 var _cycle: int = 0
 
@@ -53,8 +53,24 @@ func _ready():
 		var scene = PackedScene.new()
 		scene.pack(act)
 		_stage_acts_manager.add_act(scene)
+
+func add_actors(actors: Array):
+	for actor in actors:
+		var actor_instance = actor.instantiate()
+		%Actors.add_child(actor_instance)
 	
-	action()
+	var party_member_counter = 0
+	var enemy_counter = 0
+	for actor in %Actors.get_children():
+		if actor.is_party_member():
+			actor.reparent($POIs/PartyMember.get_child(party_member_counter), false)
+			actor.reparent(%Actors)
+			party_member_counter += 1
+			continue
+		
+		actor.reparent($POIs/Enemy.get_child(enemy_counter), false)
+		actor.reparent(%Actors)
+		enemy_counter += 1
 
 func action():
 	for i in range(_actors_container.get_children().size()):

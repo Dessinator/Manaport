@@ -1,4 +1,4 @@
-[gd_scene load_steps=38 format=3 uid="uid://cxkulf8fdecod"]
+[gd_scene load_steps=40 format=3 uid="uid://cxkulf8fdecod"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_m0ywq"]
 [ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://nodes/actors/actor_prefabs/monsters/monster_actor.tscn" id="2_hn23o"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" path="res://nodes/characters/components/aggro/character_aggro_manager.gd" id="8_sglj1"]
 [ext_resource type="PackedScene" uid="uid://4guxmwi5dg8w" path="res://nodes/characters/components/patrol/character_patrol_range.tscn" id="9_fju26"]
 [ext_resource type="PackedScene" uid="uid://cgox4re8bjvki" path="res://nodes/characters/components/detection/character_detection_range.tscn" id="9_rfisy"]
+[ext_resource type="PackedScene" uid="uid://uxlrfaw5edxj" path="res://nodes/characters/components/battle/character_battle_handler.tscn" id="11_vvln3"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_aggroed.gd" id="12_dycax"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="13_ak3ih"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="14_7i86b"]
@@ -21,18 +22,19 @@
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="18_fjtcx"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/clear_destination.gd" id="18_ji25r"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/cache_player_reference.gd" id="18_jvt6c"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/condition.gd" id="19_1x335"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/follow_player.gd" id="19_exmoe"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/inverter.gd" id="20_imcat"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/aggro_is_above_0.gd" id="20_kaulg"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/decay_aggro.gd" id="20_v5jko"]
-[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/action.gd" id="21_b8fyw"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/simple_parallel.gd" id="22_vcrmy"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/clear_player_reference.gd" id="24_4o6n6"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/create_patrol_range.gd" id="24_u3obr"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_in_battle.gd" id="30_8hyhi"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/set_random_destination_within_patrol_range.gd" id="30_mudld"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/await_arrival.gd" id="31_5l48h"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_random.gd" id="32_lyxgo"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_touching_player.gd" id="32_rtg6h"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/start_battle.gd" id="33_2n7id"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/wait.gd" id="33_3hw5x"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0uaoh"]
@@ -52,7 +54,6 @@ rings = 4
 
 [node name="Monster" type="CharacterBody3D" node_paths=PackedStringArray("_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager")]
 script = ExtResource("1_m0ywq")
-_actor_scene = ExtResource("2_hn23o")
 _character_visual_manager = NodePath("CharacterVisualManager")
 _character_skin = NodePath("CharacterSkin")
 _character_mover = NodePath("CharacterMover")
@@ -93,10 +94,14 @@ _radius = 10.0
 script = ExtResource("8_sglj1")
 _decay_speed_seconds = 8.0
 
+[node name="CharacterBattleHandler" parent="." instance=ExtResource("11_vvln3")]
+_actor_scene = ExtResource("2_hn23o")
+
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("8_fbe2n")
 blackboard = {
 "aggro_manager": NodePath("../CharacterAggroManager"),
+"battle_handler": NodePath("../CharacterBattleHandler"),
 "com_input_manager": NodePath("../CharacterCOMInputManager"),
 "detection_range": NodePath("../CharacterDetectionRange"),
 "patrol_range": NodePath("../CharacterPatrolRange")
@@ -112,6 +117,12 @@ script = ExtResource("13_ak3ih")
 
 [node name="Alert" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
 script = ExtResource("14_7i86b")
+
+[node name="IsNotInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Alert"]
+script = ExtResource("20_imcat")
+
+[node name="IsInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Alert/IsNotInBattle"]
+script = ExtResource("30_8hyhi")
 
 [node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Alert"]
 script = ExtResource("20_imcat")
@@ -130,6 +141,12 @@ script = ExtResource("16_aroxt")
 
 [node name="Sussy" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
 script = ExtResource("14_7i86b")
+
+[node name="IsNotInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy"]
+script = ExtResource("20_imcat")
+
+[node name="IsInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy/IsNotInBattle"]
+script = ExtResource("30_8hyhi")
 
 [node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Sussy"]
 script = ExtResource("20_imcat")
@@ -183,6 +200,12 @@ script = ExtResource("33_3hw5x")
 [node name="Pursue" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
 script = ExtResource("14_7i86b")
 
+[node name="IsNotInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("20_imcat")
+
+[node name="IsInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/IsNotInBattle"]
+script = ExtResource("30_8hyhi")
+
 [node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
 script = ExtResource("12_dycax")
 
@@ -198,23 +221,26 @@ script = ExtResource("18_jvt6c")
 [node name="BuildAggro" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
 script = ExtResource("16_aroxt")
 
-[node name="FollowAndTryToCatchPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
-script = ExtResource("22_vcrmy")
-
-[node name="FollowPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/FollowAndTryToCatchPlayer"]
+[node name="Set destination to player" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
 script = ExtResource("19_exmoe")
 
-[node name="TryToCatchPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/FollowAndTryToCatchPlayer"]
-script = ExtResource("18_fjtcx")
+[node name="IsTouchingPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("32_rtg6h")
 
-[node name="IsTouchingPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/FollowAndTryToCatchPlayer/TryToCatchPlayer"]
-script = ExtResource("19_1x335")
+[node name="ClearDestination" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("18_ji25r")
 
-[node name="CatchPlayer" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue/FollowAndTryToCatchPlayer/TryToCatchPlayer"]
-script = ExtResource("21_b8fyw")
+[node name="StartBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Pursue"]
+script = ExtResource("33_2n7id")
 
 [node name="Search" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
 script = ExtResource("14_7i86b")
+
+[node name="IsNotInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search"]
+script = ExtResource("20_imcat")
+
+[node name="IsInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/IsNotInBattle"]
+script = ExtResource("30_8hyhi")
 
 [node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search"]
 script = ExtResource("12_dycax")
@@ -258,6 +284,12 @@ script = ExtResource("31_5l48h")
 
 [node name="Patrol" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
 script = ExtResource("14_7i86b")
+
+[node name="IsNotInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol"]
+script = ExtResource("20_imcat")
+
+[node name="IsInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol/IsNotInBattle"]
+script = ExtResource("30_8hyhi")
 
 [node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Patrol"]
 script = ExtResource("20_imcat")

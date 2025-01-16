@@ -1,4 +1,4 @@
-[gd_scene load_steps=42 format=3 uid="uid://b3hw1a0b73u4j"]
+[gd_scene load_steps=33 format=3 uid="uid://b3hw1a0b73u4j"]
 
 [ext_resource type="Script" path="res://nodes/stage/stage.gd" id="1_2obi2"]
 [ext_resource type="Resource" uid="uid://nqd76c0wsme" path="res://resources/items/world/dishes/plates/DISH_CRUDE_PLATE.tres" id="2_ady1r"]
@@ -6,19 +6,13 @@
 [ext_resource type="PackedScene" uid="uid://cdtv1rwt2vl2b" path="res://nodes/stage/stage_interface.tscn" id="2_g73d1"]
 [ext_resource type="Script" path="res://resources/stage_inventory/stage_inventory.gd" id="2_kne2o"]
 [ext_resource type="Script" path="res://resources/items/item_components/item_component.gd" id="2_utj3e"]
-[ext_resource type="PackedScene" uid="uid://dk20jrjub34s" path="res://nodes/actors/actor_prefabs/party_members/laurie_actor.tscn" id="3_7brol"]
 [ext_resource type="Script" path="res://resources/items/stage_item.gd" id="3_fkp4m"]
 [ext_resource type="Resource" uid="uid://ctn0rrkndttko" path="res://resources/items/world/ingredients/noodles/FING_N_MACARONI.tres" id="3_ok8qn"]
-[ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="4_33se1"]
 [ext_resource type="Script" path="res://resources/items/world_item.gd" id="4_fdwq0"]
 [ext_resource type="Texture2D" uid="uid://ceud3opo1yfkv" path="res://resources/images/textures/prototype/PNG/Dark/texture_01.png" id="4_j55o2"]
 [ext_resource type="Resource" uid="uid://b8p6so4qq32re" path="res://resources/items/world/ingredients/protein/FING_P_BACON.tres" id="4_qll8s"]
 [ext_resource type="Resource" uid="uid://dg0c20a4ol705" path="res://resources/items/world/ingredients/spices/FING_S_PEPPERJACK-CHEESE.tres" id="5_fmn6o"]
-[ext_resource type="Script" path="res://resources/actor/actor_stats.gd" id="5_yjld2"]
-[ext_resource type="PackedScene" uid="uid://bbu5jb7gd1sp6" path="res://nodes/actors/actor_prefabs/party_members/mirabelle_actor.tscn" id="6_mae5r"]
-[ext_resource type="PackedScene" uid="uid://ckmyi0h6s1grm" path="res://nodes/actors/actor_prefabs/party_members/winsley_actor.tscn" id="7_rdy8d"]
 [ext_resource type="Resource" uid="uid://dsiu7oqfa3rwl" path="res://resources/items/world/dishes/bowls/DISH_CRUDE_BOWL.tres" id="8_saw44"]
-[ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://nodes/actors/actor_prefabs/monsters/monster_actor.tscn" id="8_vlvwy"]
 [ext_resource type="Resource" uid="uid://c0wmqtsjepeuc" path="res://resources/items/world/dishes/teacups/DISH_CRUDE_TEACUP.tres" id="8_xne1s"]
 [ext_resource type="Resource" uid="uid://gmhytqq03om3" path="res://resources/items/world/ingredients/leaves/FING_LE_CHAMOMILE.tres" id="9_3pe1r"]
 [ext_resource type="Script" path="res://nodes/acts/array_acts_manager.gd" id="9_6pw1b"]
@@ -27,8 +21,6 @@
 [ext_resource type="Resource" uid="uid://chv78adu1jccf" path="res://resources/items/world/ingredients/liquids/FING_L_WATER.tres" id="10_mmfct"]
 [ext_resource type="Resource" uid="uid://m2pl2ofv3q22" path="res://resources/items/world/ingredients/sugars/FING_S_RAW_CANE_SUGAR.tres" id="11_3krs5"]
 [ext_resource type="Resource" uid="uid://b1qe2vlwxbc6t" path="res://resources/items/world/ingredients/vegetables/FING_V_HOLY-TRINITY.tres" id="11_jg4jo"]
-[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="25_ywjfy"]
-[ext_resource type="Script" path="res://resources/actor/actor_weakness.gd" id="26_rsuof"]
 
 [sub_resource type="Resource" id="Resource_f5kxh"]
 script = ExtResource("2_bhpth")
@@ -76,15 +68,6 @@ _item_components = Array[ExtResource("2_utj3e")]([SubResource("Resource_b35da")]
 script = ExtResource("2_kne2o")
 _starting_items = [SubResource("Resource_ykdir"), SubResource("Resource_wo1gr"), SubResource("Resource_dqhfy")]
 
-[sub_resource type="Resource" id="Resource_t4rr1"]
-script = ExtResource("5_yjld2")
-_substat_curves = ExtResource("4_33se1")
-_wards = Array[ExtResource("25_ywjfy")]([])
-_weaknesses = Array[ExtResource("26_rsuof")]([])
-_ATTK = 10
-_DFNS = 10
-_VTLY = 10
-
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utxbh"]
 
 [sub_resource type="Sky" id="Sky_cprll"]
@@ -104,9 +87,11 @@ script = ExtResource("1_2obi2")
 _starting_stage_inventory = SubResource("Resource_mndya")
 
 [node name="ArrayActsManager" type="Node" parent="."]
+unique_name_in_owner = true
 script = ExtResource("9_6pw1b")
 
 [node name="StageInterface" parent="." instance=ExtResource("2_g73d1")]
+unique_name_in_owner = true
 
 [node name="StageCamera3D" type="Camera3D" parent="."]
 current = true
@@ -122,46 +107,33 @@ transform = Transform3D(-0.917872, -0.0634871, -0.391765, -3.09789e-10, 0.987122
 
 [node name="POIs" type="Node" parent="."]
 
-[node name="PartyMembers" type="Node" parent="POIs"]
+[node name="PartyMember" type="Node" parent="POIs"]
 
-[node name="ReadyActorPosition" type="Marker3D" parent="POIs/PartyMembers"]
+[node name="ReadyActorPosition" type="Marker3D" parent="POIs/PartyMember"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="NextReadyActorPosition" type="Marker3D" parent="POIs/PartyMembers"]
+[node name="NextReadyActorPosition" type="Marker3D" parent="POIs/PartyMember"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 4.5)
 
-[node name="LastReadyActorPosition" type="Marker3D" parent="POIs/PartyMembers"]
+[node name="LastReadyActorPosition" type="Marker3D" parent="POIs/PartyMember"]
+unique_name_in_owner = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 4.5)
 
-[node name="EnemySpawnPoint" type="Marker3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.82347, 0, -4.42025)
+[node name="Enemy" type="Node" parent="POIs"]
 
-[node name="EnemySpawnPoint2" type="Marker3D" parent="."]
+[node name="EnemySpawnPoint1" type="Marker3D" parent="POIs/Enemy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379322, 0, -3.28709)
 
-[node name="EnemySpawnPoint3" type="Marker3D" parent="."]
+[node name="EnemySpawnPoint2" type="Marker3D" parent="POIs/Enemy"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.82347, 0, -4.42025)
+
+[node name="EnemySpawnPoint3" type="Marker3D" parent="POIs/Enemy"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03346, 0, -5.76756)
 
 [node name="Actors" type="Node" parent="."]
-
-[node name="WinsleyActor" parent="Actors" instance=ExtResource("7_rdy8d")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 4.5)
-
-[node name="MonsterActor" parent="Actors" instance=ExtResource("8_vlvwy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.82347, 0, -4.42025)
-
-[node name="LaurieActor" parent="Actors" instance=ExtResource("3_7brol")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
-_stats = SubResource("Resource_t4rr1")
-
-[node name="MonsterActor2" parent="Actors" instance=ExtResource("8_vlvwy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379322, 0, -3.28709)
-
-[node name="MirabelleActor" parent="Actors" instance=ExtResource("6_mae5r")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 4.5)
-
-[node name="MonsterActor3" parent="Actors" instance=ExtResource("8_vlvwy")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03346, 0, -5.76756)
+unique_name_in_owner = true
 
 [node name="Environment" type="Node3D" parent="."]
 metadata/_edit_lock_ = true

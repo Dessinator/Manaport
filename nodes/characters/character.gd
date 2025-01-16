@@ -1,7 +1,5 @@
 class_name Character extends CharacterBody3D
 
-@export var _actor_scene: PackedScene
-
 @export_category("Components")
 @export var _character_visual_manager: CharacterVisualManager
 @export var _character_skin: CharacterSkin

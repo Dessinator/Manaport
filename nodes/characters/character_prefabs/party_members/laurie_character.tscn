@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://bymecv7dxhxtg"]
+[gd_scene load_steps=18 format=3 uid="uid://bymecv7dxhxtg"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_f66w4"]
 [ext_resource type="PackedScene" uid="uid://dk20jrjub34s" path="res://nodes/actors/actor_prefabs/party_members/laurie_actor.tscn" id="2_w17qf"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="5_a8bu3"]
 [ext_resource type="PackedScene" uid="uid://ds1bp67gst5d1" path="res://nodes/characters/components/camera/character_camera_manager.tscn" id="8_ouphx"]
 [ext_resource type="PackedScene" uid="uid://dav06vxnfhyrt" path="res://nodes/characters/components/input/character_party_input_manager.tscn" id="10_3rm1p"]
+[ext_resource type="PackedScene" uid="uid://uxlrfaw5edxj" path="res://nodes/characters/components/battle/character_battle_handler.tscn" id="10_7ahx2"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_reference.gd" id="10_bv2uv"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_formation.gd" id="10_qcb6o"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_interface.gd" id="11_73fss"]
@@ -31,7 +32,6 @@ rings = 4
 
 [node name="Laurie" type="CharacterBody3D" node_paths=PackedStringArray("_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
 script = ExtResource("1_f66w4")
-_actor_scene = ExtResource("2_w17qf")
 _character_skin = NodePath("CharacterSkin")
 _character_mover = NodePath("CharacterMover")
 _character_input_manager = NodePath("CharacterPartyInputManager")
@@ -77,6 +77,10 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 
 [node name="Marker3D2" type="Marker3D" parent="CharacterPartyFormation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
+
+[node name="CharacterBattleHandler" parent="." instance=ExtResource("10_7ahx2")]
+_actor_scene = ExtResource("2_w17qf")
+_can_start_battle = true
 
 [node name="COMBehaviourTree" type="Node" parent="."]
 script = ExtResource("11_fagr1")

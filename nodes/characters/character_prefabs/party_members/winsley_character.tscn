@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://b2kqja31tsv2g"]
+[gd_scene load_steps=15 format=3 uid="uid://b2kqja31tsv2g"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_4nf4s"]
 [ext_resource type="PackedScene" uid="uid://ckmyi0h6s1grm" path="res://nodes/actors/actor_prefabs/party_members/winsley_actor.tscn" id="2_j6jgy"]
@@ -9,6 +9,7 @@
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_formation.gd" id="10_32br3"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_reference.gd" id="10_i5802"]
 [ext_resource type="PackedScene" uid="uid://dav06vxnfhyrt" path="res://nodes/characters/components/input/character_party_input_manager.tscn" id="10_kg0c1"]
+[ext_resource type="PackedScene" uid="uid://uxlrfaw5edxj" path="res://nodes/characters/components/battle/character_battle_handler.tscn" id="10_ou0a8"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_interface.gd" id="11_q2tc2"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0peiy"]
@@ -28,7 +29,6 @@ rings = 4
 
 [node name="Winsley" type="CharacterBody3D" node_paths=PackedStringArray("_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
 script = ExtResource("1_4nf4s")
-_actor_scene = ExtResource("2_j6jgy")
 _character_skin = NodePath("CharacterSkin")
 _character_mover = NodePath("CharacterMover")
 _character_input_manager = NodePath("CharacterPartyInputManager")
@@ -74,3 +74,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1.5)
 
 [node name="Marker3D2" type="Marker3D" parent="CharacterPartyFormation"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1.5)
+
+[node name="CharacterBattleHandler" parent="." instance=ExtResource("10_ou0a8")]
+_actor_scene = ExtResource("2_j6jgy")
+_can_start_battle = true

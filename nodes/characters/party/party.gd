@@ -3,10 +3,12 @@ class_name Party extends Node
 signal on_party_leader_set(new_leader: CharacterPartyReference)
 
 @export var _party_camera_manager: PartyCameraManager
+@export var _is_player_party: bool
 
 var _members: Array
 var _current_party_leader: CharacterPartyReference
 var _last_party_leader: CharacterPartyReference
+var _oldest_party_leader: CharacterPartyReference
 
 var _changed_party_leader_this_frame: bool = false
 
@@ -14,6 +16,7 @@ func _ready():
 	_add_children_to_party()
 	_setup_party_input_components()
 	
+	_oldest_party_leader = _members[-1]
 	_last_party_leader = _members[1]
 	set_party_leader(_members[0])
 
@@ -54,12 +57,16 @@ func set_party_leader(member: CharacterPartyReference) -> void:
 	if not _members.has(member):
 		return
 	
+	if _oldest_party_leader == member:
+		_oldest_party_leader = _last_party_leader
 	if _current_party_leader:
 		_last_party_leader = _current_party_leader
 	_current_party_leader = member
 	_changed_party_leader_this_frame = true
 	on_party_leader_set.emit(_current_party_leader)
 	
+	print("---------------------")
+	print("Oldest Party Member: " + _oldest_party_leader.get_parent().name)
 	print("Last Party Member: " + _last_party_leader.get_parent().name)
 	print("Current Party Member: " + _current_party_leader.get_parent().name)
 func next_party_leader() -> void:
@@ -73,7 +80,13 @@ func previous_party_leader() -> void:
 	else:
 		set_party_leader(_members[_members.find(_current_party_leader) - 1])
 
+func is_player_party() -> bool:
+	return _is_player_party
+func get_members() -> Array:
+	return _members
 func get_current_party_leader() -> CharacterPartyReference:
 	return _current_party_leader
 func get_last_party_leader() -> CharacterPartyReference:
 	return _last_party_leader
+func get_oldest_party_leader() -> CharacterPartyReference:
+	return _oldest_party_leader
