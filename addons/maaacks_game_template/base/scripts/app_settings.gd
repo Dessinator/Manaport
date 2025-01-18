@@ -11,6 +11,7 @@ const CUSTOM_SECTION = &'CustomSettings'
 
 const FULLSCREEN_ENABLED = &'FullscreenEnabled'
 const SCREEN_RESOLUTION = &'ScreenResolution'
+const RENDER_RESOLUTION = &'RenderResolution'
 const MUTE_SETTING = &'Mute'
 const MASTER_BUS_INDEX = 0
 const SYSTEM_BUS_NAME_PREFIX = "_"
@@ -18,6 +19,9 @@ const SYSTEM_BUS_NAME_PREFIX = "_"
 # Input
 static var default_action_events : Dictionary
 static var initial_bus_volumes : Array
+
+# Video
+static var _current_render_resolution: Vector2i
 
 static func get_config_input_events(action_name : String, default = null) -> Array:
 	return Config.get_config(INPUT_SECTION, action_name, default)
@@ -130,6 +134,15 @@ static func set_resolution(value : Vector2i, window : Window) -> void:
 		return
 	window.size = value
 
+# changes the resolution of 3d, leaving ui alone.
+static func set_render_resolution(value : Vector2i):
+	if value.x == 0 or value.y == 0:
+		return
+	_current_render_resolution = value
+	Config.set_config(VIDEO_SECTION, RENDER_RESOLUTION, _current_render_resolution)
+	SignalBus.render_resolution_changed.emit(_current_render_resolution)
+	print("render res set to: " + str(value))
+
 static func is_fullscreen(window : Window) -> bool:
 	return (window.mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (window.mode == Window.MODE_FULLSCREEN)
 
@@ -138,14 +151,23 @@ static func get_resolution(window : Window) -> Vector2i:
 	current_resolution = Config.get_config(VIDEO_SECTION, SCREEN_RESOLUTION, current_resolution)
 	return current_resolution
 
+static func get_render_resolution() -> Vector2i:
+	var current_resolution = _current_render_resolution
+	print("AppSettings render res: " + str(_current_render_resolution))
+	current_resolution = Config.get_config(VIDEO_SECTION, RENDER_RESOLUTION, current_resolution)
+	print("Config file render res: " + str(current_resolution))
+	return current_resolution
+
 static func set_video_from_config(window : Window) -> void:
 	var fullscreen_enabled : bool = is_fullscreen(window)
 	fullscreen_enabled = Config.get_config(VIDEO_SECTION, FULLSCREEN_ENABLED, fullscreen_enabled)
 	set_fullscreen_enabled(fullscreen_enabled, window)
-	if not (fullscreen_enabled or OS.has_feature("web")):
-		var current_resolution : Vector2i = get_resolution(window)
-		set_resolution(current_resolution, window)
-		
+	#if not (fullscreen_enabled or OS.has_feature("web")):
+		#var current_resolution : Vector2i = get_resolution(window)
+		#set_resolution(current_resolution, window)
+	var current_resolution: Vector2i = get_render_resolution()
+	set_render_resolution(current_resolution)
+
 # All
 
 static func set_from_config() -> void:

@@ -1,4 +1,4 @@
-class_name StageManager extends Node
+class_name StageManager extends Node3D
 
 signal cut(condition: StageCutCondition)
 enum StageCutCondition { CONDITION_WIN, CONDITION_LOSS }

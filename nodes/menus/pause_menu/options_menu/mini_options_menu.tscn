@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://bw1ojbblo4awm"]
+
+[ext_resource type="PackedScene" uid="uid://vh1ucj2rfbby" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/mini_options_menu.tscn" id="1_dqdha"]
+[ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/menus/options_menu/mini_options_menu.gd" id="2_j3nhq"]
+[ext_resource type="PackedScene" uid="uid://c01ayjblhcg1t" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/option_control/vector_2_list_option_control.tscn" id="3_a0iov"]
+
+[node name="MiniOptionsMenu" instance=ExtResource("1_dqdha")]
+script = ExtResource("2_j3nhq")
+
+[node name="RenderResolutionControl" parent="." index="3" instance=ExtResource("3_a0iov")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_titles = true
+option_values = [Vector2i(320, 240), Vector2i(640, 480), Vector2i(800, 600), Vector2i(-1, -1)]
+option_titles = Array[String](["PS1 (320 x 240)", "PS2 (640 x 480)", "Retro PC (800 x 600)", "Native Resolution"])
+option_name = "Render Resolution"
+option_section = 3
+key = "RenderResolution"
+section = "VideoSettings"
+property_type = 6
+
+[connection signal="setting_changed" from="RenderResolutionControl" to="." method="_on_render_resolution_control_setting_changed"]

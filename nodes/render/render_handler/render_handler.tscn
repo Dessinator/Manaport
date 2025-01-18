@@ -1,0 +1,23 @@
+[gd_scene load_steps=2 format=3 uid="uid://d2hppw7xs1lpw"]
+
+[ext_resource type="Script" path="res://nodes/render/render_handler/render_handler.gd" id="1_kq5ch"]
+
+[node name="RenderHandler" type="SubViewportContainer"]
+texture_filter = 1
+texture_repeat = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+stretch_shrink = 2
+script = ExtResource("1_kq5ch")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+unique_name_in_owner = true
+handle_input_locally = false
+size = Vector2i(512, 384)
+size_2d_override = Vector2i(640, 480)
+size_2d_override_stretch = true
+render_target_update_mode = 4

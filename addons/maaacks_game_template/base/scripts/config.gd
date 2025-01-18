@@ -27,7 +27,9 @@ static func load_config_file() -> void:
 
 static func set_config(section: String, key: String, value) -> void:
 	load_config_file()
+	var previous = config_file.get_value(section, key, value)
 	config_file.set_value(section, key, value)
+	var new = config_file.get_value(section, key, value)
 	_save_config_file()
 
 static func get_config(section: String, key: String, default = null) -> Variant:

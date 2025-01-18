@@ -2,11 +2,11 @@
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_udxdw"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/menus/main_menu/main_menu.gd" id="2_ppvi4"]
-[ext_resource type="PackedScene" uid="uid://bdvdf5v87mmrr" path="res://addons/maaacks_game_template/examples/scenes/menus/options_menu/master_options_menu_with_tabs.tscn" id="3_3uck6"]
+[ext_resource type="PackedScene" uid="uid://cuwob0el7p0to" path="res://nodes/menus/main_menu/options_menu/options_menu.tscn" id="3_nxs7f"]
 [ext_resource type="PackedScene" uid="uid://c1g50h2avck3w" path="res://addons/maaacks_game_template/examples/scenes/credits/credits.tscn" id="4_f7els"]
 
 [node name="MainMenu" instance=ExtResource("1_udxdw")]
 script = ExtResource("2_ppvi4")
-game_scene_path = "res://addons/maaacks_game_template/examples/scenes/game_scene/game_ui.tscn"
-options_packed_scene = ExtResource("3_3uck6")
+game_scene_path = "res://nodes/overworld/overworld.tscn"
+options_packed_scene = ExtResource("3_nxs7f")
 credits_packed_scene = ExtResource("4_f7els")
