@@ -3,6 +3,7 @@ extends Node
 ## Autoload class for loading scenes with an optional loading screen.
 
 signal scene_loaded
+signal scene_changed
 
 @export_file("*.tscn") var loading_screen_path : String : set = set_loading_screen
 
@@ -54,6 +55,8 @@ func change_scene_to_resource() -> void:
 	if err:
 		push_error("failed to change scenes: %d" % err)
 		get_tree().quit()
+	await get_tree().node_added
+	scene_changed.emit()
 
 func change_scene_to_loading_screen() -> void:
 	var err = get_tree().change_scene_to_packed(_loading_screen)

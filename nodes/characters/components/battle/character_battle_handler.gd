@@ -16,7 +16,7 @@ func start_battle(opponent: CharacterBattleHandler):
 	_is_in_battle = true
 	opponent.encounter(self)
 	
-	OverworldManager.start_battle(self, opponent)
+	BattleManager.start_battle(self, opponent)
 
 # called on opponent by aggressor.
 func encounter(opponent: CharacterBattleHandler):
