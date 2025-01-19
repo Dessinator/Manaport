@@ -165,6 +165,11 @@ static func set_video_from_config(window : Window) -> void:
 	#if not (fullscreen_enabled or OS.has_feature("web")):
 		#var current_resolution : Vector2i = get_resolution(window)
 		#set_resolution(current_resolution, window)
+	if not fullscreen_enabled:
+		var width = ProjectSettings.get_setting("display/window/size/window_width_override")
+		var height = ProjectSettings.get_setting("display/window/size/window_height_override")
+		var current_resolution = Vector2i(width, height)
+		set_resolution(current_resolution, window)
 	var current_resolution: Vector2i = get_render_resolution()
 	set_render_resolution(current_resolution)
 
