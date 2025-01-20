@@ -95,7 +95,7 @@ script = ExtResource("8_sglj1")
 _decay_speed_seconds = 8.0
 
 [node name="CharacterBattleHandler" parent="." instance=ExtResource("11_vvln3")]
-_actor_scene = ExtResource("2_hn23o")
+_actor_scenes = Array[PackedScene]([ExtResource("2_hn23o"), ExtResource("2_hn23o"), ExtResource("2_hn23o")])
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("8_fbe2n")

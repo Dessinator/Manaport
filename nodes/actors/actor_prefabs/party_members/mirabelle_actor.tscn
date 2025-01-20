@@ -1,7 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://bbu5jb7gd1sp6"]
+[gd_scene load_steps=22 format=3 uid="uid://bbu5jb7gd1sp6"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_tb6jx"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_t1qre"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="3_fxque"]
 [ext_resource type="PackedScene" uid="uid://hiqhb16vaec0" path="res://nodes/actors/actor_visual_manager.tscn" id="3_gefvd"]
 [ext_resource type="Script" path="res://resources/actor/actor_stats.gd" id="3_jdhxh"]
 [ext_resource type="Texture2D" uid="uid://bcauoe6qom5lb" path="res://resources/images/placeholder_mirabelle_portrait.jpg" id="4_50dhl"]
@@ -9,7 +10,8 @@
 [ext_resource type="PackedScene" uid="uid://bqx82ecciccke" path="res://nodes/actors/actor_costume.tscn" id="4_ef633"]
 [ext_resource type="Script" path="res://nodes/acts/acts_manager.gd" id="4_gc3b8"]
 [ext_resource type="PackedScene" uid="uid://bp5q1jvgjyu1v" path="res://nodes/actors/actor_player_input_manager.tscn" id="4_ipcd2"]
-[ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://nodes/stage/select_actor_arrow.tscn" id="7_gf0eb"]
+[ext_resource type="Script" path="res://resources/actor/actor_weakness.gd" id="4_kyq14"]
+[ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://nodes/stage/stage_interface/select_actor_arrow.tscn" id="7_gf0eb"]
 [ext_resource type="PackedScene" uid="uid://cfim0jrh7ri5d" path="res://nodes/acts/specific/mirabelle/basic/ACT_BASIC_M_WATCH-OUT-EVERYONE.tscn" id="11_lf0ji"]
 [ext_resource type="PackedScene" uid="uid://cf2exa06xmkrx" path="res://nodes/acts/specific/mirabelle/skill/ACT_SKILL_M_I-CAN-HELP.tscn" id="12_r7m8d"]
 [ext_resource type="PackedScene" uid="uid://btij8s72gwdfv" path="res://nodes/acts/specific/mirabelle/skill/ACT_SKILL_M_HOLD-ON-HOLD-ON.tscn" id="13_06pur"]
@@ -18,8 +20,8 @@
 [sub_resource type="Resource" id="Resource_m0ep7"]
 script = ExtResource("3_jdhxh")
 _substat_curves = ExtResource("2_t1qre")
-_wards = Array[Resource("res://resources/status_effects/status_effect.gd")]([])
-_weaknesses = Array[Resource("res://resources/actor/actor_weakness.gd")]([])
+_wards = Array[ExtResource("3_fxque")]([])
+_weaknesses = Array[ExtResource("4_kyq14")]([])
 _ATTK = 10
 _DFNS = 5
 _VTLY = 20
@@ -38,6 +40,9 @@ height = 1.3
 radial_segments = 8
 rings = 4
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_o2tnj"]
+size = Vector3(0.601318, 1.30582, 0.603516)
+
 [node name="MirabelleActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
 script = ExtResource("1_tb6jx")
 _is_party_member = true
@@ -55,6 +60,12 @@ _status = SubResource("Resource_5bf3o")
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.657569, 0)
 mesh = SubResource("CapsuleMesh_6dupv")
 skeleton = NodePath("")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ActorCostume"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActorCostume/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.653518, 0)
+shape = SubResource("BoxShape3D_o2tnj")
 
 [node name="SelectActorArrow" parent="." instance=ExtResource("7_gf0eb")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.65602, 0)

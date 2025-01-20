@@ -79,7 +79,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4)
 
 [node name="CharacterBattleHandler" parent="." instance=ExtResource("10_7ahx2")]
-_actor_scene = ExtResource("2_w17qf")
+_actor_scenes = Array[PackedScene]([ExtResource("2_w17qf")])
 _can_start_battle = true
 
 [node name="COMBehaviourTree" type="Node" parent="."]

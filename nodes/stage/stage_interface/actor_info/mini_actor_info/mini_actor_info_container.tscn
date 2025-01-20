@@ -11,5 +11,3 @@ texture = SubResource("ViewportTexture_6l1pm")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 transparent_bg = true
-
-[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]

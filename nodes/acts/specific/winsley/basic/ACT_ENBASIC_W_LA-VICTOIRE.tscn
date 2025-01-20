@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://b0xup73c7oivr"]
+[gd_scene load_steps=11 format=3 uid="uid://b0xup73c7oivr"]
 
 [ext_resource type="Script" path="res://nodes/acts/act.gd" id="1_667b7"]
 [ext_resource type="PackedScene" uid="uid://dva0f6d6alc74" path="res://nodes/acts/act_components/mod_health/mod_health_single_target.tscn" id="2_8bftt"]
@@ -8,6 +8,7 @@
 [ext_resource type="Script" path="res://nodes/acts/act_components/toggle_basic_act.gd" id="6_nac1e"]
 [ext_resource type="Script" path="res://nodes/acts/act_components/limit_target_selection.gd" id="6_vlgi8"]
 [ext_resource type="Script" path="res://nodes/acts/act_components/modify_global_act_components.gd" id="7_3e5b3"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="7_p0xac"]
 
 [sub_resource type="Resource" id="Resource_1i1wi"]
 script = ExtResource("5_1r8ab")
@@ -38,7 +39,7 @@ _reference_stat = null
 
 [node name="LimitTargetSelection" type="Node" parent="."]
 script = ExtResource("6_vlgi8")
-_status_effect_requirements = Array[Resource("res://resources/status_effects/status_effect.gd")]([ExtResource("5_rvrby")])
+_status_effect_requirements = Array[ExtResource("7_p0xac")]([ExtResource("5_rvrby")])
 
 [node name="ToggleBasicAct" type="Node" parent="."]
 script = ExtResource("6_nac1e")
@@ -46,12 +47,14 @@ _enhance_basic_attack = null
 _reference_receiving_actor = null
 _reference_stat = null
 
-[node name="ModifyGlobalActComponents" type="Node" parent="."]
+[node name="DISABLED" type="Node" parent="."]
+
+[node name="ModifyGlobalActComponents" type="Node" parent="DISABLED"]
 script = ExtResource("7_3e5b3")
 _remove_instead_of_add = true
 _exclude_list = Array[String](["ACT_BASIC_W_EN-GUARDE"])
 
-[node name="LimitTargetSelection" type="Node" parent="ModifyGlobalActComponents"]
+[node name="LimitTargetSelection" type="Node" parent="DISABLED/ModifyGlobalActComponents"]
 script = ExtResource("6_vlgi8")
 _exclude = true
-_status_effect_requirements = Array[Resource("res://resources/status_effects/status_effect.gd")]([ExtResource("5_rvrby")])
+_status_effect_requirements = Array[ExtResource("7_p0xac")]([ExtResource("5_rvrby")])

@@ -1,0 +1,11 @@
+[gd_scene load_steps=2 format=3 uid="uid://cwmprd3cv64xn"]
+
+[ext_resource type="Script" path="res://nodes/stage/stage_camera/stage_camera.gd" id="1_1wvks"]
+
+[node name="StageCamera" type="Camera3D"]
+current = true
+script = ExtResource("1_1wvks")
+
+[node name="DoubleClickTimer" type="Timer" parent="."]
+wait_time = 0.2
+one_shot = true

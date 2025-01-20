@@ -1,10 +1,10 @@
 class_name MiniActorInfo extends Control
 
-@onready var _HLTH_bar: Bar = $Control/BarsBackground/VBoxContainer/HLTHBar
-@onready var _STMA_bar: Bar = $Control/BarsBackground/VBoxContainer/STMABar
+@onready var _HLTH_bar: Bar = %HTLHBar
+@onready var _STMA_bar: Bar = %STMABar
 
-@onready var _status_effect_container = $"Control/StatusEffectsBackground/HBoxContainer"
-@onready var _status_effect_container_fade = $"Control/StatusEffectsBackground/TextureRect"
+@onready var _status_effect_container = %StatusEffectContainer
+@onready var _status_effect_container_fade = %FadeTextureRect
 
 # @onready var _animation_player: AnimationPlayer = $AnimationPlayer
 

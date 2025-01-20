@@ -1,6 +1,6 @@
 class_name ActorVisualManager extends Node3D
 
-const STATUS_EFFECT_VISUAL_SCENE = preload("res://nodes/stage/status_effect_visual.tscn")
+const STATUS_EFFECT_VISUAL_SCENE = preload("res://nodes/stage/stage_interface/status_effect_visual/status_effect_visual.tscn")
 
 @export var _portrait: Texture2D
 @export var _action_order_icon: Texture2D

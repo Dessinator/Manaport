@@ -1,0 +1,255 @@
+[gd_scene load_steps=10 format=3 uid="uid://cu4jbf2njajbb"]
+
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/stage_interface.gd" id="1_4tvn5"]
+[ext_resource type="Script" path="res://nodes/overworld/pause_menu_controller.gd" id="2_e803j"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector.gd" id="2_vyypb"]
+[ext_resource type="PackedScene" uid="uid://c54j17lqrmxwg" path="res://nodes/menus/pause_menu/overworld_pause_menu.tscn" id="3_jw37h"]
+[ext_resource type="PackedScene" uid="uid://dv21agpcnxr2x" path="res://nodes/stage/stage_interface/act_button/act_button.tscn" id="3_nolg8"]
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utxbh"]
+
+[sub_resource type="Sky" id="Sky_0aq8l"]
+sky_material = SubResource("ProceduralSkyMaterial_utxbh")
+
+[sub_resource type="Environment" id="Environment_o30yh"]
+background_mode = 2
+sky = SubResource("Sky_0aq8l")
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="World3D" id="World3D_1ubhx"]
+environment = SubResource("Environment_o30yh")
+
+[node name="StageInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+script = ExtResource("1_4tvn5")
+
+[node name="PauseMenuController" type="Node" parent="."]
+script = ExtResource("2_e803j")
+_create_at_top_of_scene_tree = false
+_use_input = false
+_use_signal = true
+pause_menu_packed = ExtResource("3_jw37h")
+
+[node name="MiniActorInfoViewportContainer" type="SubViewportContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+stretch = true
+
+[node name="MiniActorInfoContainer" type="SubViewport" parent="MiniActorInfoViewportContainer"]
+unique_name_in_owner = true
+own_world_3d = true
+world_3d = SubResource("World3D_1ubhx")
+transparent_bg = true
+handle_input_locally = false
+size = Vector2i(1280, 960)
+render_target_update_mode = 4
+
+[node name="MiniActorInfoCamera" type="Camera3D" parent="MiniActorInfoViewportContainer/MiniActorInfoContainer"]
+unique_name_in_owner = true
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ActSelectorContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ActSelector" type="Control" parent="MarginContainer/ActSelectorContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 964.0
+offset_top = -297.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("2_vyypb")
+
+[node name="ActButtonContainer" type="VBoxContainer" parent="MarginContainer/ActSelectorContainer/ActSelector"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 75
+
+[node name="BasicMoveButton" parent="MarginContainer/ActSelectorContainer/ActSelector/ActButtonContainer" instance=ExtResource("3_nolg8")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+_button_text = "Basic Move"
+
+[node name="SkillButton" parent="MarginContainer/ActSelectorContainer/ActSelector/ActButtonContainer" instance=ExtResource("3_nolg8")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+_button_text = "Skill"
+
+[node name="ItemButton" parent="MarginContainer/ActSelectorContainer/ActSelector/ActButtonContainer" instance=ExtResource("3_nolg8")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+_button_text = "Item"
+
+[node name="EscapeButton" parent="MarginContainer/ActSelectorContainer/ActSelector/ActButtonContainer" instance=ExtResource("3_nolg8")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+_button_text = "Escape"
+
+[node name="ActorInfoPanelContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ActorInfoPanel" type="Control" parent="MarginContainer/ActorInfoPanelContainer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -134.0
+offset_right = -722.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="Background" type="Panel" parent="MarginContainer/ActorInfoPanelContainer/ActorInfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ActorInfoCardContainer" type="HBoxContainer" parent="MarginContainer/ActorInfoPanelContainer/ActorInfoPanel"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_top = -58.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 165
+
+[node name="ActionOrderTimelineContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="ActionOrderTimeline" type="Control" parent="MarginContainer/ActionOrderTimelineContainer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -30.0
+offset_right = -722.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+mouse_filter = 2
+
+[node name="Background" type="Panel" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -7.0
+offset_right = -7.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="Label" type="Label" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -47.0
+offset_top = -30.0
+offset_right = -7.0
+offset_bottom = -7.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "ACT!"
+horizontal_alignment = 2
+
+[node name="ActionOrderVisualContainer" type="Control" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -46.0
+offset_right = -7.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+
+[node name="PauseButtonContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="PauseButton" type="Button" parent="MarginContainer/PauseButtonContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+text = "||"
+
+[connection signal="pressed" from="MarginContainer/PauseButtonContainer/PauseButton" to="PauseMenuController" method="_on_pause"]

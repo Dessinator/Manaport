@@ -1,6 +1,6 @@
-[gd_scene load_steps=6 format=3 uid="uid://cn4oi2guugl8k"]
+[gd_scene load_steps=6 format=3 uid="uid://cd5b6rm88vk0k"]
 
-[ext_resource type="Script" path="res://nodes/stage/bar.gd" id="1_cis0c"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/status_value_bar/bar.gd" id="1_hlvrh"]
 
 [sub_resource type="Gradient" id="Gradient_v5dxs"]
 offsets = PackedFloat32Array(0)
@@ -10,24 +10,28 @@ colors = PackedColorArray(0, 0, 0, 1)
 gradient = SubResource("Gradient_v5dxs")
 width = 1
 
-[sub_resource type="Gradient" id="Gradient_3lqa3"]
+[sub_resource type="Gradient" id="Gradient_3oq5c"]
 colors = PackedColorArray(0.682353, 0.705882, 0.717647, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_5d87q"]
-gradient = SubResource("Gradient_3lqa3")
+gradient = SubResource("Gradient_3oq5c")
 width = 100
 
-[node name="Bar" type="Control"]
+[node name="StatusValueBar" type="Control"]
 layout_mode = 3
 anchors_preset = 0
-script = ExtResource("1_cis0c")
+size_flags_vertical = 3
+script = ExtResource("1_hlvrh")
 
 [node name="TextureProgressBar" type="TextureProgressBar" parent="."]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
-offset_bottom = 28.0
+anchor_bottom = 1.0
+offset_top = -8.0
 grow_horizontal = 2
+grow_vertical = 0
 max_value = 1.0
 step = 0.0
 value = 1.0
@@ -35,17 +39,16 @@ nine_patch_stretch = true
 texture_under = SubResource("GradientTexture1D_ebiaf")
 texture_progress = SubResource("GradientTexture1D_5d87q")
 
-[node name="Label" type="Label" parent="TextureProgressBar"]
+[node name="Label" type="Label" parent="."]
 layout_mode = 1
-anchors_preset = 15
+anchors_preset = 12
+anchor_top = 1.0
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = 4.0
+offset_top = -23.0
 grow_horizontal = 2
-grow_vertical = 2
-theme_override_colors/font_color = Color(0, 0, 0, 1)
-theme_override_colors/font_outline_color = Color(1, 1, 1, 1)
-theme_override_constants/outline_size = 10
-theme_override_font_sizes/font_size = 22
+grow_vertical = 0
+theme_override_constants/outline_size = 6
+theme_override_font_sizes/font_size = 16
 text = "????: ???"
-vertical_alignment = 1
+vertical_alignment = 2

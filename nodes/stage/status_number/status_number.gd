@@ -4,7 +4,7 @@ signal end
 
 @onready var _label = $SubViewport/Label
 
-const STATUS_NUMBER_SCENE = preload("res://nodes/stage/status_number.tscn")
+const STATUS_NUMBER_SCENE = preload("res://nodes/stage/status_number/status_number.tscn")
 
 # key data dict:
 # {

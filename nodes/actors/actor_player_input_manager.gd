@@ -16,21 +16,21 @@ func choose_targets(acting_actor: Actor, act: Act, target_actors: Array[Actor]):
 	"""
 	Chooses a target to perform an action on
 	"""
-	var real_target_actors = []
-	for actor in target_actors:
-		# if act.do_friendly_fire(), use this act on the same team. else, use this act on the opposite team.
-		if act.do_friendly_fire():
-			if acting_actor.is_party_member() != actor.is_party_member():
-				continue
-			if actor.get_status().is_dead():
-				continue
-			real_target_actors.append(actor)
-		else:
-			if acting_actor.is_party_member() == actor.is_party_member():
-				continue
-			if actor.get_status().is_dead():
-				continue
-			real_target_actors.append(actor)
-
-	return await _attached_stage_interface.select_targets(act, real_target_actors)
-
+	#var real_target_actors = []
+	#for actor in target_actors:
+		## if act.do_friendly_fire(), use this act on the same team. else, use this act on the opposite team.
+		#if act.do_friendly_fire():
+			#if acting_actor.is_party_member() != actor.is_party_member():
+				#continue
+			#if actor.get_status().is_dead():
+				#continue
+			#real_target_actors.append(actor)
+		#else:
+			#if acting_actor.is_party_member() == actor.is_party_member():
+				#continue
+			#if actor.get_status().is_dead():
+				#continue
+			#real_target_actors.append(actor)
+#
+	#return await _attached_stage_interface.select_targets(act, real_target_actors)
+	return await _attached_stage_interface.select_targets(act, target_actors)

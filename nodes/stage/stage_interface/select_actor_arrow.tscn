@@ -1,6 +1,6 @@
 [gd_scene load_steps=5 format=3 uid="uid://bnevkrt4mxik6"]
 
-[ext_resource type="Texture2D" uid="uid://dt04nsj5sji46" path="res://resources/images/icons/double_res/hexagon_outline.png" id="1_yicvv"]
+[ext_resource type="Texture2D" uid="uid://dt04nsj5sji46" path="res://resources/images/icons/double_res/hexagon_outline.png" id="1_wrvqh"]
 
 [sub_resource type="Animation" id="Animation_aflj8"]
 length = 0.001
@@ -87,7 +87,7 @@ _data = {
 flip_v = true
 billboard = 1
 no_depth_test = true
-texture = ExtResource("1_yicvv")
+texture = ExtResource("1_wrvqh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {

@@ -16,10 +16,6 @@ const READY_DELAY_FACTOR = 0.1
 @onready var _stage_acts_manager: ArrayActsManager = %ArrayActsManager
 @onready var _actors_container = %Actors
 
-@onready var _ready_actor_position = %ReadyActorPosition
-@onready var _next_ready_actor_position = %NextReadyActorPosition
-@onready var _last_ready_actor_position = %LastReadyActorPosition
-
 var _cycle: int = 0
 
 var _ready_actor: Actor
@@ -47,6 +43,7 @@ func _enter_tree():
 	add_child(_acts_pool)
 
 func _ready():
+	Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
 	var consumable_item_acts = _stage_inventory.get_consumable_items_as_acts()
 
 	for act in consumable_item_acts:
@@ -61,15 +58,19 @@ func add_actors(actors: Array):
 	
 	var party_member_counter = 0
 	var enemy_counter = 0
+	
+	if %Actors.get_children().filter(func(actor): return not actor.is_party_member()).size() < 5:
+		enemy_counter += 1
 	for actor in %Actors.get_children():
 		if actor.is_party_member():
-			actor.reparent($POIs/PartyMember.get_child(party_member_counter), false)
-			actor.reparent(%Actors)
+			var pos = %PartyMemberSpawnPositions.get_child(party_member_counter).position
+			actor.position = pos
 			party_member_counter += 1
 			continue
 		
-		actor.reparent($POIs/Enemy.get_child(enemy_counter), false)
-		actor.reparent(%Actors)
+		var pos = %EnemySpawnPositions.get_child(enemy_counter).position
+		actor.position = pos
+		
 		enemy_counter += 1
 
 func action():
@@ -140,7 +141,7 @@ func _play_turn(actor: Actor):
 		if chosen_act == null:
 			continue
 
-		chosen_targets = await _ready_actor.choose_targets(get_eligible_actors(chosen_act), chosen_act)
+		chosen_targets = await _ready_actor.choose_targets(get_eligible_actors(_ready_actor, chosen_act), chosen_act)
 
 	await chosen_act.use(actor, chosen_targets)
 	await get_tree().create_timer(1.0).timeout
@@ -184,8 +185,14 @@ func _handle_cut():
 
 func get_alive_actors() -> Array:
 	return _actors.filter(func(actor): return not actor.get_status().is_dead())
-func get_eligible_actors(act: Act) -> Array:
+func get_eligible_actors(acting_actor: Actor, act: Act) -> Array:
 	var eligible_actors = get_alive_actors()
+	
+	# remove any actors that are on this actor's team
+	eligible_actors = eligible_actors.filter(func(actor):
+		if act.do_friendly_fire():
+			return actor.is_party_member() == acting_actor.is_party_member()
+		return actor.is_party_member() != acting_actor.is_party_member())
 
 	# search for any LimitTargetSelection components first
 	var target_selection_limiters = act.get_components().filter(func(comp): return comp is LimitTargetSelection)

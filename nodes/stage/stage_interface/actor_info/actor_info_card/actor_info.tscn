@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://cnc2vtdh23i1g"]
+[gd_scene load_steps=15 format=3 uid="uid://cnc2vtdh23i1g"]
 
 [ext_resource type="Texture2D" uid="uid://bb7kpsrnike3k" path="res://resources/images/placeholder_portrait.png" id="1_ucbsx"]
-[ext_resource type="Script" path="res://nodes/stage/actor_info.gd" id="1_vudqf"]
-[ext_resource type="PackedScene" uid="uid://cn4oi2guugl8k" path="res://nodes/stage/bar.tscn" id="3_8qhvp"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/actor_info/actor_info_card/actor_info.gd" id="1_vudqf"]
+[ext_resource type="PackedScene" uid="uid://cn4oi2guugl8k" path="res://nodes/stage/stage_interface/status_value_bar/bar.tscn" id="3_8qhvp"]
+[ext_resource type="PackedScene" uid="uid://bd7celuayaws6" path="res://nodes/stage/stage_interface/status_effect_visual/status_effect_visual.tscn" id="4_h7mom"]
 
 [sub_resource type="Animation" id="Animation_rtoji"]
 length = 0.001
@@ -55,18 +56,18 @@ _data = {
 "rise": SubResource("Animation_6m8y3")
 }
 
-[sub_resource type="Gradient" id="Gradient_3lqa3"]
+[sub_resource type="Gradient" id="Gradient_dmsme"]
 colors = PackedColorArray(0.682353, 0.705882, 0.717647, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_txkj7"]
-gradient = SubResource("Gradient_3lqa3")
+gradient = SubResource("Gradient_dmsme")
 width = 100
 
-[sub_resource type="Gradient" id="Gradient_bjdny"]
+[sub_resource type="Gradient" id="Gradient_eeiu3"]
 colors = PackedColorArray(0.490605, 0.549396, 1, 1, 0.227544, 0.897968, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_dfwx1"]
-gradient = SubResource("Gradient_bjdny")
+gradient = SubResource("Gradient_eeiu3")
 
 [sub_resource type="Gradient" id="Gradient_s48pq"]
 colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
@@ -181,6 +182,39 @@ offset_right = -4.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_constants/separation = 45
+
+[node name="StatusEffectVisual" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual2" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual3" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual4" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual5" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual6" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual7" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual8" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual9" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual10" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
+
+[node name="StatusEffectVisual11" parent="Background/StatusEffectsBackground/VBoxContainer" instance=ExtResource("4_h7mom")]
+layout_mode = 2
 
 [node name="TextureRect" type="TextureRect" parent="Background/StatusEffectsBackground"]
 visible = false

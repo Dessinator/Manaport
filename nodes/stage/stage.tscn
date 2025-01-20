@@ -1,9 +1,8 @@
-[gd_scene load_steps=33 format=3 uid="uid://b3hw1a0b73u4j"]
+[gd_scene load_steps=36 format=3 uid="uid://b3hw1a0b73u4j"]
 
 [ext_resource type="Script" path="res://nodes/stage/stage.gd" id="1_2obi2"]
 [ext_resource type="Resource" uid="uid://nqd76c0wsme" path="res://resources/items/world/dishes/plates/DISH_CRUDE_PLATE.tres" id="2_ady1r"]
 [ext_resource type="Script" path="res://resources/items/item_components/food_preparer.gd" id="2_bhpth"]
-[ext_resource type="PackedScene" uid="uid://cdtv1rwt2vl2b" path="res://nodes/stage/stage_interface.tscn" id="2_g73d1"]
 [ext_resource type="Script" path="res://resources/stage_inventory/stage_inventory.gd" id="2_kne2o"]
 [ext_resource type="Script" path="res://resources/items/item_components/item_component.gd" id="2_utj3e"]
 [ext_resource type="Script" path="res://resources/items/stage_item.gd" id="3_fkp4m"]
@@ -21,6 +20,9 @@
 [ext_resource type="Resource" uid="uid://chv78adu1jccf" path="res://resources/items/world/ingredients/liquids/FING_L_WATER.tres" id="10_mmfct"]
 [ext_resource type="Resource" uid="uid://m2pl2ofv3q22" path="res://resources/items/world/ingredients/sugars/FING_S_RAW_CANE_SUGAR.tres" id="11_3krs5"]
 [ext_resource type="Resource" uid="uid://b1qe2vlwxbc6t" path="res://resources/items/world/ingredients/vegetables/FING_V_HOLY-TRINITY.tres" id="11_jg4jo"]
+[ext_resource type="PackedScene" uid="uid://cwmprd3cv64xn" path="res://nodes/stage/stage_camera/stage_camera.tscn" id="21_fwhqh"]
+[ext_resource type="PackedScene" uid="uid://d2hppw7xs1lpw" path="res://nodes/render/render_handler/render_handler.tscn" id="21_p6t6n"]
+[ext_resource type="PackedScene" uid="uid://cu4jbf2njajbb" path="res://nodes/stage/stage_interface/stage_interface_test.tscn" id="24_l7jrr"]
 
 [sub_resource type="Resource" id="Resource_f5kxh"]
 script = ExtResource("2_bhpth")
@@ -68,6 +70,8 @@ _item_components = Array[ExtResource("2_utj3e")]([SubResource("Resource_b35da")]
 script = ExtResource("2_kne2o")
 _starting_items = [SubResource("Resource_ykdir"), SubResource("Resource_wo1gr"), SubResource("Resource_dqhfy")]
 
+[sub_resource type="World3D" id="World3D_m8580"]
+
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utxbh"]
 
 [sub_resource type="Sky" id="Sky_cprll"]
@@ -90,57 +94,72 @@ _starting_stage_inventory = SubResource("Resource_mndya")
 unique_name_in_owner = true
 script = ExtResource("9_6pw1b")
 
-[node name="StageInterface" parent="." instance=ExtResource("2_g73d1")]
+[node name="RenderHandler" parent="." instance=ExtResource("21_p6t6n")]
+
+[node name="SubViewport" parent="RenderHandler" index="0"]
+world_3d = SubResource("World3D_m8580")
+
+[node name="StageCamera" parent="RenderHandler/SubViewport" index="0" instance=ExtResource("21_fwhqh")]
+
+[node name="ReadyCamera3D" type="Camera3D" parent="RenderHandler/SubViewport" index="1"]
+transform = Transform3D(0.927739, -0.180427, 0.326721, 0.185938, 0.982454, 0.0145667, -0.323616, 0.0472356, 0.945009, 1.93238, 1.30144, 6.95066)
+
+[node name="AttackCamera3D" type="Camera3D" parent="RenderHandler/SubViewport" index="2"]
+transform = Transform3D(0.917755, 0.0634966, 0.392039, 0, 0.987136, -0.159882, -0.397148, 0.146732, 0.905949, 2.168, 0.768, -1.454)
+
+[node name="DefendCamera3D" type="Camera3D" parent="RenderHandler/SubViewport" index="3"]
+transform = Transform3D(-0.917872, -0.0634874, -0.391765, -3.09789e-10, 0.987122, -0.159968, 0.396876, -0.14683, -0.906052, -2.16773, 0.767632, 1.4536)
+
+[node name="POIs" type="Node3D" parent="RenderHandler/SubViewport" index="4"]
+
+[node name="PartyMemberSpawnPositions" type="Node3D" parent="RenderHandler/SubViewport/POIs"]
 unique_name_in_owner = true
 
-[node name="StageCamera3D" type="Camera3D" parent="."]
-current = true
-
-[node name="ReadyCamera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.927739, -0.180427, 0.326721, 0.185938, 0.982454, 0.0145668, -0.323616, 0.0472356, 0.945009, 1.93238, 1.30144, 6.95066)
-
-[node name="AttackCamera3D" type="Camera3D" parent="."]
-transform = Transform3D(0.917755, 0.0634965, 0.392039, 0, 0.987136, -0.159881, -0.397148, 0.146732, 0.905949, 2.168, 0.768, -1.454)
-
-[node name="DefendCamera3D" type="Camera3D" parent="."]
-transform = Transform3D(-0.917872, -0.0634871, -0.391765, -3.09789e-10, 0.987122, -0.159967, 0.396876, -0.14683, -0.906052, -2.16773, 0.767632, 1.4536)
-
-[node name="POIs" type="Node" parent="."]
-
-[node name="PartyMember" type="Node" parent="POIs"]
-
-[node name="ReadyActorPosition" type="Marker3D" parent="POIs/PartyMember"]
-unique_name_in_owner = true
+[node name="ReadyActorPosition" type="Marker3D" parent="RenderHandler/SubViewport/POIs/PartyMemberSpawnPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 4)
 
-[node name="NextReadyActorPosition" type="Marker3D" parent="POIs/PartyMember"]
-unique_name_in_owner = true
+[node name="NextReadyActorPosition" type="Marker3D" parent="RenderHandler/SubViewport/POIs/PartyMemberSpawnPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 0, 4.5)
 
-[node name="LastReadyActorPosition" type="Marker3D" parent="POIs/PartyMember"]
-unique_name_in_owner = true
+[node name="LastReadyActorPosition" type="Marker3D" parent="RenderHandler/SubViewport/POIs/PartyMemberSpawnPositions"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.5, 0, 4.5)
 
-[node name="Enemy" type="Node" parent="POIs"]
-
-[node name="EnemySpawnPoint1" type="Marker3D" parent="POIs/Enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379322, 0, -3.28709)
-
-[node name="EnemySpawnPoint2" type="Marker3D" parent="POIs/Enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.82347, 0, -4.42025)
-
-[node name="EnemySpawnPoint3" type="Marker3D" parent="POIs/Enemy"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03346, 0, -5.76756)
-
-[node name="Actors" type="Node" parent="."]
+[node name="EnemySpawnPositions" type="Node3D" parent="RenderHandler/SubViewport/POIs"]
 unique_name_in_owner = true
 
-[node name="Environment" type="Node3D" parent="."]
+[node name="EnemySpawnPoint4" type="Marker3D" parent="RenderHandler/SubViewport/POIs/EnemySpawnPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -7.96654, 0, -5.76756)
+
+[node name="EnemySpawnPoint2" type="Marker3D" parent="RenderHandler/SubViewport/POIs/EnemySpawnPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.82347, 0, -4.42025)
+
+[node name="EnemySpawnPoint1" type="Marker3D" parent="RenderHandler/SubViewport/POIs/EnemySpawnPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.0379322, 0, -3.28709)
+
+[node name="EnemySpawnPoint3" type="Marker3D" parent="RenderHandler/SubViewport/POIs/EnemySpawnPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 3.03346, 0, -5.76756)
+
+[node name="EnemySpawnPoint5" type="Marker3D" parent="RenderHandler/SubViewport/POIs/EnemySpawnPositions"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.03346, 0, -7.76756)
+
+[node name="Actors" type="Node3D" parent="RenderHandler/SubViewport" index="5"]
+unique_name_in_owner = true
+
+[node name="Environment" type="Node3D" parent="RenderHandler/SubViewport" index="6"]
 metadata/_edit_lock_ = true
 
-[node name="WorldEnvironment" type="WorldEnvironment" parent="Environment"]
+[node name="WorldEnvironment" type="WorldEnvironment" parent="RenderHandler/SubViewport/Environment"]
 environment = SubResource("Environment_mt05j")
 
-[node name="CSGBox3D" type="CSGBox3D" parent="Environment"]
+[node name="CSGBox3D" type="CSGBox3D" parent="RenderHandler/SubViewport/Environment"]
 transform = Transform3D(124.965, 0, 0, 0, 1, 0, 0, 0, 124.965, 0, -0.5, 0)
 material = SubResource("StandardMaterial3D_5jjj8")
+
+[node name="StageInterface" parent="." node_paths=PackedStringArray("_stage_camera", "_ready_camera", "_attack_camera", "_defend_camera") instance=ExtResource("24_l7jrr")]
+unique_name_in_owner = true
+_stage_camera = NodePath("../RenderHandler/SubViewport/StageCamera")
+_ready_camera = NodePath("../RenderHandler/SubViewport/ReadyCamera3D")
+_attack_camera = NodePath("../RenderHandler/SubViewport/AttackCamera3D")
+_defend_camera = NodePath("../RenderHandler/SubViewport/DefendCamera3D")
+
+[editable path="RenderHandler"]

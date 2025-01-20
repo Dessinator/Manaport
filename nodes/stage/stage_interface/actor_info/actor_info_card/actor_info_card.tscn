@@ -1,0 +1,187 @@
+[gd_scene load_steps=14 format=3 uid="uid://dtis6rxgha05t"]
+
+[ext_resource type="Texture2D" uid="uid://bb7kpsrnike3k" path="res://resources/images/placeholder_portrait.png" id="1_c4ofe"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/actor_info/actor_info_card/actor_info.gd" id="1_lw8hj"]
+[ext_resource type="PackedScene" uid="uid://cd5b6rm88vk0k" path="res://nodes/stage/stage_interface/status_value_bar/status_value_bar.tscn" id="4_xkrxw"]
+
+[sub_resource type="Animation" id="Animation_eb8ao"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_hprvx"]
+resource_name = "fall"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, -15), Vector2(0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_5o4yq"]
+resource_name = "rise"
+length = 0.2
+step = 0.1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Control:position")
+tracks/0/interp = 2
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(0, 0), Vector2(0, -15)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ajckj"]
+_data = {
+"RESET": SubResource("Animation_eb8ao"),
+"fall": SubResource("Animation_hprvx"),
+"rise": SubResource("Animation_5o4yq")
+}
+
+[sub_resource type="Gradient" id="Gradient_s48pq"]
+colors = PackedColorArray(0, 0, 0, 1, 0, 0, 0, 0)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_4mcf8"]
+gradient = SubResource("Gradient_s48pq")
+fill_from = Vector2(0, 0.747863)
+fill_to = Vector2(0, 0)
+
+[sub_resource type="Gradient" id="Gradient_dmsme"]
+colors = PackedColorArray(0.682353, 0.705882, 0.717647, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_illal"]
+gradient = SubResource("Gradient_dmsme")
+width = 100
+
+[sub_resource type="Gradient" id="Gradient_eeiu3"]
+colors = PackedColorArray(0.490605, 0.549396, 1, 1, 0.227544, 0.897968, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_u65p0"]
+gradient = SubResource("Gradient_eeiu3")
+
+[node name="ActorInfoCard" type="Control"]
+layout_mode = 3
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_right = 163.0
+grow_vertical = 0
+script = ExtResource("1_lw8hj")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+unique_name_in_owner = true
+libraries = {
+"": SubResource("AnimationLibrary_ajckj")
+}
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 2
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_top = -150.0
+offset_right = 163.0
+grow_vertical = 0
+
+[node name="Panel" type="Panel" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 5.0
+offset_top = 5.0
+offset_right = -5.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/VBoxContainer"]
+custom_minimum_size = Vector2(0, 100)
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="ActorPortraitContainer" type="Control" parent="Control/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ActorPortrait" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/ActorPortraitContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_right = 100.0
+offset_bottom = 100.0
+texture = ExtResource("1_c4ofe")
+expand_mode = 4
+
+[node name="StatusEffectPanelContainer" type="Control" parent="Control/VBoxContainer/HBoxContainer"]
+clip_children = 2
+clip_contents = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="StatusEffectContainer" type="VBoxContainer" parent="Control/VBoxContainer/HBoxContainer/StatusEffectPanelContainer"]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 120.0
+grow_horizontal = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 30
+
+[node name="FadeTextureRect" type="TextureRect" parent="Control/VBoxContainer/HBoxContainer/StatusEffectPanelContainer"]
+unique_name_in_owner = true
+visible = false
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -14.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = SubResource("GradientTexture2D_4mcf8")
+expand_mode = 1
+
+[node name="HLTHBar" parent="Control/VBoxContainer" instance=ExtResource("4_xkrxw")]
+unique_name_in_owner = true
+layout_mode = 2
+_progress_bar_gradient = SubResource("GradientTexture1D_illal")
+_name = "HLTH"
+
+[node name="STMABar" parent="Control/VBoxContainer" instance=ExtResource("4_xkrxw")]
+unique_name_in_owner = true
+layout_mode = 2
+_progress_bar_gradient = SubResource("GradientTexture1D_u65p0")
+_name = "STMA"

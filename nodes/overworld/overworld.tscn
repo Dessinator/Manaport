@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://72r0std4efp7"]
+[gd_scene load_steps=22 format=3 uid="uid://72r0std4efp7"]
 
 [ext_resource type="Script" path="res://nodes/overworld/overworld_manager.gd" id="1_i7lbt"]
 [ext_resource type="Texture2D" uid="uid://ceud3opo1yfkv" path="res://resources/images/textures/prototype/PNG/Dark/texture_01.png" id="1_var3l"]
@@ -12,20 +12,33 @@
 [ext_resource type="PackedScene" uid="uid://ijg3lgicwmst" path="res://nodes/characters/party/party_camera_manager.tscn" id="6_cwe5b"]
 [ext_resource type="PackedScene" uid="uid://cxkulf8fdecod" path="res://nodes/characters/character_prefabs/monsters/monster_character.tscn" id="7_1uo1w"]
 
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_rpdap"]
+
+[sub_resource type="Sky" id="Sky_k775n"]
+sky_material = SubResource("ProceduralSkyMaterial_rpdap")
+
+[sub_resource type="Environment" id="Environment_xi0ct"]
+background_mode = 2
+sky = SubResource("Sky_k775n")
+ambient_light_color = Color(1, 1, 1, 1)
+
+[sub_resource type="World3D" id="World3D_p0nuw"]
+environment = SubResource("Environment_xi0ct")
+
 [sub_resource type="NavigationMesh" id="NavigationMesh_4lg0r"]
 vertices = PackedVector3Array(-61.9825, 0.5, -61.9825, -61.9825, 0.5, 62.0175, 62.0175, 0.5, 62.0175, 62.0175, 0.5, -61.9825)
 polygons = [PackedInt32Array(3, 2, 0), PackedInt32Array(0, 2, 1)]
 agent_radius = 0.3
 
-[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_qo1ty"]
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_1ddvu"]
 
-[sub_resource type="Sky" id="Sky_i5mas"]
-sky_material = SubResource("ProceduralSkyMaterial_qo1ty")
+[sub_resource type="Sky" id="Sky_gjwdk"]
+sky_material = SubResource("ProceduralSkyMaterial_1ddvu")
 
-[sub_resource type="Environment" id="Environment_7qt18"]
+[sub_resource type="Environment" id="Environment_n5q43"]
 background_mode = 2
-sky = SubResource("Sky_i5mas")
-ambient_light_source = 2
+sky = SubResource("Sky_gjwdk")
+ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n8x3b"]
@@ -39,16 +52,20 @@ script = ExtResource("1_i7lbt")
 
 [node name="PauseMenuController" type="Node" parent="."]
 script = ExtResource("2_b4pnq")
+_create_at_top_of_scene_tree = false
 pause_menu_packed = ExtResource("3_3voj6")
 
 [node name="RenderHandler" parent="." instance=ExtResource("4_qi4hn")]
+
+[node name="SubViewport" parent="RenderHandler" index="0"]
+world_3d = SubResource("World3D_p0nuw")
 
 [node name="Environment" type="NavigationRegion3D" parent="RenderHandler/SubViewport" index="0"]
 unique_name_in_owner = true
 navigation_mesh = SubResource("NavigationMesh_4lg0r")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RenderHandler/SubViewport/Environment"]
-environment = SubResource("Environment_7qt18")
+environment = SubResource("Environment_n5q43")
 
 [node name="CSGBox3D" type="CSGBox3D" parent="RenderHandler/SubViewport/Environment"]
 transform = Transform3D(124.965, 0, 0, 0, 1, 0, 0, 0, 124.965, 0, -0.5, 0)

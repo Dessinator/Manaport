@@ -2,9 +2,9 @@ class_name StatusEffectVisual extends Control
 
 var _attached_status_effect_instance: Dictionary
 
-@onready var _icon: TextureRect = $Background/IconTextureRect
-@onready var _duration_label: Label = $Background/DurationLabel
-@onready var _stacks_label: Label = $Background/StackLabel
+@onready var _icon: TextureRect = %IconTextureRect
+@onready var _duration_label: Label = %DurationLabel
+@onready var _stacks_label: Label = %StackLabel
 
 func set_status_effect(status_effect_instance: Dictionary):
 	_attached_status_effect_instance = status_effect_instance

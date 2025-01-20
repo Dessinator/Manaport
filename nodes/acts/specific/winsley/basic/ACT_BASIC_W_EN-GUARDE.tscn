@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=3 uid="uid://bh37225es25h3"]
+[gd_scene load_steps=10 format=3 uid="uid://bh37225es25h3"]
 
 [ext_resource type="Script" path="res://nodes/acts/act.gd" id="1_t25r2"]
 [ext_resource type="Script" path="res://nodes/acts/act_components/apply_status_effect/apply_status_effect_single_target.gd" id="3_nvq4k"]
@@ -7,6 +7,7 @@
 [ext_resource type="Script" path="res://resources/status_effects/status_effect_selection.gd" id="4_vs8fq"]
 [ext_resource type="Script" path="res://nodes/acts/act_components/modify_global_act_components.gd" id="5_7wumq"]
 [ext_resource type="Script" path="res://nodes/acts/act_components/limit_target_selection.gd" id="6_tafb0"]
+[ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="8_epnnl"]
 
 [sub_resource type="Resource" id="Resource_wvbaf"]
 script = ExtResource("4_vs8fq")
@@ -32,11 +33,13 @@ _status_effects = Array[ExtResource("4_vs8fq")]([SubResource("Resource_wvbaf")])
 script = ExtResource("4_bgtv7")
 _enhance_basic_attack = true
 
-[node name="ModifyGlobalActComponents" type="Node" parent="."]
+[node name="DISABLED" type="Node" parent="."]
+
+[node name="ModifyGlobalActComponents" type="Node" parent="DISABLED"]
 script = ExtResource("5_7wumq")
 _exclude_list = Array[String](["ACT_ENBASIC_W_LA-VICTOIRE"])
 
-[node name="LimitTargetSelection" type="Node" parent="ModifyGlobalActComponents"]
+[node name="LimitTargetSelection" type="Node" parent="DISABLED/ModifyGlobalActComponents"]
 script = ExtResource("6_tafb0")
 _exclude = true
-_status_effect_requirements = Array[Resource("res://resources/status_effects/status_effect.gd")]([ExtResource("4_8rbb2")])
+_status_effect_requirements = Array[ExtResource("8_epnnl")]([ExtResource("4_8rbb2")])

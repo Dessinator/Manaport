@@ -1,7 +1,7 @@
 class_name ActionOrderVisual extends Control
 
-@onready var _icon_texture_rect = $IconBackground/TextureRect
-@onready var _count_label = $IconBackground/Label
+@onready var _icon_texture_rect = %IconTextureRect
+@onready var _count_label = %CountLabel
 
 var _count: int = 1
 var _attached_actors: Array:

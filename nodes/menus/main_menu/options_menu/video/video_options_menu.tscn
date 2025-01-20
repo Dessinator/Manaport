@@ -9,8 +9,8 @@ script = ExtResource("2_815i5")
 
 [node name="ResolutionControl" parent="VBoxContainer" index="1"]
 lock_titles = true
-option_values = [Vector2i(320, 240), Vector2i(640, 480), Vector2i(800, 600), Vector2i(-1, -1)]
-option_titles = Array[String](["PS1 (320 x 240)", "PS2 (640 x 480)", "Retro PC (800 x 600)", "Native Resolution"])
+option_values = [Vector2i(320, 240), Vector2i(640, 480), Vector2i(960, 720), Vector2i(1280, 960)]
+option_titles = Array[String](["PS1 (320 x 240)", "PS2 (640 x 480)", "PS3 (960 x 720)", "Game Resolution (1280 x 960)"])
 option_name = "Render Resolution"
 
 [node name="AntiAliasingControl" parent="VBoxContainer" index="2" instance=ExtResource("3_w45vk")]

@@ -17,10 +17,6 @@ func choose_targets(acting_actor: Actor, act: Act, target_actors: Array[Actor]):
 	
 	var min_health = target_min_health.get_status().get_health() 
 	for target in target_actors:
-		# don't attack battlers on your team
-		if acting_actor.is_party_member() == target.is_party_member():
-			continue
-
 		if target.get_status().get_health() < min_health:
 			target_min_health = target
 	

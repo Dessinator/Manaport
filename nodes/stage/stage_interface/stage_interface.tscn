@@ -1,0 +1,190 @@
+[gd_scene load_steps=4 format=3 uid="uid://cdtv1rwt2vl2b"]
+
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/stage_interface.gd" id="1_kuev2"]
+[ext_resource type="PackedScene" uid="uid://dv21agpcnxr2x" path="res://nodes/stage/stage_interface/act_button/act_button.tscn" id="1_xgfc7"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector.gd" id="2_1c7ey"]
+
+[node name="StageInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_kuev2")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="ActSelectorContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ActSelector" type="Control" parent="MarginContainer/ActSelectorContainer"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -214.0
+offset_top = -591.0
+grow_horizontal = 0
+grow_vertical = 0
+script = ExtResource("2_1c7ey")
+
+[node name="Background" type="Panel" parent="MarginContainer/ActSelectorContainer/ActSelector"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ButtonsContainer" type="VBoxContainer" parent="MarginContainer/ActSelectorContainer/ActSelector"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 15.0
+offset_top = 15.0
+offset_right = -15.0
+offset_bottom = -15.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 145
+
+[node name="BasicMove" parent="MarginContainer/ActSelectorContainer/ActSelector/ButtonsContainer" instance=ExtResource("1_xgfc7")]
+layout_mode = 2
+_button_text = "Basic Move"
+
+[node name="Skill" parent="MarginContainer/ActSelectorContainer/ActSelector/ButtonsContainer" instance=ExtResource("1_xgfc7")]
+layout_mode = 2
+_button_text = "Skill"
+
+[node name="UseItem" parent="MarginContainer/ActSelectorContainer/ActSelector/ButtonsContainer" instance=ExtResource("1_xgfc7")]
+layout_mode = 2
+_button_text = "Item"
+
+[node name="Escape" parent="MarginContainer/ActSelectorContainer/ActSelector/ButtonsContainer" instance=ExtResource("1_xgfc7")]
+layout_mode = 2
+_button_text = "Escape"
+
+[node name="ActionOrderTimelineContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ActionOrderTimeline" type="Control" parent="MarginContainer/ActionOrderTimelineContainer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -36.0
+offset_right = -232.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Background" type="Panel" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -12.0
+offset_right = -7.0
+offset_bottom = -6.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="Label" type="Label" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -47.0
+offset_top = -35.0
+offset_right = -7.0
+offset_bottom = -12.0
+grow_horizontal = 0
+grow_vertical = 0
+text = "ACT!"
+horizontal_alignment = 2
+
+[node name="Party" type="Control" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_left = 7.0
+offset_top = 17.0
+offset_right = -7.0
+offset_bottom = 77.0
+grow_horizontal = 2
+
+[node name="Enemies" type="Control" parent="MarginContainer/ActionOrderTimelineContainer/ActionOrderTimeline"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -77.0
+offset_right = -7.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ActorInfoPanelContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="ActorInfoPanel" type="Control" parent="MarginContainer/ActorInfoPanelContainer"]
+layout_mode = 1
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -134.0
+offset_right = -232.0
+offset_bottom = -42.0
+grow_horizontal = 2
+grow_vertical = 0
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="Background" type="Panel" parent="MarginContainer/ActorInfoPanelContainer/ActorInfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/ActorInfoPanelContainer/ActorInfoPanel"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 16.0
+offset_right = -16.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 330

@@ -75,8 +75,12 @@ func start_battle(aggressor: CharacterBattleHandler, victim: CharacterBattleHand
 			
 			victim_battle_handlers.append(battle_handler)
 	
-	var aggressor_actor_scenes = aggressor_battle_handlers.map(func(battle_handler): return battle_handler.get_actor_scene())
-	var victim_actor_scenes = victim_battle_handlers.map(func(battle_handler): return battle_handler.get_actor_scene())
+	var aggressor_actor_scenes = []
+	var victim_actor_scenes = []
+	for array in aggressor_battle_handlers.map(func(battle_handler): return battle_handler.get_actor_scenes()):
+		aggressor_actor_scenes.append_array(array)
+	for array in victim_battle_handlers.map(func(battle_handler): return battle_handler.get_actor_scenes()):
+		victim_actor_scenes.append_array(array)
 	print("Setting the stage...")
 	
 	SceneLoader.load_scene(STAGE_SCENE_PATH)

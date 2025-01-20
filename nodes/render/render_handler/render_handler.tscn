@@ -1,6 +1,8 @@
-[gd_scene load_steps=2 format=3 uid="uid://d2hppw7xs1lpw"]
+[gd_scene load_steps=3 format=3 uid="uid://d2hppw7xs1lpw"]
 
 [ext_resource type="Script" path="res://nodes/render/render_handler/render_handler.gd" id="1_kq5ch"]
+
+[sub_resource type="World3D" id="World3D_ckdo8"]
 
 [node name="RenderHandler" type="SubViewportContainer"]
 texture_filter = 1
@@ -16,8 +18,10 @@ script = ExtResource("1_kq5ch")
 
 [node name="SubViewport" type="SubViewport" parent="."]
 unique_name_in_owner = true
+own_world_3d = true
+world_3d = SubResource("World3D_ckdo8")
 handle_input_locally = false
-size = Vector2i(512, 384)
+size = Vector2i(640, 480)
 size_2d_override = Vector2i(640, 480)
 size_2d_override_stretch = true
 render_target_update_mode = 4

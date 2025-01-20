@@ -2,7 +2,7 @@ class_name CharacterBattleHandler extends Node3D
 
 signal battle_started
 
-@export var _actor_scene: PackedScene
+@export var _actor_scenes: Array[PackedScene]
 
 # if true, this Character can also start a battle with another Character.
 @export var _can_start_battle: bool
@@ -25,5 +25,5 @@ func encounter(opponent: CharacterBattleHandler):
 func is_in_battle() -> bool:
 	return _is_in_battle
 	
-func get_actor_scene() -> PackedScene:
-	return _actor_scene
+func get_actor_scenes() -> Array[PackedScene]:
+	return _actor_scenes

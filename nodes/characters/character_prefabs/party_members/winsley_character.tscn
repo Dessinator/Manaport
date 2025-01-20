@@ -76,5 +76,5 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, -1.5)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1, 0, -1.5)
 
 [node name="CharacterBattleHandler" parent="." instance=ExtResource("10_ou0a8")]
-_actor_scene = ExtResource("2_j6jgy")
+_actor_scenes = Array[PackedScene]([ExtResource("2_j6jgy")])
 _can_start_battle = true

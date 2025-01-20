@@ -2,16 +2,15 @@ class_name ActSelector extends Control
 
 signal act_selected(act: Act)
 
-const ACT_BUTTON_SCENE = preload("res://nodes/stage/act_button.tscn")
+const ACT_BUTTON_SCENE = preload("res://nodes/stage/stage_interface/act_button/act_button.tscn")
 
-@onready var _stage_interface: StageInterface = $"../.."
+@onready var _stage_interface: StageInterface = $"../../.."
 
-@onready var _act_button_container = $Background/VBoxContainer
-
-@onready var _basic_move_button: ActButton = $Background/VBoxContainer/BasicMove
-@onready var _skill_button: ActButton = $Background/VBoxContainer/Skill
-@onready var _use_item_button: ActButton = $Background/VBoxContainer/UseItem
-@onready var _escape_button: ActButton = $Background/VBoxContainer/Escape
+@onready var _act_button_container: VBoxContainer = %ActButtonContainer
+@onready var _basic_move_button: ActButton = %BasicMoveButton
+@onready var _skill_button: ActButton = %SkillButton
+@onready var _item_button: ActButton = %ItemButton
+@onready var _escape_button: ActButton = %EscapeButton
 
 enum SelectionState { HIDDEN, MAIN, BASIC_ATTACK, SKILL, ITEM, ESCAPE }
 var _selection_state: SelectionState = SelectionState.HIDDEN
@@ -36,7 +35,7 @@ func show_acts(acting_actor: Actor):
 
 	_basic_move_button.get_button().pressed.connect(_call_show_actor_basic_attack)
 	_skill_button.get_button().pressed.connect(_call_show_actor_skills)
-	_use_item_button.get_button().pressed.connect(_call_show_stage_items)
+	_item_button.get_button().pressed.connect(_call_show_stage_items)
 
 func close_acts():
 	_selection_state = SelectionState.HIDDEN
@@ -44,7 +43,7 @@ func close_acts():
 
 	if _call_show_actor_basic_attack: _basic_move_button.get_button().pressed.disconnect(_call_show_actor_basic_attack)
 	if _call_show_actor_skills: _skill_button.get_button().pressed.disconnect(_call_show_actor_skills)
-	if _call_show_stage_items: _use_item_button.get_button().pressed.disconnect(_call_show_stage_items)
+	if _call_show_stage_items: _item_button.get_button().pressed.disconnect(_call_show_stage_items)
 
 	_call_show_actor_basic_attack = func(): pass
 	_call_show_actor_skills = func(): pass
@@ -144,11 +143,11 @@ func _process(_delta):
 func _add_main_act_buttons():
 	_act_button_container.add_child(_basic_move_button)
 	_act_button_container.add_child(_skill_button)
-	_act_button_container.add_child(_use_item_button)
+	_act_button_container.add_child(_item_button)
 	_act_button_container.add_child(_escape_button)
 
 func _remove_main_act_buttons():
 	if _basic_move_button.is_inside_tree(): _act_button_container.remove_child(_basic_move_button)
 	if _skill_button.is_inside_tree(): _act_button_container.remove_child(_skill_button)
-	if _use_item_button.is_inside_tree(): _act_button_container.remove_child(_use_item_button)
+	if _item_button.is_inside_tree(): _act_button_container.remove_child(_item_button)
 	if _escape_button.is_inside_tree(): _act_button_container.remove_child(_escape_button)

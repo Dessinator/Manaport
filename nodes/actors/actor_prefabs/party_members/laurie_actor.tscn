@@ -1,4 +1,4 @@
-[gd_scene load_steps=21 format=3 uid="uid://dk20jrjub34s"]
+[gd_scene load_steps=22 format=3 uid="uid://dk20jrjub34s"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_kjchi"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_wowl7"]
@@ -11,7 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://hiqhb16vaec0" path="res://nodes/actors/actor_visual_manager.tscn" id="6_k8h3y"]
 [ext_resource type="PackedScene" uid="uid://bp5q1jvgjyu1v" path="res://nodes/actors/actor_player_input_manager.tscn" id="8_jl02q"]
 [ext_resource type="PackedScene" uid="uid://cbcuevdtoxla5" path="res://nodes/acts/acts_manager.tscn" id="9_84bpm"]
-[ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://nodes/stage/select_actor_arrow.tscn" id="11_cbhsx"]
+[ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://nodes/stage/stage_interface/select_actor_arrow.tscn" id="11_cbhsx"]
 [ext_resource type="PackedScene" uid="uid://1rut0yaysrfq" path="res://nodes/acts/specific/laurie/basic/ACT_BASIC_L_LIKE-THIS.tscn" id="11_t0lms"]
 [ext_resource type="PackedScene" uid="uid://uqhtmgvmx4ao" path="res://nodes/acts/specific/laurie/skill/ACT_SKILL_L_A-LITTLE-MORE.tscn" id="12_mna1j"]
 [ext_resource type="PackedScene" uid="uid://dmxuffal1ub35" path="res://nodes/acts/specific/laurie/skill/ACT_SKILL_L_LIKE-THAT.tscn" id="13_rh37v"]
@@ -40,6 +40,9 @@ height = 1.37
 radial_segments = 8
 rings = 4
 
+[sub_resource type="BoxShape3D" id="BoxShape3D_jdlc3"]
+size = Vector3(0.648682, 1.38312, 0.651367)
+
 [node name="LaurieActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
 script = ExtResource("1_kjchi")
 _is_party_member = true
@@ -56,6 +59,12 @@ _status = SubResource("Resource_anw6g")
 [node name="Mesh" type="MeshInstance3D" parent="ActorCostume"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695273, 0)
 mesh = SubResource("CapsuleMesh_uit7h")
+
+[node name="StaticBody3D" type="StaticBody3D" parent="ActorCostume"]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="ActorCostume/StaticBody3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.692169, 0)
+shape = SubResource("BoxShape3D_jdlc3")
 
 [node name="SelectActorArrow" parent="." instance=ExtResource("11_cbhsx")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.699041, 0)
