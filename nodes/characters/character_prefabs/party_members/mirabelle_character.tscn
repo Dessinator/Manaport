@@ -1,7 +1,8 @@
-[gd_scene load_steps=15 format=3 uid="uid://3o3qmldlg564"]
+[gd_scene load_steps=19 format=3 uid="uid://3o3qmldlg564"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_p3s52"]
 [ext_resource type="PackedScene" uid="uid://bbu5jb7gd1sp6" path="res://nodes/actors/actor_prefabs/party_members/mirabelle_actor.tscn" id="2_t6e3b"]
+[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="3_aqbwg"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_skin.gd" id="5_b64xg"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="6_5nv5h"]
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="7_n13gb"]
@@ -27,8 +28,25 @@ height = 1.3
 radial_segments = 8
 rings = 4
 
-[node name="Mirabelle" type="CharacterBody3D" node_paths=PackedStringArray("_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
+[sub_resource type="Gradient" id="Gradient_ujdeg"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0, 0.862745, 0.87451, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_vk7pq"]
+gradient = SubResource("Gradient_ujdeg")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_3dexj"]
+render_priority = 0
+shader = ExtResource("3_aqbwg")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = SubResource("GradientTexture1D_vk7pq")
+
+[node name="Mirabelle" type="CharacterBody3D" node_paths=PackedStringArray("_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
 script = ExtResource("1_p3s52")
+_character_visual_manager = NodePath("CharacterVisualManager")
 _character_skin = NodePath("CharacterSkin")
 _character_mover = NodePath("CharacterMover")
 _character_input_manager = NodePath("CharacterPartyInputManager")
@@ -41,9 +59,10 @@ shape = SubResource("CapsuleShape3D_0peiy")
 [node name="CharacterSkin" type="Node3D" parent="."]
 script = ExtResource("5_b64xg")
 
-[node name="Mesh" type="MeshInstance3D" parent="CharacterSkin"]
+[node name="Mesh" type="MeshInstance3D" parent="CharacterSkin" groups=["uses_psx_render_shader"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.652755, 0)
 mesh = SubResource("CapsuleMesh_vkyra")
+surface_material_override/0 = SubResource("ShaderMaterial_3dexj")
 
 [node name="CharacterVisualManager" type="Node3D" parent="."]
 script = ExtResource("6_5nv5h")

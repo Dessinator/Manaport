@@ -1,38 +1,88 @@
-[gd_scene load_steps=4 format=3 uid="uid://dootm4cfler0s"]
+[gd_scene load_steps=5 format=3 uid="uid://dootm4cfler0s"]
 
 [ext_resource type="PackedScene" uid="uid://b2numvphf2kau" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/video/video_options_menu.tscn" id="1_nlbqs"]
 [ext_resource type="Script" path="res://nodes/menus/main_menu/options_menu/video/video_options_menu.gd" id="2_815i5"]
-[ext_resource type="PackedScene" uid="uid://b6bl3n5mp3m1e" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/option_control/list_option_control.tscn" id="3_w45vk"]
+[ext_resource type="PackedScene" uid="uid://bsxh6v7j0257h" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/option_control/toggle_option_control.tscn" id="3_f44nb"]
+[ext_resource type="PackedScene" uid="uid://cl416gdb1fgwr" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/option_control/slider_option_control.tscn" id="4_eh1xh"]
 
 [node name="Video" instance=ExtResource("1_nlbqs")]
 script = ExtResource("2_815i5")
 
-[node name="ResolutionControl" parent="VBoxContainer" index="1"]
+[node name="HSeparator4" type="HSeparator" parent="VBoxContainer" index="1"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="VBoxContainer" index="2"]
+layout_mode = 2
+text = "Render Options
+"
+
+[node name="HSeparator6" type="HSeparator" parent="VBoxContainer" index="3"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="ResolutionControl" parent="VBoxContainer" index="4"]
 lock_titles = true
 option_values = [Vector2i(320, 240), Vector2i(640, 480), Vector2i(960, 720), Vector2i(1280, 960)]
 option_titles = Array[String](["PS1 (320 x 240)", "PS2 (640 x 480)", "PS3 (960 x 720)", "Game Resolution (1280 x 960)"])
 option_name = "Render Resolution"
+key = "RenderResolution"
+default_value = Vector2i(320, 240)
 
-[node name="AntiAliasingControl" parent="VBoxContainer" index="2" instance=ExtResource("3_w45vk")]
+[node name="AffineMappingControl" parent="VBoxContainer" index="5" instance=ExtResource("3_f44nb")]
+unique_name_in_owner = true
 layout_mode = 2
-lock_titles = true
-option_values = [0, 1, 2, 3]
-option_titles = Array[String](["Disabled (Fastest)", "2x", "4x", "8x (Slowest)"])
-option_name = "Anti-Aliasing"
+lock_config_names = true
+option_name = "Affine Mapping"
 option_section = 3
-key = "Anti-aliasing"
+key = "AffineMapping"
 section = "VideoSettings"
-property_type = 2
-default_value = 0
+default_value = true
 
-[node name="CameraShakeControl" parent="VBoxContainer" index="3" instance=ExtResource("3_w45vk")]
+[node name="JitterStrengthControl" parent="VBoxContainer" index="6" instance=ExtResource("4_eh1xh")]
+unique_name_in_owner = true
 layout_mode = 2
-lock_titles = true
-option_values = [1.0, 0.75, 0.5, 0.0]
-option_titles = Array[String](["Normal", "Reduced", "Minimal", "None"])
-option_name = "Camera Shake"
+lock_config_names = true
+option_name = "Jitter Strength"
 option_section = 3
-key = "CameraShake"
+key = "JitterStrength"
 section = "VideoSettings"
-property_type = 3
-default_value = 1.0
+default_value = 0.5
+
+[node name="HSeparator3" type="HSeparator" parent="VBoxContainer" index="7"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label2" type="Label" parent="VBoxContainer" index="8"]
+layout_mode = 2
+text = "Post Processing Options
+"
+
+[node name="HSeparator5" type="HSeparator" parent="VBoxContainer" index="9"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="DitheringControl" parent="VBoxContainer" index="10" instance=ExtResource("3_f44nb")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_config_names = true
+option_name = "Dithering"
+option_section = 3
+key = "Dithering"
+section = "VideoSettings"
+default_value = true
+
+[node name="LimitColorsControl" parent="VBoxContainer" index="11" instance=ExtResource("3_f44nb")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_config_names = true
+option_name = "Limit Colors"
+option_section = 3
+key = "LimitColors"
+section = "VideoSettings"
+default_value = true
+
+[connection signal="setting_changed" from="VBoxContainer/AffineMappingControl" to="." method="_on_affine_mapping_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/JitterStrengthControl" to="." method="_on_jitter_strength_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/DitheringControl" to="." method="_on_dithering_control_setting_changed"]
+[connection signal="setting_changed" from="VBoxContainer/LimitColorsControl" to="." method="_on_limit_colors_control_setting_changed"]

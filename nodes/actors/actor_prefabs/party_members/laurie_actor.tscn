@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://dk20jrjub34s"]
+[gd_scene load_steps=26 format=3 uid="uid://dk20jrjub34s"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_kjchi"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_wowl7"]
@@ -10,6 +10,7 @@
 [ext_resource type="Texture2D" uid="uid://dfp4wvsw7dgx3" path="res://resources/images/placeholder_laurie_portrait.jpg" id="5_4qajc"]
 [ext_resource type="PackedScene" uid="uid://hiqhb16vaec0" path="res://nodes/actors/actor_visual_manager.tscn" id="6_k8h3y"]
 [ext_resource type="PackedScene" uid="uid://bp5q1jvgjyu1v" path="res://nodes/actors/actor_player_input_manager.tscn" id="8_jl02q"]
+[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="8_qnnpb"]
 [ext_resource type="PackedScene" uid="uid://cbcuevdtoxla5" path="res://nodes/acts/acts_manager.tscn" id="9_84bpm"]
 [ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://nodes/stage/stage_interface/select_actor_arrow.tscn" id="11_cbhsx"]
 [ext_resource type="PackedScene" uid="uid://1rut0yaysrfq" path="res://nodes/acts/specific/laurie/basic/ACT_BASIC_L_LIKE-THIS.tscn" id="11_t0lms"]
@@ -40,6 +41,22 @@ height = 1.37
 radial_segments = 8
 rings = 4
 
+[sub_resource type="Gradient" id="Gradient_xsfah"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.627451, 0, 0.772549, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x82xn"]
+gradient = SubResource("Gradient_xsfah")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_7kaqe"]
+render_priority = 0
+shader = ExtResource("8_qnnpb")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = SubResource("GradientTexture1D_x82xn")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_jdlc3"]
 size = Vector3(0.648682, 1.38312, 0.651367)
 
@@ -56,9 +73,10 @@ _status = SubResource("Resource_anw6g")
 
 [node name="ActorCostume" parent="." instance=ExtResource("4_o0yl8")]
 
-[node name="Mesh" type="MeshInstance3D" parent="ActorCostume"]
+[node name="Mesh" type="MeshInstance3D" parent="ActorCostume" groups=["uses_psx_render_shader"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695273, 0)
 mesh = SubResource("CapsuleMesh_uit7h")
+surface_material_override/0 = SubResource("ShaderMaterial_7kaqe")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ActorCostume"]
 

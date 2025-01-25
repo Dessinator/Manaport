@@ -1,7 +1,8 @@
-[gd_scene load_steps=18 format=3 uid="uid://bymecv7dxhxtg"]
+[gd_scene load_steps=22 format=3 uid="uid://bymecv7dxhxtg"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_f66w4"]
 [ext_resource type="PackedScene" uid="uid://dk20jrjub34s" path="res://nodes/actors/actor_prefabs/party_members/laurie_actor.tscn" id="2_w17qf"]
+[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="3_pxx6o"]
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="4_j1pkq"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_skin.gd" id="4_ta4ci"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="5_a8bu3"]
@@ -30,8 +31,25 @@ height = 1.37
 radial_segments = 8
 rings = 4
 
-[node name="Laurie" type="CharacterBody3D" node_paths=PackedStringArray("_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
+[sub_resource type="Gradient" id="Gradient_davj7"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.627451, 0, 0.772549, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_1apet"]
+gradient = SubResource("Gradient_davj7")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_owqim"]
+render_priority = 0
+shader = ExtResource("3_pxx6o")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = SubResource("GradientTexture1D_1apet")
+
+[node name="Laurie" type="CharacterBody3D" node_paths=PackedStringArray("_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
 script = ExtResource("1_f66w4")
+_character_visual_manager = NodePath("CharacterVisualManager")
 _character_skin = NodePath("CharacterSkin")
 _character_mover = NodePath("CharacterMover")
 _character_input_manager = NodePath("CharacterPartyInputManager")
@@ -44,9 +62,10 @@ shape = SubResource("CapsuleShape3D_0peiy")
 [node name="CharacterSkin" type="Node3D" parent="."]
 script = ExtResource("4_ta4ci")
 
-[node name="Mesh" type="MeshInstance3D" parent="CharacterSkin"]
+[node name="Mesh" type="MeshInstance3D" parent="CharacterSkin" groups=["uses_psx_render_shader"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695273, 0)
 mesh = SubResource("CapsuleMesh_ferch")
+surface_material_override/0 = SubResource("ShaderMaterial_owqim")
 
 [node name="CharacterVisualManager" type="Node3D" parent="."]
 script = ExtResource("5_a8bu3")

@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://d21crk01708ft"]
+[gd_scene load_steps=27 format=3 uid="uid://d21crk01708ft"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_a6srw"]
 [ext_resource type="Script" path="res://nodes/actors/actor_costume.gd" id="2_ewllx"]
@@ -14,6 +14,7 @@
 [ext_resource type="Script" path="res://nodes/acts/acts_manager.gd" id="5_40dta"]
 [ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://nodes/stage/stage_interface/select_actor_arrow.tscn" id="6_rwth2"]
 [ext_resource type="PackedScene" uid="uid://cgxh03vjsyy5k" path="res://nodes/stage/stage_interface/actor_info/mini_actor_info/mini_actor_info_container.tscn" id="10_l0moa"]
+[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="10_mjs61"]
 [ext_resource type="Script" path="res://nodes/actors/actor_status_effect_manager.gd" id="12_g60oh"]
 [ext_resource type="PackedScene" uid="uid://1rut0yaysrfq" path="res://nodes/acts/specific/laurie/basic/ACT_BASIC_L_LIKE-THIS.tscn" id="14_0qed3"]
 
@@ -45,6 +46,22 @@ height = 1.37
 radial_segments = 8
 rings = 4
 
+[sub_resource type="Gradient" id="Gradient_dy0ek"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(1, 0, 0, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_7s8oh"]
+gradient = SubResource("Gradient_dy0ek")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_dyswx"]
+render_priority = 0
+shader = ExtResource("10_mjs61")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = SubResource("GradientTexture1D_7s8oh")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_lycu8"]
 size = Vector3(0.648682, 1.38312, 0.651367)
 
@@ -61,9 +78,10 @@ _status = SubResource("Resource_s2blu")
 [node name="ActorCostume" type="Node3D" parent="."]
 script = ExtResource("2_ewllx")
 
-[node name="Mesh" type="MeshInstance3D" parent="ActorCostume"]
+[node name="Mesh" type="MeshInstance3D" parent="ActorCostume" groups=["uses_psx_render_shader"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.695273, 0)
 mesh = SubResource("CapsuleMesh_s4xhd")
+surface_material_override/0 = SubResource("ShaderMaterial_dyswx")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ActorCostume"]
 

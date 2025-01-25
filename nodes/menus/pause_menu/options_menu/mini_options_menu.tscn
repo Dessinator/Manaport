@@ -1,13 +1,29 @@
-[gd_scene load_steps=4 format=3 uid="uid://bw1ojbblo4awm"]
+[gd_scene load_steps=6 format=3 uid="uid://bw1ojbblo4awm"]
 
 [ext_resource type="PackedScene" uid="uid://vh1ucj2rfbby" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/mini_options_menu.tscn" id="1_dqdha"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/menus/options_menu/mini_options_menu.gd" id="2_j3nhq"]
 [ext_resource type="PackedScene" uid="uid://c01ayjblhcg1t" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/option_control/vector_2_list_option_control.tscn" id="3_a0iov"]
+[ext_resource type="PackedScene" uid="uid://bsxh6v7j0257h" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/option_control/toggle_option_control.tscn" id="4_1n5ow"]
+[ext_resource type="PackedScene" uid="uid://cl416gdb1fgwr" path="res://addons/maaacks_game_template/base/scenes/menus/options_menu/option_control/slider_option_control.tscn" id="5_dof3g"]
 
 [node name="MiniOptionsMenu" instance=ExtResource("1_dqdha")]
 script = ExtResource("2_j3nhq")
+hide_busses = null
 
-[node name="RenderResolutionControl" parent="." index="3" instance=ExtResource("3_a0iov")]
+[node name="HSeparator4" type="HSeparator" parent="." index="3"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label" type="Label" parent="." index="4"]
+layout_mode = 2
+text = "Render Options
+"
+
+[node name="HSeparator6" type="HSeparator" parent="." index="5"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="RenderResolutionControl" parent="." index="6" instance=ExtResource("3_a0iov")]
 unique_name_in_owner = true
 layout_mode = 2
 lock_titles = true
@@ -19,4 +35,61 @@ key = "RenderResolution"
 section = "VideoSettings"
 property_type = 6
 
+[node name="AffineMappingControl" parent="." index="7" instance=ExtResource("4_1n5ow")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_config_names = true
+option_name = "Affine Mapping"
+option_section = 3
+key = "AffineMapping"
+section = "VideoSettings"
+default_value = true
+
+[node name="JitterStrengthControl" parent="." index="8" instance=ExtResource("5_dof3g")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_config_names = true
+option_name = "Jitter Strength"
+option_section = 3
+key = "JitterStrength"
+section = "VideoSettings"
+default_value = 0.5
+
+[node name="HSeparator3" type="HSeparator" parent="." index="9"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="Label2" type="Label" parent="." index="10"]
+layout_mode = 2
+text = "Post Processing Options
+"
+
+[node name="HSeparator5" type="HSeparator" parent="." index="11"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="DitheringControl" parent="." index="12" instance=ExtResource("4_1n5ow")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_config_names = true
+option_name = "Dithering"
+option_section = 3
+key = "Dithering"
+section = "VideoSettings"
+default_value = true
+
+[node name="LimitColorsControl" parent="." index="13" instance=ExtResource("4_1n5ow")]
+unique_name_in_owner = true
+layout_mode = 2
+lock_config_names = true
+option_name = "Limit Colors"
+option_section = 3
+key = "LimitColors"
+section = "VideoSettings"
+default_value = true
+
 [connection signal="setting_changed" from="RenderResolutionControl" to="." method="_on_render_resolution_control_setting_changed"]
+[connection signal="setting_changed" from="AffineMappingControl" to="." method="_on_affine_mapping_control_setting_changed"]
+[connection signal="setting_changed" from="JitterStrengthControl" to="." method="_on_jitter_strength_control_setting_changed"]
+[connection signal="setting_changed" from="DitheringControl" to="." method="_on_dithering_control_setting_changed"]
+[connection signal="setting_changed" from="LimitColorsControl" to="." method="_on_limit_colors_control_setting_changed"]

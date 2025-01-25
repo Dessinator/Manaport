@@ -11,7 +11,13 @@ const CUSTOM_SECTION = &'CustomSettings'
 
 const FULLSCREEN_ENABLED = &'FullscreenEnabled'
 const SCREEN_RESOLUTION = &'ScreenResolution'
+
 const RENDER_RESOLUTION = &'RenderResolution'
+const AFFINE_MAPPING = &'AffineMapping'
+const JITTER_STRENGTH = &'JitterStrength'
+const DITHERING = &'Dithering'
+const LIMIT_COLORS = &'LimitColors'
+
 const MUTE_SETTING = &'Mute'
 const MASTER_BUS_INDEX = 0
 const SYSTEM_BUS_NAME_PREFIX = "_"
@@ -22,6 +28,10 @@ static var initial_bus_volumes : Array
 
 # Video
 static var _current_render_resolution: Vector2i
+static var _current_affine_mapping: bool
+static var _current_jitter_strength: float
+static var _current_dithering: bool
+static var _current_limit_colors: bool
 
 static func get_config_input_events(action_name : String, default = null) -> Array:
 	return Config.get_config(INPUT_SECTION, action_name, default)
@@ -141,7 +151,29 @@ static func set_render_resolution(value : Vector2i):
 	_current_render_resolution = value
 	Config.set_config(VIDEO_SECTION, RENDER_RESOLUTION, _current_render_resolution)
 	SignalBus.render_resolution_changed.emit(_current_render_resolution)
-	print("render res set to: " + str(value))
+	print("render resolution set to: " + str(_current_render_resolution))
+static func set_affine_mapping(affine_mapping: bool):
+	_current_affine_mapping = affine_mapping
+	Config.set_config(VIDEO_SECTION, AFFINE_MAPPING, _current_affine_mapping)
+	SignalBus.affine_mapping_changed.emit(_current_affine_mapping)
+	print("affine mapping set to: " + str(_current_affine_mapping))
+static func set_jitter_strength(jitter_strength: float):
+	if jitter_strength < 0 or jitter_strength > 1:
+		return
+	_current_jitter_strength = jitter_strength
+	Config.set_config(VIDEO_SECTION, JITTER_STRENGTH, _current_jitter_strength)
+	SignalBus.jitter_strength_changed.emit(_current_jitter_strength)
+	print("jitter strength set to: " + str(_current_jitter_strength))
+static func set_dithering(dithering: bool):
+	_current_dithering = dithering
+	Config.set_config(VIDEO_SECTION, DITHERING, _current_dithering)
+	SignalBus.dithering_changed.emit(_current_dithering)
+	print("dithering set to: " + str(_current_dithering))
+static func set_limit_colors(limit_colors: bool):
+	_current_limit_colors = limit_colors
+	Config.set_config(VIDEO_SECTION, LIMIT_COLORS, _current_limit_colors)
+	SignalBus.limit_colors_changed.emit(_current_limit_colors)
+	print("limit colors set to: " + str(_current_limit_colors))
 
 static func is_fullscreen(window : Window) -> bool:
 	return (window.mode == Window.MODE_EXCLUSIVE_FULLSCREEN) or (window.mode == Window.MODE_FULLSCREEN)
@@ -157,14 +189,35 @@ static func get_render_resolution() -> Vector2i:
 	current_resolution = Config.get_config(VIDEO_SECTION, RENDER_RESOLUTION, current_resolution)
 	print("Config file render res: " + str(current_resolution))
 	return current_resolution
+static func get_affine_mapping() -> bool:
+	var affine_mapping = _current_affine_mapping
+	print("AppSettings affine mapping: " + str(_current_affine_mapping))
+	affine_mapping = Config.get_config(VIDEO_SECTION, AFFINE_MAPPING, affine_mapping)
+	print("Config file affine mapping: " + str(affine_mapping))
+	return affine_mapping
+static func get_jitter_strength() -> float:
+	var jitter_strength = _current_jitter_strength
+	print("AppSettings jitter strength: " + str(_current_jitter_strength))
+	jitter_strength = Config.get_config(VIDEO_SECTION, JITTER_STRENGTH, jitter_strength)
+	print("Config file jitter strength: " + str(jitter_strength))
+	return jitter_strength
+static func get_dithering() -> bool:
+	var dithering = _current_dithering
+	print("AppSettings dither: " + str(_current_dithering))
+	dithering = Config.get_config(VIDEO_SECTION, DITHERING, dithering)
+	print("Config file dither: " + str(dithering))
+	return dithering
+static func get_limit_colors() -> bool:
+	var limit_colors = _current_limit_colors
+	print("AppSettings color limit: " + str(_current_limit_colors))
+	limit_colors = Config.get_config(VIDEO_SECTION, LIMIT_COLORS, limit_colors)
+	print("Config file color limit: " + str(limit_colors))
+	return limit_colors
 
 static func set_video_from_config(window : Window) -> void:
 	var fullscreen_enabled : bool = is_fullscreen(window)
 	fullscreen_enabled = Config.get_config(VIDEO_SECTION, FULLSCREEN_ENABLED, fullscreen_enabled)
 	set_fullscreen_enabled(fullscreen_enabled, window)
-	#if not (fullscreen_enabled or OS.has_feature("web")):
-		#var current_resolution : Vector2i = get_resolution(window)
-		#set_resolution(current_resolution, window)
 	if not fullscreen_enabled:
 		var width = ProjectSettings.get_setting("display/window/size/window_width_override")
 		var height = ProjectSettings.get_setting("display/window/size/window_height_override")

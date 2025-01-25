@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://ckmyi0h6s1grm"]
+[gd_scene load_steps=27 format=3 uid="uid://ckmyi0h6s1grm"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_0xewk"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_hamel"]
@@ -11,6 +11,7 @@
 [ext_resource type="PackedScene" uid="uid://hiqhb16vaec0" path="res://nodes/actors/actor_visual_manager.tscn" id="5_ip2ne"]
 [ext_resource type="PackedScene" uid="uid://bp5q1jvgjyu1v" path="res://nodes/actors/actor_player_input_manager.tscn" id="6_fmxox"]
 [ext_resource type="Texture2D" uid="uid://c2l3ujn22geie" path="res://resources/images/placeholder_winsley_portrait.jpg" id="7_pb150"]
+[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="8_x4yun"]
 [ext_resource type="PackedScene" uid="uid://bnevkrt4mxik6" path="res://nodes/stage/stage_interface/select_actor_arrow.tscn" id="10_oioks"]
 [ext_resource type="PackedScene" uid="uid://bh37225es25h3" path="res://nodes/acts/specific/winsley/basic/ACT_BASIC_W_EN-GUARDE.tscn" id="11_borss"]
 [ext_resource type="PackedScene" uid="uid://b0xup73c7oivr" path="res://nodes/acts/specific/winsley/basic/ACT_ENBASIC_W_LA-VICTOIRE.tscn" id="12_bf6gc"]
@@ -41,6 +42,22 @@ height = 1.5
 radial_segments = 8
 rings = 4
 
+[sub_resource type="Gradient" id="Gradient_ibnep"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.87451, 0, 0.482353, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sf8ad"]
+gradient = SubResource("Gradient_ibnep")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_sqexc"]
+render_priority = 0
+shader = ExtResource("8_x4yun")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = SubResource("GradientTexture1D_sf8ad")
+
 [sub_resource type="BoxShape3D" id="BoxShape3D_b3py1"]
 size = Vector3(0.698242, 1.50894, 0.694336)
 
@@ -57,10 +74,11 @@ _status = SubResource("Resource_46b31")
 
 [node name="ActorCostume" parent="." instance=ExtResource("4_5sbf4")]
 
-[node name="Mesh" type="MeshInstance3D" parent="ActorCostume"]
+[node name="Mesh" type="MeshInstance3D" parent="ActorCostume" groups=["uses_psx_render_shader"]]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.759426, 0)
 mesh = SubResource("CapsuleMesh_efrgk")
 skeleton = NodePath("")
+surface_material_override/0 = SubResource("ShaderMaterial_sqexc")
 
 [node name="StaticBody3D" type="StaticBody3D" parent="ActorCostume"]
 

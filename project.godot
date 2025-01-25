@@ -40,6 +40,10 @@ window/stretch/mode="viewport"
 
 enabled=PackedStringArray("res://addons/beehave/plugin.cfg", "res://addons/behaviour_toolkit/plugin.cfg", "res://addons/maaacks_game_template/plugin.cfg", "res://addons/maaacks_scene_loader/plugin.cfg")
 
+[global_group]
+
+uses_psx_render_shader="Any object that uses the psx_render shader will be in this group."
+
 [input]
 
 down={
