@@ -1,0 +1,158 @@
+[gd_scene load_steps=13 format=3 uid="uid://glnkwcvo5ajp"]
+
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector/act_selector.gd" id="1_igu6y"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/blackboard.gd" id="2_cdx58"]
+[ext_resource type="PackedScene" uid="uid://dv21agpcnxr2x" path="res://nodes/stage/stage_interface/act_button/act_button.tscn" id="2_vmno4"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="3_3435q"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector/states/hidden.gd" id="4_7uq64"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector/states/main.gd" id="5_smbt3"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_transition.gd" id="6_d4yn3"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector/states/select_basic_act.gd" id="6_v4mnj"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector/states/select_skill.gd" id="7_240wo"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector/states/select_item.gd" id="8_7pmfw"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector/states/escape.gd" id="9_6jbp1"]
+
+[sub_resource type="Resource" id="Resource_o0rls"]
+script = ExtResource("2_cdx58")
+content = {}
+
+[node name="ActSelector" type="Control"]
+layout_mode = 3
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 964.0
+offset_top = -297.0
+grow_horizontal = 2
+grow_vertical = 0
+mouse_filter = 2
+script = ExtResource("1_igu6y")
+_blackboard = SubResource("Resource_o0rls")
+
+[node name="ActButtonContainer" type="VBoxContainer" parent="."]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/separation = 75
+
+[node name="BasicMoveButton" parent="ActButtonContainer" instance=ExtResource("2_vmno4")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+_button_text = "Basic Move"
+
+[node name="SkillButton" parent="ActButtonContainer" instance=ExtResource("2_vmno4")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+_button_text = "Skill"
+
+[node name="ItemButton" parent="ActButtonContainer" instance=ExtResource("2_vmno4")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+_button_text = "Item"
+
+[node name="EscapeButton" parent="ActButtonContainer" instance=ExtResource("2_vmno4")]
+unique_name_in_owner = true
+layout_mode = 2
+mouse_filter = 2
+_button_text = "Escape"
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "actor")]
+script = ExtResource("3_3435q")
+process_type = 0
+active = false
+initial_state = NodePath("Hidden")
+actor = NodePath("..")
+blackboard = SubResource("Resource_o0rls")
+
+[node name="Hidden" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("4_7uq64")
+
+[node name="onShowMain" type="Node" parent="FiniteStateMachine/Hidden" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Main")
+use_event = true
+event = "show_main"
+
+[node name="Main" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("5_smbt3")
+
+[node name="onHide" type="Node" parent="FiniteStateMachine/Main" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Hidden")
+use_event = true
+event = "hide"
+
+[node name="onSelectBasicAct" type="Node" parent="FiniteStateMachine/Main" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Select Basic Act")
+use_event = true
+event = "select_basic_act"
+
+[node name="onSelectSkill" type="Node" parent="FiniteStateMachine/Main" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Select Skill")
+use_event = true
+event = "select_skill"
+
+[node name="onSelectItem" type="Node" parent="FiniteStateMachine/Main" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Select Item")
+use_event = true
+event = "select_item"
+
+[node name="Select Basic Act" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("6_v4mnj")
+
+[node name="onCancelSelection" type="Node" parent="FiniteStateMachine/Select Basic Act" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Main")
+use_event = true
+event = "cancel_selection"
+
+[node name="onConfirmSelection" type="Node" parent="FiniteStateMachine/Select Basic Act" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Hidden")
+use_event = true
+event = "confirm_selection"
+
+[node name="Select Skill" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("7_240wo")
+
+[node name="onCancelSelection" type="Node" parent="FiniteStateMachine/Select Skill" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Main")
+use_event = true
+event = "cancel_selection"
+
+[node name="onConfirmSelection" type="Node" parent="FiniteStateMachine/Select Skill" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Hidden")
+use_event = true
+event = "confirm_selection"
+
+[node name="Select Item" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("8_7pmfw")
+
+[node name="onCancelSelection" type="Node" parent="FiniteStateMachine/Select Item" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Main")
+use_event = true
+event = "cancel_selection"
+
+[node name="onConfirmSelection" type="Node" parent="FiniteStateMachine/Select Item" node_paths=PackedStringArray("next_state")]
+script = ExtResource("6_d4yn3")
+next_state = NodePath("../../Hidden")
+use_event = true
+event = "confirm_selection"
+
+[node name="Escape" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("9_6jbp1")

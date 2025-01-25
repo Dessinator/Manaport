@@ -2,7 +2,7 @@
 
 [ext_resource type="Script" path="res://nodes/stage/stage_interface/stage_interface.gd" id="1_kuev2"]
 [ext_resource type="PackedScene" uid="uid://dv21agpcnxr2x" path="res://nodes/stage/stage_interface/act_button/act_button.tscn" id="1_xgfc7"]
-[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector.gd" id="2_1c7ey"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector/act_selector.gd" id="2_1c7ey"]
 
 [node name="StageInterface" type="Control"]
 layout_mode = 3

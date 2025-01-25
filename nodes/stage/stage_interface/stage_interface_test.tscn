@@ -1,10 +1,10 @@
-[gd_scene load_steps=18 format=3 uid="uid://cu4jbf2njajbb"]
+[gd_scene load_steps=19 format=3 uid="uid://cu4jbf2njajbb"]
 
 [ext_resource type="Script" path="res://nodes/stage/stage_interface/stage_interface.gd" id="1_4tvn5"]
 [ext_resource type="Script" path="res://nodes/overworld/pause_menu_controller.gd" id="2_e803j"]
-[ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector.gd" id="2_vyypb"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/blackboard.gd" id="2_j6hoa"]
 [ext_resource type="PackedScene" uid="uid://c54j17lqrmxwg" path="res://nodes/menus/pause_menu/overworld_pause_menu.tscn" id="3_jw37h"]
-[ext_resource type="PackedScene" uid="uid://dv21agpcnxr2x" path="res://nodes/stage/stage_interface/act_button/act_button.tscn" id="3_nolg8"]
+[ext_resource type="PackedScene" uid="uid://glnkwcvo5ajp" path="res://nodes/stage/stage_interface/act_selector/act_selector.tscn" id="4_shfds"]
 [ext_resource type="PackedScene" uid="uid://cvj4ujemstn14" path="res://nodes/stage/stage_interface/hold_circle/hold_circle.tscn" id="6_627gc"]
 [ext_resource type="PackedScene" uid="uid://de42djxkag3rf" path="res://nodes/stage/stage_interface/inspect_interface/inspect_interface.tscn" id="6_wvyy4"]
 [ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="8_ujiss"]
@@ -13,6 +13,10 @@
 [ext_resource type="Script" path="res://nodes/stage/stage_interface/states/select_act.gd" id="11_1qldd"]
 [ext_resource type="Script" path="res://nodes/stage/stage_interface/states/select_targets.gd" id="12_fio4j"]
 [ext_resource type="Script" path="res://nodes/stage/stage_interface/states/inspect_actor.gd" id="13_rx102"]
+
+[sub_resource type="Resource" id="Resource_ix05u"]
+script = ExtResource("2_j6hoa")
+content = {}
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utxbh"]
 
@@ -36,6 +40,7 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_4tvn5")
+_blackboard = SubResource("Resource_ix05u")
 
 [node name="InspectDelayTimer" type="Timer" parent="."]
 wait_time = 0.5
@@ -89,54 +94,10 @@ theme_override_constants/margin_bottom = 16
 layout_mode = 2
 mouse_filter = 2
 
-[node name="ActSelector" type="Control" parent="MarginContainer/ActSelectorContainer"]
+[node name="ActSelector" parent="MarginContainer/ActSelectorContainer" node_paths=PackedStringArray("_stage_interface") instance=ExtResource("4_shfds")]
 unique_name_in_owner = true
 layout_mode = 1
-anchors_preset = 12
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = 964.0
-offset_top = -297.0
-grow_horizontal = 2
-grow_vertical = 0
-mouse_filter = 2
-script = ExtResource("2_vyypb")
-
-[node name="ActButtonContainer" type="VBoxContainer" parent="MarginContainer/ActSelectorContainer/ActSelector"]
-unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-mouse_filter = 2
-theme_override_constants/separation = 75
-
-[node name="BasicMoveButton" parent="MarginContainer/ActSelectorContainer/ActSelector/ActButtonContainer" instance=ExtResource("3_nolg8")]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 2
-_button_text = "Basic Move"
-
-[node name="SkillButton" parent="MarginContainer/ActSelectorContainer/ActSelector/ActButtonContainer" instance=ExtResource("3_nolg8")]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 2
-_button_text = "Skill"
-
-[node name="ItemButton" parent="MarginContainer/ActSelectorContainer/ActSelector/ActButtonContainer" instance=ExtResource("3_nolg8")]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 2
-_button_text = "Item"
-
-[node name="EscapeButton" parent="MarginContainer/ActSelectorContainer/ActSelector/ActButtonContainer" instance=ExtResource("3_nolg8")]
-unique_name_in_owner = true
-layout_mode = 2
-mouse_filter = 2
-_button_text = "Escape"
+_stage_interface = NodePath("../../..")
 
 [node name="ActorInfoPanelContainer" type="Control" parent="MarginContainer"]
 layout_mode = 2
@@ -280,6 +241,7 @@ process_type = 0
 active = false
 initial_state = NodePath("Idle")
 actor = NodePath("..")
+blackboard = SubResource("Resource_ix05u")
 
 [node name="Idle" type="Node" parent="FiniteStateMachine"]
 script = ExtResource("9_4yv1j")

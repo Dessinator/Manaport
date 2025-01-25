@@ -191,8 +191,9 @@ func _on_hold(result: Dictionary, actor: Node, blackboard: BTBlackboard):
 		blackboard.remove_value("actor_to_inspect")
 		inspect_timer.stop()
 		return
-	
-	inspect_delay_timer.timeout.connect(_on_inspect_delay_timer_timeout.bind(inspect_timer, blackboard.get_value("actor_to_inspect")))
+		
+	if not inspect_delay_timer.timeout.is_connected(_on_inspect_delay_timer_timeout):
+		inspect_delay_timer.timeout.connect(_on_inspect_delay_timer_timeout.bind(inspect_timer, blackboard.get_value("actor_to_inspect")))
 func _on_end_hold(result: Dictionary, actor: Node, blackboard: BTBlackboard):
 	blackboard.remove_value("actor_to_inspect")
 	actor.get_inspect_timer().stop()
@@ -236,7 +237,6 @@ func _on_exit(actor: Node, blackboard: BTBlackboard) -> void:
 	stage_camera.hold.disconnect(_on_hold)
 	stage_camera.end_hold.disconnect(_on_end_hold)
 	
-	blackboard.remove_value("actor_to_inspect")
 	actor.get_inspect_timer().stop()
 	actor.get_inspect_delay_timer().stop()
 	actor.get_inspect_timer().timeout.disconnect(_on_inspect_timer_timeout)

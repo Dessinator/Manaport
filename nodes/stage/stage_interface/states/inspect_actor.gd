@@ -1,7 +1,6 @@
 @tool
 extends FSMState
 
-
 # Executes after the state is entered.
 func _on_enter(actor: Node, blackboard: BTBlackboard) -> void:
 	actor = actor as StageInterface
@@ -26,7 +25,6 @@ func _on_enter(actor: Node, blackboard: BTBlackboard) -> void:
 func _on_update(_delta: float, _actor: Node, _blackboard: BTBlackboard) -> void:
 	pass
 
-
 # Executes before the state is exited.
 func _on_exit(actor: Node, _blackboard: BTBlackboard) -> void:
 	actor = actor as StageInterface
@@ -34,7 +32,6 @@ func _on_exit(actor: Node, _blackboard: BTBlackboard) -> void:
 	actor.add_child(actor.get_main_container())
 	actor.add_child(actor.get_mini_actor_viewport_container())
 	actor.remove_child(actor.get_inspect_interface_container())
-
 
 # Add custom configuration warnings
 # Note: Can be deleted if you don't want to define your own warnings.

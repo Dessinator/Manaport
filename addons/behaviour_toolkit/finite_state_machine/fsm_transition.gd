@@ -30,7 +30,6 @@ class_name FSMTransition extends BehaviourToolkit
 		event = value
 		update_configuration_warnings()
 
-
 ## Executed when the transition is taken.
 func _on_transition(_delta: float, _actor: Node, _blackboard: BTBlackboard) -> void:
 	pass

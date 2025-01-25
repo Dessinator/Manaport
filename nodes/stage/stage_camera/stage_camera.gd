@@ -11,7 +11,7 @@ const RAY_LENGTH: int = 1000
 @onready var _double_click_timer: Timer = $DoubleClickTimer
 
 var _waiting_for_double_click: bool = false
-var _holding: bool = true
+var _holding: bool = false
 
 func _ready() -> void:
 	_double_click_timer.timeout.connect(func(): _waiting_for_double_click = false)
