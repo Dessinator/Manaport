@@ -7,7 +7,7 @@ class_name BTSelector extends BTComposite
 var current_leaf: int = 0
 
 
-func tick(delta: float, actor: Node, blackboard: Blackboard):
+func tick(delta: float, actor: Node, blackboard: BTBlackboard):
 	if current_leaf > leaves.size() -1:
 		current_leaf = 0
 		return BTStatus.FAILURE

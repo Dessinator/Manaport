@@ -1,0 +1,48 @@
+[gd_scene load_steps=2 format=3 uid="uid://bqsipp5mo48av"]
+
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/inspect_interface/content_panel/content_panel.gd" id="1_b5bxq"]
+
+[node name="ContentPanel" type="PanelContainer"]
+script = ExtResource("1_b5bxq")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HeadingContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HeadingContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HeadingLabel" type="Label" parent="MarginContainer/VBoxContainer/HeadingContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Heading"
+
+[node name="BodyContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/BodyContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="BodyLabel" type="Label" parent="MarginContainer/VBoxContainer/BodyContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Filler Text. Filler Text. Filler Text. Filler Text. Filler Text. Filler Text. "
+autowrap_mode = 3

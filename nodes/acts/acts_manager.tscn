@@ -4,5 +4,5 @@
 
 [node name="ActsManager" type="Node"]
 script = ExtResource("1_pk7ui")
-_basic_move = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"editor_description":"","script":Resource("res://nodes/acts/act.gd"),"_recover_stamina":false,"_stamina_modifier":0)
+_basic_move = Object(Node,"_import_path":NodePath(""),"unique_name_in_owner":false,"process_mode":0,"process_priority":0,"process_physics_priority":0,"process_thread_group":0,"physics_interpolation_mode":0,"auto_translate_mode":0,"editor_description":"","script":Resource("res://nodes/acts/act.gd"),"_name":"","_type":0,"_element":0,"_brief_description":"","_long_description":"","_friendly_fire":false,"_recover_stamina":false,"_stamina_modifier":0,"_locked":false)
 

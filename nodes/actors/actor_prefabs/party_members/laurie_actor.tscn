@@ -84,3 +84,6 @@ _skill_2 = ExtResource("13_rh37v")
 
 [node name="ActorStatusEffectManager" type="Node" parent="."]
 script = ExtResource("14_70w2g")
+
+[node name="InspectCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.94704)

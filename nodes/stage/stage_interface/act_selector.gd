@@ -139,7 +139,6 @@ func _process(_delta):
 			close_acts()
 			act_selected.emit(null)
 
-
 func _add_main_act_buttons():
 	_act_button_container.add_child(_basic_move_button)
 	_act_button_container.add_child(_skill_button)

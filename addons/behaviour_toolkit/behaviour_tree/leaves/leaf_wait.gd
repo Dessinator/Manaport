@@ -11,7 +11,7 @@ class_name LeafWait extends BTLeaf
 var ticks: int = 0
 
 
-func tick(_delta: float, _actor: Node, _blackboard: Blackboard):
+func tick(_delta: float, _actor: Node, _blackboard: BTBlackboard):
 	if ticks < wait_for_ticks:
 		ticks += 1
 		return BTStatus.RUNNING

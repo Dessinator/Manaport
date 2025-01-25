@@ -92,3 +92,6 @@ _basic_move = ExtResource("14_0qed3")
 
 [node name="ActorStatusEffectManager" type="Node" parent="."]
 script = ExtResource("12_g60oh")
+
+[node name="InspectCamera" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.94704)

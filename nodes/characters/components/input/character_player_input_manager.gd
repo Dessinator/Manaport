@@ -13,9 +13,9 @@ func _process(delta):
 	if (Input.is_action_pressed("move")):
 		var h_rot = _camera_manager.get_node("horizontal").global_transform.basis.get_euler().y
 		var velocity = Vector3(
-			Input.get_action_strength("strafe_left") - Input.get_action_strength("strafe_right"),
+			Input.get_action_strength("left") - Input.get_action_strength("right"),
 			0,
-			Input.get_action_strength("forward") - Input.get_action_strength("backward"))
+			Input.get_action_strength("up") - Input.get_action_strength("down"))
 		velocity = velocity.rotated(Vector3.UP, h_rot).normalized()
 		on_move.emit(velocity)
 	else:

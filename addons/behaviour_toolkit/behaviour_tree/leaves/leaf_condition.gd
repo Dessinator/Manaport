@@ -34,7 +34,7 @@ enum ConditionType {
 
 
 ## The default custom script template.
-const DEFAULT_CUSTOM_SCRIPT = "# Custom Condition\nstatic func is_valid(_actor: Node, _blackboard: Blackboard) -> bool:\n\t# Compute your custom logic here\n\treturn true\n"
+const DEFAULT_CUSTOM_SCRIPT = "# Custom Condition\nstatic func is_valid(_actor: Node, _blackboard: BTBlackboard) -> bool:\n\t# Compute your custom logic here\n\treturn true\n"
 
 
 ## The property of the target node to query.
@@ -85,7 +85,7 @@ const DEFAULT_CUSTOM_SCRIPT = "# Custom Condition\nstatic func is_valid(_actor: 
 		update_configuration_warnings()
 
 
-func tick(delta: float, actor: Node, _blackboard: Blackboard):
+func tick(delta: float, actor: Node, _blackboard: BTBlackboard):
 	var target: Node
 	match target_type:
 		ConditionTarget.ACTOR:

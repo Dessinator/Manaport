@@ -12,7 +12,7 @@ class_name BTLimiter extends BTDecorator
 @onready var cache_key = 'limiter_%s' % self.get_instance_id()
 
 
-func tick(delta: float, actor: Node, blackboard: Blackboard):
+func tick(delta: float, actor: Node, blackboard: BTBlackboard):
 	var current_count = blackboard.get_value(cache_key)
 	if current_count == null:
 		current_count = 0
@@ -28,5 +28,5 @@ func tick(delta: float, actor: Node, blackboard: Blackboard):
 		return on_limit
 
 
-func reset(actor: Node, blackboard: Blackboard):
+func reset(actor: Node, blackboard: BTBlackboard):
 	blackboard.set_value(cache_key, 0)

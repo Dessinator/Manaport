@@ -210,7 +210,7 @@ func _on_button_blackboard_pressed():
 
 
 func _on_file_dialog_new_blackboard_file_selected(path:String):
-	var new_blackboard := Blackboard.new()
+	var new_blackboard := BTBlackboard.new()
 	ResourceSaver.save(new_blackboard, path)
 		
 

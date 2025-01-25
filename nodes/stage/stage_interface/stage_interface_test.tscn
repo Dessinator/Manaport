@@ -1,10 +1,18 @@
-[gd_scene load_steps=10 format=3 uid="uid://cu4jbf2njajbb"]
+[gd_scene load_steps=18 format=3 uid="uid://cu4jbf2njajbb"]
 
 [ext_resource type="Script" path="res://nodes/stage/stage_interface/stage_interface.gd" id="1_4tvn5"]
 [ext_resource type="Script" path="res://nodes/overworld/pause_menu_controller.gd" id="2_e803j"]
 [ext_resource type="Script" path="res://nodes/stage/stage_interface/act_selector.gd" id="2_vyypb"]
 [ext_resource type="PackedScene" uid="uid://c54j17lqrmxwg" path="res://nodes/menus/pause_menu/overworld_pause_menu.tscn" id="3_jw37h"]
 [ext_resource type="PackedScene" uid="uid://dv21agpcnxr2x" path="res://nodes/stage/stage_interface/act_button/act_button.tscn" id="3_nolg8"]
+[ext_resource type="PackedScene" uid="uid://cvj4ujemstn14" path="res://nodes/stage/stage_interface/hold_circle/hold_circle.tscn" id="6_627gc"]
+[ext_resource type="PackedScene" uid="uid://de42djxkag3rf" path="res://nodes/stage/stage_interface/inspect_interface/inspect_interface.tscn" id="6_wvyy4"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm.gd" id="8_ujiss"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/states/idle.gd" id="9_4yv1j"]
+[ext_resource type="Script" path="res://addons/behaviour_toolkit/finite_state_machine/fsm_transition.gd" id="10_jh8op"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/states/select_act.gd" id="11_1qldd"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/states/select_targets.gd" id="12_fio4j"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/states/inspect_actor.gd" id="13_rx102"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_utxbh"]
 
@@ -28,6 +36,13 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 script = ExtResource("1_4tvn5")
+
+[node name="InspectDelayTimer" type="Timer" parent="."]
+wait_time = 0.5
+one_shot = true
+
+[node name="InspectTimer" type="Timer" parent="."]
+one_shot = true
 
 [node name="PauseMenuController" type="Node" parent="."]
 script = ExtResource("2_e803j")
@@ -251,5 +266,75 @@ offset_left = -40.0
 offset_bottom = 40.0
 grow_horizontal = 0
 text = "||"
+
+[node name="InspectInterface" parent="." instance=ExtResource("6_wvyy4")]
+layout_mode = 1
+
+[node name="HoldCircle" parent="." instance=ExtResource("6_627gc")]
+unique_name_in_owner = true
+mouse_filter = 2
+
+[node name="FiniteStateMachine" type="Node" parent="." node_paths=PackedStringArray("initial_state", "actor")]
+script = ExtResource("8_ujiss")
+process_type = 0
+active = false
+initial_state = NodePath("Idle")
+actor = NodePath("..")
+
+[node name="Idle" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("9_4yv1j")
+
+[node name="onSelectAct" type="Node" parent="FiniteStateMachine/Idle" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_jh8op")
+next_state = NodePath("../../Select Act")
+use_event = true
+event = "select_act"
+
+[node name="Select Act" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("11_1qldd")
+
+[node name="onSelectTargets" type="Node" parent="FiniteStateMachine/Select Act" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_jh8op")
+next_state = NodePath("../../Select Targets")
+use_event = true
+event = "select_targets"
+
+[node name="onInspectActor" type="Node" parent="FiniteStateMachine/Select Act" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_jh8op")
+next_state = NodePath("../../Inspect Actor")
+use_event = true
+event = "inspect_actor"
+
+[node name="Select Targets" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("12_fio4j")
+
+[node name="onCancelTargetSelection" type="Node" parent="FiniteStateMachine/Select Targets" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_jh8op")
+next_state = NodePath("../../Select Act")
+use_event = true
+event = "cancel_target_selection"
+
+[node name="onConfirmTargetSelection" type="Node" parent="FiniteStateMachine/Select Targets" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_jh8op")
+next_state = NodePath("../../Idle")
+use_event = true
+event = "confirm_target_selection"
+
+[node name="onInspectActor" type="Node" parent="FiniteStateMachine/Select Targets" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_jh8op")
+next_state = NodePath("../../Inspect Actor")
+use_event = true
+event = "inspect_actor"
+
+[node name="Inspect Actor" type="Node" parent="FiniteStateMachine"]
+script = ExtResource("13_rx102")
+
+[node name="onReturnToActSelection" type="Node" parent="FiniteStateMachine/Inspect Actor" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_jh8op")
+next_state = NodePath("../../Select Act")
+
+[node name="onReturnToTargetSelection" type="Node" parent="FiniteStateMachine/Inspect Actor" node_paths=PackedStringArray("next_state")]
+script = ExtResource("10_jh8op")
+next_state = NodePath("../../Select Targets")
 
 [connection signal="pressed" from="MarginContainer/PauseButtonContainer/PauseButton" to="PauseMenuController" method="_on_pause"]

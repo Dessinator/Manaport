@@ -23,7 +23,7 @@ func _ready():
 		
 
 
-func tick(_delta: float, _actor: Node, _blackboard: Blackboard) -> BTStatus:
+func tick(_delta: float, _actor: Node, _blackboard: BTBlackboard) -> BTStatus:
 	if state_machine.active == false:
 		state_machine.start()
 

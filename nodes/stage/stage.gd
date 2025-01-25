@@ -65,6 +65,7 @@ func add_actors(actors: Array):
 		if actor.is_party_member():
 			var pos = %PartyMemberSpawnPositions.get_child(party_member_counter).position
 			actor.position = pos
+			actor.rotate_y(deg_to_rad(180.0))
 			party_member_counter += 1
 			continue
 		

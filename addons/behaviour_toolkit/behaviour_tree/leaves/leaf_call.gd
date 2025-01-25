@@ -36,7 +36,7 @@ enum CallTarget {
 		update_configuration_warnings()
 
 
-func tick(delta: float, actor: Node, blackboard: Blackboard):
+func tick(delta: float, actor: Node, blackboard: BTBlackboard):
 	var target
 
 	match target_type:

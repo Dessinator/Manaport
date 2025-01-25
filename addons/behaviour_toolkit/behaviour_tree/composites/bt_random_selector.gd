@@ -8,7 +8,7 @@ var is_shuffled: bool = false
 var current_leaf: int = 0
 
 
-func tick(delta: float, actor: Node, blackboard: Blackboard):
+func tick(delta: float, actor: Node, blackboard: BTBlackboard):
 	if not is_shuffled:
 		leaves.shuffle()
 

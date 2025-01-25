@@ -4,7 +4,7 @@ class_name BTAlwaysSucceed extends BTDecorator
 ## The leaf will always succeed after running.
 
 
-func tick(delta: float, actor: Node, blackboard: Blackboard):
+func tick(delta: float, actor: Node, blackboard: BTBlackboard):
 	var response = leaf.tick(delta, actor, blackboard)
 
 	if response == BTStatus.RUNNING:

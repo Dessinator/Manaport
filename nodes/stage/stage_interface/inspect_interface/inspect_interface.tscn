@@ -1,0 +1,170 @@
+[gd_scene load_steps=5 format=3 uid="uid://de42djxkag3rf"]
+
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/inspect_interface/inspect_interface.gd" id="1_sbxdx"]
+[ext_resource type="PackedScene" uid="uid://bqsipp5mo48av" path="res://nodes/stage/stage_interface/inspect_interface/content_panel/content_panel.tscn" id="2_tx4b0"]
+
+[sub_resource type="Gradient" id="Gradient_8w6tw"]
+interpolation_mode = 2
+offsets = PackedFloat32Array(0, 0.3, 0.7, 1)
+colors = PackedColorArray(0, 0, 0, 0.392157, 0, 0, 0, 0, 0, 0, 0, 0.0236365, 0, 0, 0, 0.392157)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_rkt1b"]
+gradient = SubResource("Gradient_8w6tw")
+
+[node name="InspectInterface" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_sbxdx")
+
+[node name="Background" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = SubResource("GradientTexture1D_rkt1b")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="InspectionMetadataContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="InspectionMetadata" type="Control" parent="MarginContainer/InspectionMetadataContainer"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -146.0
+offset_right = 146.0
+offset_bottom = 77.0
+grow_horizontal = 2
+
+[node name="Background" type="Panel" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 50
+text = "??? - Lv. ???"
+horizontal_alignment = 1
+
+[node name="InspectionDetailsContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="InspectionDetails" type="Control" parent="MarginContainer/InspectionDetailsContainer"]
+layout_mode = 1
+anchors_preset = 9
+anchor_bottom = 1.0
+offset_right = 360.0
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="TitlePanelContainer" type="Control" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer"]
+layout_mode = 2
+
+[node name="TitleContainer" type="Control" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/TitlePanelContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_bottom = 61.0
+grow_horizontal = 2
+
+[node name="Background" type="Panel" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/TitlePanelContainer/TitleContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/TitlePanelContainer/TitleContainer"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_font_sizes/font_size = 30
+text = "Details"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ContentPanelContainer" type="Control" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/ContentPanelContainer"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 69.0
+offset_bottom = 896.0
+grow_horizontal = 2
+
+[node name="ContentPanel" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/ContentPanelContainer/VBoxContainer" instance=ExtResource("2_tx4b0")]
+layout_mode = 2
+
+[node name="InspectionAbilitiesContainer" type="Control" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="InspectionAbilities" type="Control" parent="MarginContainer/InspectionAbilitiesContainer"]
+layout_mode = 1
+anchors_preset = 11
+anchor_left = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -360.0
+grow_horizontal = 0
+grow_vertical = 2
+
+[node name="Background" type="Panel" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
