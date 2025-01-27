@@ -16,7 +16,7 @@ shader = ExtResource("1_2xkp6")
 shader_parameter/enabled = true
 shader_parameter/dithering = true
 shader_parameter/colors = 12
-shader_parameter/dither_size = 1
+shader_parameter/dither_size = 4
 
 [sub_resource type="World3D" id="World3D_ckdo8"]
 
