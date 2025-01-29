@@ -1,8 +1,8 @@
-[gd_scene load_steps=19 format=3 uid="uid://b2kqja31tsv2g"]
+[gd_scene load_steps=14 format=3 uid="uid://b2kqja31tsv2g"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_4nf4s"]
 [ext_resource type="PackedScene" uid="uid://ckmyi0h6s1grm" path="res://nodes/actors/actor_prefabs/party_members/winsley_actor.tscn" id="2_j6jgy"]
-[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="3_amqy3"]
+[ext_resource type="PackedScene" uid="uid://b5f2h4ioyi4kq" path="res://resources/models/charactor_actor_meshes/winsley/winsley_model.tscn" id="3_jivmq"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_skin.gd" id="5_clkvx"]
 [ext_resource type="Script" path="res://nodes/characters/components/visual/character_visual_manager.gd" id="6_y7c88"]
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="7_teixn"]
@@ -16,33 +16,6 @@
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0peiy"]
 radius = 0.32
 height = 1.37
-
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_2n3ar"]
-albedo_color = Color(0.87451, 0, 0.482353, 1)
-
-[sub_resource type="CapsuleMesh" id="CapsuleMesh_qoc81"]
-lightmap_size_hint = Vector2i(17, 14)
-material = SubResource("StandardMaterial3D_2n3ar")
-radius = 0.35
-height = 1.5
-radial_segments = 8
-rings = 4
-
-[sub_resource type="Gradient" id="Gradient_tfw0o"]
-offsets = PackedFloat32Array(0)
-colors = PackedColorArray(0.87451, 0, 0.482353, 1)
-
-[sub_resource type="GradientTexture1D" id="GradientTexture1D_tn3f3"]
-gradient = SubResource("Gradient_tfw0o")
-
-[sub_resource type="ShaderMaterial" id="ShaderMaterial_72lca"]
-render_priority = 0
-shader = ExtResource("3_amqy3")
-shader_parameter/affine_mapping = false
-shader_parameter/alpha_scissor = 0.5
-shader_parameter/jitter = 0.25
-shader_parameter/resolution = Vector2i(320, 240)
-shader_parameter/albedo = SubResource("GradientTexture1D_tn3f3")
 
 [node name="Winsley" type="CharacterBody3D" node_paths=PackedStringArray("_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager", "_character_camera_manager")]
 script = ExtResource("1_4nf4s")
@@ -59,10 +32,7 @@ shape = SubResource("CapsuleShape3D_0peiy")
 [node name="CharacterSkin" type="Node3D" parent="."]
 script = ExtResource("5_clkvx")
 
-[node name="Mesh" type="MeshInstance3D" parent="CharacterSkin" groups=["uses_psx_render_shader"]]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.751319, 0)
-mesh = SubResource("CapsuleMesh_qoc81")
-surface_material_override/0 = SubResource("ShaderMaterial_72lca")
+[node name="winsley" parent="CharacterSkin" instance=ExtResource("3_jivmq")]
 
 [node name="CharacterVisualManager" type="Node3D" parent="."]
 script = ExtResource("6_y7c88")

@@ -1,0 +1,7 @@
+[gd_scene load_steps=2 format=3 uid="uid://7f04qlktioll"]
+
+[ext_resource type="PackedScene" uid="uid://btcu1gxs0fbil" path="res://resources/models/charactor_actor_meshes/mirabelle/mirabelle.blend" id="1_lt2au"]
+
+[node name="mirabelle" instance=ExtResource("1_lt2au")]
+
+[node name="model" parent="rig/Skeleton3D" index="0" groups=["uses_psx_render_shader"]]

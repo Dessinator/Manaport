@@ -137,7 +137,14 @@ static func set_audio_from_config():
 # Video
 
 static func set_fullscreen_enabled(value : bool, window : Window) -> void:
-	window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN if (value) else Window.MODE_WINDOWED
+	if value:
+		window.mode = Window.MODE_EXCLUSIVE_FULLSCREEN
+	else:
+		window.mode = Window.MODE_WINDOWED
+		var window_width = ProjectSettings.get_setting("display/window/size/window_width_override")
+		var window_height = ProjectSettings.get_setting("display/window/size/window_height_override")
+		var resolution = Vector2i(window_width, window_height)
+		set_resolution(resolution, window)
 
 static func set_resolution(value : Vector2i, window : Window) -> void:
 	if value.x == 0 or value.y == 0:

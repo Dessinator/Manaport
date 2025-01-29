@@ -16,6 +16,7 @@ sky_material = SubResource("ProceduralSkyMaterial_1ddvu")
 
 [sub_resource type="Environment" id="Environment_n5q43"]
 background_mode = 2
+background_energy_multiplier = 2.0
 sky = SubResource("Sky_gjwdk")
 ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)

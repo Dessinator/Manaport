@@ -134,7 +134,11 @@ func clear_target_node():
 		return
 	
 	_target_node = null
-
+func clear_navigation():
+	if Engine.is_editor_hint():
+		return
+	
+	_nav_agent.set_target_position(global_position)
 func has_reached_target() -> bool:
 	return _target_reached
 func get_target_node() -> Node3D:

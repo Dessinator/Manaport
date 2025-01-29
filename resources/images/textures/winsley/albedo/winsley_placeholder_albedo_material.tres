@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://dpqxohi58cvst"]
+
+[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="1_g14vs"]
+[ext_resource type="Texture2D" uid="uid://obqik4f1srmw" path="res://resources/images/textures/winsley/albedo/winsley_placeholder_albedo.png" id="2_5koqa"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_g14vs")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("2_5koqa")

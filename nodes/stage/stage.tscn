@@ -77,8 +77,9 @@ sky_material = SubResource("ProceduralSkyMaterial_utxbh")
 
 [sub_resource type="Environment" id="Environment_mt05j"]
 background_mode = 2
+background_energy_multiplier = 2.0
 sky = SubResource("Sky_cprll")
-ambient_light_source = 2
+ambient_light_source = 3
 ambient_light_color = Color(1, 1, 1, 1)
 
 [sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5jjj8"]
@@ -141,7 +142,6 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 5.03346, 0, -7.76756)
 unique_name_in_owner = true
 
 [node name="Environment" type="Node3D" parent="RenderHandler/SubViewportContainer/SubViewport" index="6"]
-metadata/_edit_lock_ = true
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="RenderHandler/SubViewportContainer/SubViewport/Environment"]
 environment = SubResource("Environment_mt05j")

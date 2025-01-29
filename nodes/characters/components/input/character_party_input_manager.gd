@@ -62,6 +62,8 @@ func _connect_player_input_signals():
 		_player_input_manager.on_next.connect(_on_next)
 		_player_input_manager.on_previous.connect(_on_previous)
 	
+		_com_input_manager.clear_target_node()
+		_com_input_manager.clear_navigation()
 		_com_input_manager.on_move.disconnect(_on_move)
 		_com_input_manager.on_sprint.disconnect(_on_sprint)
 		_com_input_manager.on_look.disconnect(_on_look)

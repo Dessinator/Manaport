@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://y5abcy4f5vbi"]
+
+[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="1_ox7rx"]
+[ext_resource type="Texture2D" uid="uid://cks45g674uykc" path="res://resources/images/textures/mirabelle/albedo/mirabelle_placeholder_albedo.png" id="2_4xx1u"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_ox7rx")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("2_4xx1u")
