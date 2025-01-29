@@ -1,0 +1,13 @@
+[gd_resource type="ShaderMaterial" load_steps=3 format=3 uid="uid://bq54twae50ujw"]
+
+[ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="1_2v5e3"]
+[ext_resource type="Texture2D" uid="uid://bjohxkna0sm6m" path="res://resources/images/textures/laurie/albedo/laurie_placeholder_albedo.png" id="2_pudpd"]
+
+[resource]
+render_priority = 0
+shader = ExtResource("1_2v5e3")
+shader_parameter/affine_mapping = false
+shader_parameter/alpha_scissor = 0.5
+shader_parameter/jitter = 0.25
+shader_parameter/resolution = Vector2i(320, 240)
+shader_parameter/albedo = ExtResource("2_pudpd")

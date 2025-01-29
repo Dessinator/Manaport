@@ -51,7 +51,7 @@ func _set_resolution(resolution: Vector2i):
 	
 	var nodes = get_tree().get_nodes_in_group("uses_psx_render_shader")
 	for node in nodes:
-		var shader_material = node.get_surface_override_material(0) as ShaderMaterial
+		var shader_material = node.get_active_material(0) as ShaderMaterial
 		shader_material.set_shader_parameter("resolution", resolution)
 	
 	if resolution == PS1_RESOLUTION:
@@ -78,12 +78,12 @@ func _set_resolution(resolution: Vector2i):
 func _set_affine_mapping(affine_mapping: bool):
 	var nodes = get_tree().get_nodes_in_group("uses_psx_render_shader")
 	for node in nodes:
-		var shader_material = node.get_surface_override_material(0) as ShaderMaterial
+		var shader_material = node.get_active_material(0) as ShaderMaterial
 		shader_material.set_shader_parameter("affine_mapping", affine_mapping)
 func _set_jitter_strength(jitter_strength: float):
 	var nodes = get_tree().get_nodes_in_group("uses_psx_render_shader")
 	for node in nodes:
-		var shader_material = node.get_surface_override_material(0) as ShaderMaterial
+		var shader_material = node.get_active_material(0) as ShaderMaterial
 		shader_material.set_shader_parameter("jitter", jitter_strength)
 func _set_dithering(dithering: bool):
 	var shader_material = _subviewport_container.material as ShaderMaterial
