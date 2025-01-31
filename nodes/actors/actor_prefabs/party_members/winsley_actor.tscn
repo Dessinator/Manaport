@@ -1,6 +1,7 @@
-[gd_scene load_steps=22 format=3 uid="uid://ckmyi0h6s1grm"]
+[gd_scene load_steps=24 format=3 uid="uid://ckmyi0h6s1grm"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_0xewk"]
+[ext_resource type="Script" path="res://resources/actor/actor_metadata.gd" id="2_bs2sr"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_hamel"]
 [ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="3_7pb2r"]
 [ext_resource type="Script" path="res://resources/actor/actor_stats.gd" id="3_ndutt"]
@@ -18,6 +19,12 @@
 [ext_resource type="Script" path="res://nodes/actors/actor_status_effect_manager.gd" id="13_d4nc2"]
 [ext_resource type="PackedScene" uid="uid://bebtvrcji7ory" path="res://nodes/acts/specific/winsley/skill/ACT_SKILL_W_TROUVEZ-VOTRE-POINT-FAIBLE.tscn" id="13_mcdc2"]
 [ext_resource type="PackedScene" uid="uid://bcpltsufwthmt" path="res://nodes/acts/specific/winsley/skill/ACT_SKILL_W_COUPEZ-ET-BRULEZ.tscn" id="14_q01w7"]
+
+[sub_resource type="Resource" id="Resource_6dusu"]
+script = ExtResource("2_bs2sr")
+_actor_name = "Winsley"
+_actor_description = "Dorčéspa's gift to the world; Winsley Oronore."
+_actor_level = 0
 
 [sub_resource type="Resource" id="Resource_427m2"]
 script = ExtResource("3_ndutt")
@@ -37,6 +44,7 @@ size = Vector3(0.698242, 1.50894, 0.694336)
 [node name="WinsleyActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
 script = ExtResource("1_0xewk")
 _is_party_member = true
+_metadata = SubResource("Resource_6dusu")
 _stats = SubResource("Resource_427m2")
 _visual_manager = NodePath("ActorVisualManager")
 _costume = NodePath("ActorCostume")
@@ -76,4 +84,4 @@ _skill_2 = ExtResource("14_q01w7")
 script = ExtResource("13_d4nc2")
 
 [node name="InspectCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.94704)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.3)

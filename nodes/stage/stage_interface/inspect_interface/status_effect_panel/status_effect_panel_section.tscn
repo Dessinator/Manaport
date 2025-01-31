@@ -1,0 +1,45 @@
+[gd_scene load_steps=2 format=3 uid="uid://wxrackfsb1ox"]
+
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/inspect_interface/status_effect_panel/status_effect_panel_section.gd" id="1_b3743"]
+
+[node name="StatusEffectPanelSection" type="PanelContainer"]
+script = ExtResource("1_b3743")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 10
+
+[node name="StatusEffectIcon" type="TextureRect" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+expand_mode = 1
+
+[node name="StatusEffectNameLabel" type="Label" parent="VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Status Effect Name"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="StatusEffectStacksLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "(? Stacks)"
+
+[node name="StatusEffectDurationLabel" type="Label" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 10
+text = "(? Turns Left)"
+
+[node name="StatusEffectDescriptionLabel" type="Label" parent="VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+autowrap_mode = 3

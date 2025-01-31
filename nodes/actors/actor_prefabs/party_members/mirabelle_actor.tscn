@@ -1,7 +1,8 @@
-[gd_scene load_steps=21 format=3 uid="uid://bbu5jb7gd1sp6"]
+[gd_scene load_steps=23 format=3 uid="uid://bbu5jb7gd1sp6"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_tb6jx"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_t1qre"]
+[ext_resource type="Script" path="res://resources/actor/actor_metadata.gd" id="2_ysw4i"]
 [ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="3_fxque"]
 [ext_resource type="PackedScene" uid="uid://hiqhb16vaec0" path="res://nodes/actors/actor_visual_manager.tscn" id="3_gefvd"]
 [ext_resource type="Script" path="res://resources/actor/actor_stats.gd" id="3_jdhxh"]
@@ -17,6 +18,12 @@
 [ext_resource type="PackedScene" uid="uid://cf2exa06xmkrx" path="res://nodes/acts/specific/mirabelle/skill/ACT_SKILL_M_I-CAN-HELP.tscn" id="12_r7m8d"]
 [ext_resource type="PackedScene" uid="uid://btij8s72gwdfv" path="res://nodes/acts/specific/mirabelle/skill/ACT_SKILL_M_HOLD-ON-HOLD-ON.tscn" id="13_06pur"]
 [ext_resource type="Script" path="res://nodes/actors/actor_status_effect_manager.gd" id="14_e2w3g"]
+
+[sub_resource type="Resource" id="Resource_q21h0"]
+script = ExtResource("2_ysw4i")
+_actor_name = "Mirabelle"
+_actor_description = "The reserved and timid Mirabelle Pluvame."
+_actor_level = 0
 
 [sub_resource type="Resource" id="Resource_m0ep7"]
 script = ExtResource("3_jdhxh")
@@ -36,6 +43,7 @@ size = Vector3(0.601318, 1.30582, 0.603516)
 [node name="MirabelleActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
 script = ExtResource("1_tb6jx")
 _is_party_member = true
+_metadata = SubResource("Resource_q21h0")
 _stats = SubResource("Resource_m0ep7")
 _visual_manager = NodePath("ActorVisualManager")
 _costume = NodePath("ActorCostume")
@@ -75,4 +83,4 @@ _skill_2 = ExtResource("13_06pur")
 script = ExtResource("14_e2w3g")
 
 [node name="InspectCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.94704)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.7, 2.5)

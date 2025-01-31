@@ -121,6 +121,11 @@ func set_locked(locked: bool):
 
 func get_act_name() -> String:
 	return _name
+func get_brief_description() -> String:
+	return _brief_description
+func get_long_description() -> String:
+	return _long_description
+
 func get_act_type() -> int:
 	return _type
 func get_act_element() -> int:

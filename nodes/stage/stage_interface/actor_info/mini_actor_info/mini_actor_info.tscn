@@ -11,18 +11,18 @@ gradient = SubResource("Gradient_s48pq")
 fill_from = Vector2(1, 0)
 fill_to = Vector2(0.862162, 0)
 
-[sub_resource type="Gradient" id="Gradient_dmsme"]
+[sub_resource type="Gradient" id="Gradient_rncaj"]
 colors = PackedColorArray(0.682353, 0.705882, 0.717647, 1, 1, 1, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_df1mu"]
-gradient = SubResource("Gradient_dmsme")
+gradient = SubResource("Gradient_rncaj")
 width = 100
 
-[sub_resource type="Gradient" id="Gradient_eeiu3"]
+[sub_resource type="Gradient" id="Gradient_uqi23"]
 colors = PackedColorArray(0.490605, 0.549396, 1, 1, 0.227544, 0.897968, 1, 1)
 
 [sub_resource type="GradientTexture1D" id="GradientTexture1D_rgve6"]
-gradient = SubResource("Gradient_eeiu3")
+gradient = SubResource("Gradient_uqi23")
 
 [node name="ActorMiniInfo" type="Control"]
 layout_mode = 3

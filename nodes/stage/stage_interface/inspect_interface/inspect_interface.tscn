@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://de42djxkag3rf"]
+[gd_scene load_steps=5 format=3 uid="uid://de42djxkag3rf"]
 
 [ext_resource type="Script" path="res://nodes/stage/stage_interface/inspect_interface/inspect_interface.gd" id="1_sbxdx"]
+[ext_resource type="PackedScene" uid="uid://dao6yjt4jr3s6" path="res://nodes/stage/stage_interface/inspect_interface/status_bar_panel/status_bar_panel.tscn" id="2_ua6w2"]
 
 [sub_resource type="Gradient" id="Gradient_8w6tw"]
 interpolation_mode = 2
@@ -54,49 +55,77 @@ offset_right = 146.0
 offset_bottom = 77.0
 grow_horizontal = 2
 
-[node name="InspectionMetadataContainer" type="PanelContainer" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata"]
 layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -222.5
+offset_right = 222.5
+offset_bottom = 77.0
 grow_horizontal = 2
-grow_vertical = 2
+alignment = 1
 
-[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/InspectionMetadataContainer"]
+[node name="PreviousActorButton" type="Button" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer"]
+custom_minimum_size = Vector2(77, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "<"
+
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="InspectionMetadataContainer" type="PanelContainer" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer/InspectionMetadataContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 10
 theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 10
 theme_override_constants/margin_bottom = 0
 
-[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/InspectionMetadataContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer/InspectionMetadataContainer/MarginContainer"]
 layout_mode = 2
 alignment = 1
 
-[node name="ActorNameLabel" type="Label" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/InspectionMetadataContainer/MarginContainer/HBoxContainer"]
+[node name="ActorNameLabel" type="Label" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer/InspectionMetadataContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "???"
 horizontal_alignment = 1
 
-[node name="VSeparator" type="VSeparator" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/InspectionMetadataContainer/MarginContainer/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer/InspectionMetadataContainer/MarginContainer/HBoxContainer"]
 layout_mode = 2
 theme_override_constants/separation = 10
 
-[node name="ActorLevelLabel" type="Label" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/InspectionMetadataContainer/MarginContainer/HBoxContainer"]
+[node name="ActorLevelLabel" type="Label" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer/InspectionMetadataContainer/MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "LVL ???"
 
+[node name="VSeparator2" type="VSeparator" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 20
+
+[node name="NextActorButton" type="Button" parent="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer"]
+custom_minimum_size = Vector2(77, 0)
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = ">"
+
 [node name="InspectionDetailsContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_top = 85
 theme_override_constants/margin_right = 900
 
 [node name="InspectionDetails" type="Control" parent="MarginContainer/InspectionDetailsContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Background" type="Panel" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails"]
 layout_mode = 1
@@ -105,6 +134,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails"]
 layout_mode = 1
@@ -113,60 +143,72 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
 theme_override_constants/margin_bottom = 16
 
-[node name="TitlePanelContainer" type="Control" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer"]
 layout_mode = 2
+theme_override_constants/separation = 10
 
-[node name="TitleContainer" type="Control" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/TitlePanelContainer"]
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_bottom = 61.0
-grow_horizontal = 2
+[node name="TitleContainer" type="PanelContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+mouse_filter = 2
 
-[node name="Background" type="Panel" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/TitlePanelContainer/TitleContainer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-
-[node name="Label" type="Label" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/TitlePanelContainer/TitleContainer"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[node name="Label" type="Label" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer/TitleContainer"]
+layout_mode = 2
 theme_override_font_sizes/font_size = 30
 text = "Details"
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[node name="ContentPanelContainer" type="Control" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer"]
+[node name="ContentPanelContainer" type="ScrollContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="DetailsContentPanelContainer" type="VBoxContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer/ContentPanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="StatusPanelContainer" type="MarginContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer/StatusPanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="StatusBarPanel" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer/StatusPanelContainer/VBoxContainer" instance=ExtResource("2_ua6w2")]
+unique_name_in_owner = true
 layout_mode = 2
 
-[node name="DetailsContentPanelContainer" type="VBoxContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/ContentPanelContainer"]
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer/StatusPanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="StatusEffectPanelContainer" type="MarginContainer" parent="MarginContainer/InspectionDetailsContainer/InspectionDetails/MarginContainer/VBoxContainer/StatusPanelContainer/VBoxContainer/ScrollContainer"]
 unique_name_in_owner = true
-layout_mode = 1
-anchors_preset = 10
-anchor_right = 1.0
-offset_top = 69.0
-offset_bottom = 896.0
-grow_horizontal = 2
+layout_mode = 2
+size_flags_horizontal = 3
 
 [node name="InspectionAbilitiesContainer" type="MarginContainer" parent="MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 900
 theme_override_constants/margin_top = 85
 
 [node name="InspectionAbilities" type="Control" parent="MarginContainer/InspectionAbilitiesContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="Background" type="Panel" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities"]
 layout_mode = 1
@@ -175,6 +217,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities"]
 layout_mode = 1
@@ -183,6 +226,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 theme_override_constants/margin_left = 16
 theme_override_constants/margin_top = 16
 theme_override_constants/margin_right = 16
@@ -190,6 +234,7 @@ theme_override_constants/margin_bottom = 16
 
 [node name="TitlePanelContainer" type="Control" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
 [node name="TitleContainer" type="Control" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities/MarginContainer/TitlePanelContainer"]
 layout_mode = 1
@@ -220,12 +265,23 @@ vertical_alignment = 1
 
 [node name="ContentPanelContainer" type="Control" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities/MarginContainer"]
 layout_mode = 2
+mouse_filter = 2
 
-[node name="AbilitiesContentPanelContainer" type="VBoxContainer" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities/MarginContainer/ContentPanelContainer"]
-unique_name_in_owner = true
+[node name="ScrollContainer" type="ScrollContainer" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities/MarginContainer/ContentPanelContainer"]
 layout_mode = 1
-anchors_preset = 10
+anchors_preset = 15
 anchor_right = 1.0
+anchor_bottom = 1.0
 offset_top = 69.0
-offset_bottom = 896.0
 grow_horizontal = 2
+grow_vertical = 2
+
+[node name="AbilitiesContentPanelContainer" type="VBoxContainer" parent="MarginContainer/InspectionAbilitiesContainer/InspectionAbilities/MarginContainer/ContentPanelContainer/ScrollContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[connection signal="pressed" from="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer/PreviousActorButton" to="." method="_on_previous_actor_button_pressed"]
+[connection signal="pressed" from="MarginContainer/InspectionMetadataContainer/InspectionMetadata/HBoxContainer/NextActorButton" to="." method="_on_next_actor_button_pressed"]

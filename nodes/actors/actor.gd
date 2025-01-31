@@ -10,6 +10,8 @@ const MAX_READINESS: float = 10.0
 
 @export var _is_party_member: bool
 
+@export var _metadata: ActorMetadata
+
 @export var _stats: ActorStats
 @export var _visual_manager: ActorVisualManager
 @export var _costume: ActorCostume
@@ -144,6 +146,9 @@ func deselect():
 
 func set_ready_delay(delay_seconds: float):
 	_ready_delay = delay_seconds
+
+func get_metadata() -> ActorMetadata:
+	return _metadata
 
 func get_stats() -> ActorStats:
 	return _stats

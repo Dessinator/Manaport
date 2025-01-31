@@ -47,3 +47,12 @@ func set_skill_1(skill_1):
 	_skill_1 = skill_1
 func set_skill_2(skill_2):
 	_skill_2 = skill_2
+
+func get_basic_move_packedscene() -> PackedScene:
+	return _basic_move
+func get_enhanced_basic_move_packedscene() -> PackedScene:
+	return _enhanced_basic_move
+func get_skill_1_packedscene() -> PackedScene:
+	return _skill_1
+func get_skill_2_packedscene() -> PackedScene:
+	return _skill_2

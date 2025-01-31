@@ -3,7 +3,7 @@ extends FSMState
 
 
 # Executes after the state is entered.
-func _on_enter(actor: Node, _blackboard: BTBlackboard) -> void:
+func _on_enter(actor: Node, blackboard: BTBlackboard) -> void:
 	actor = actor as StageInterface
 	
 	var stage_camera = actor.get_stage_camera()
@@ -14,7 +14,11 @@ func _on_enter(actor: Node, _blackboard: BTBlackboard) -> void:
 	cam_tween.tween_property(stage_camera, "position", ready_camera.position, 0.5)
 	cam_tween.tween_property(stage_camera, "rotation", ready_camera.rotation, 0.5)
 	
-	actor.remove_child(actor.get_inspect_interface_container())
+	blackboard.remove_value("selecting_target_actors_for_act")
+	blackboard.remove_value("selectable_target_actors")
+	blackboard.remove_value("selected_target_actors")
+	
+	actor.remove_child(actor.get_inspect_interface())
 
 # Executes every _process call, if the state is active.
 func _on_update(_delta: float, actor: Node, blackboard: BTBlackboard) -> void:

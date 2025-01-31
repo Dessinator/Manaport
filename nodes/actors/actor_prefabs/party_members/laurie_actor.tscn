@@ -1,6 +1,7 @@
-[gd_scene load_steps=21 format=3 uid="uid://dk20jrjub34s"]
+[gd_scene load_steps=23 format=3 uid="uid://dk20jrjub34s"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_kjchi"]
+[ext_resource type="Script" path="res://resources/actor/actor_metadata.gd" id="2_kd765"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_wowl7"]
 [ext_resource type="Script" path="res://resources/actor/actor_stats.gd" id="3_jngl3"]
 [ext_resource type="Script" path="res://resources/status_effects/status_effect.gd" id="3_kf80m"]
@@ -17,6 +18,12 @@
 [ext_resource type="PackedScene" uid="uid://uqhtmgvmx4ao" path="res://nodes/acts/specific/laurie/skill/ACT_SKILL_L_A-LITTLE-MORE.tscn" id="12_mna1j"]
 [ext_resource type="PackedScene" uid="uid://dmxuffal1ub35" path="res://nodes/acts/specific/laurie/skill/ACT_SKILL_L_LIKE-THAT.tscn" id="13_rh37v"]
 [ext_resource type="Script" path="res://nodes/actors/actor_status_effect_manager.gd" id="14_70w2g"]
+
+[sub_resource type="Resource" id="Resource_gr3kv"]
+script = ExtResource("2_kd765")
+_actor_name = "Laurie"
+_actor_description = "The self-proclaimed fabled Manaport City Upper Arcane Academy prodigy; Ms. Laurie Juniper."
+_actor_level = 0
 
 [sub_resource type="Resource" id="Resource_r04x6"]
 script = ExtResource("3_jngl3")
@@ -36,6 +43,7 @@ size = Vector3(0.648682, 1.38312, 0.651367)
 [node name="LaurieActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
 script = ExtResource("1_kjchi")
 _is_party_member = true
+_metadata = SubResource("Resource_gr3kv")
 _stats = SubResource("Resource_r04x6")
 _visual_manager = NodePath("ActorVisualManager")
 _costume = NodePath("ActorCostume")
@@ -74,4 +82,4 @@ _skill_2 = ExtResource("13_rh37v")
 script = ExtResource("14_70w2g")
 
 [node name="InspectCamera" type="Camera3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.7, 1.94704)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 2.3)

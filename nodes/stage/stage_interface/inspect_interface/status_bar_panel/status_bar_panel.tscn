@@ -1,0 +1,81 @@
+[gd_scene load_steps=7 format=3 uid="uid://dao6yjt4jr3s6"]
+
+[ext_resource type="PackedScene" uid="uid://cd5b6rm88vk0k" path="res://nodes/stage/stage_interface/status_value_bar/status_value_bar.tscn" id="1_smcj1"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/inspect_interface/status_bar_panel/status_bar_panel.gd" id="1_yhkt6"]
+
+[sub_resource type="Gradient" id="Gradient_dmsme"]
+colors = PackedColorArray(0.682353, 0.705882, 0.717647, 1, 1, 1, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_56fww"]
+gradient = SubResource("Gradient_dmsme")
+width = 100
+
+[sub_resource type="Gradient" id="Gradient_eeiu3"]
+colors = PackedColorArray(0.490605, 0.549396, 1, 1, 0.227544, 0.897968, 1, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_x4tic"]
+gradient = SubResource("Gradient_eeiu3")
+
+[node name="StatusBarPanel" type="PanelContainer"]
+script = ExtResource("1_yhkt6")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 16
+theme_override_constants/margin_top = 16
+theme_override_constants/margin_right = 16
+theme_override_constants/margin_bottom = 16
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+
+[node name="HeadingContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HeadingContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="HeadingLabel" type="Label" parent="MarginContainer/VBoxContainer/HeadingContainer/MarginContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Status
+"
+autowrap_mode = 3
+
+[node name="BodyContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/BodyContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 4
+theme_override_constants/margin_right = 4
+theme_override_constants/margin_bottom = 4
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/BodyContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/BodyContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 20
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BodyContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 30
+
+[node name="HTLHBar" parent="MarginContainer/VBoxContainer/BodyContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_smcj1")]
+unique_name_in_owner = true
+layout_mode = 2
+_progress_bar_gradient = SubResource("GradientTexture1D_56fww")
+_name = "HLTH"
+
+[node name="STMABar" parent="MarginContainer/VBoxContainer/BodyContainer/MarginContainer/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("1_smcj1")]
+unique_name_in_owner = true
+layout_mode = 2
+_progress_bar_gradient = SubResource("GradientTexture1D_x4tic")
+_name = "STMA"

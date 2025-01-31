@@ -1,6 +1,7 @@
-[gd_scene load_steps=27 format=3 uid="uid://d21crk01708ft"]
+[gd_scene load_steps=29 format=3 uid="uid://d21crk01708ft"]
 
 [ext_resource type="Script" path="res://nodes/actors/actor.gd" id="1_a6srw"]
+[ext_resource type="Script" path="res://resources/actor/actor_metadata.gd" id="2_8mj7n"]
 [ext_resource type="Script" path="res://nodes/actors/actor_costume.gd" id="2_ewllx"]
 [ext_resource type="Resource" uid="uid://ckncyt80r3idx" path="res://resources/stats/default_substat_curves.tres" id="2_q7ubw"]
 [ext_resource type="Script" path="res://nodes/actors/actor_visual_manager.gd" id="3_4stji"]
@@ -17,6 +18,13 @@
 [ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="10_mjs61"]
 [ext_resource type="Script" path="res://nodes/actors/actor_status_effect_manager.gd" id="12_g60oh"]
 [ext_resource type="PackedScene" uid="uid://1rut0yaysrfq" path="res://nodes/acts/specific/laurie/basic/ACT_BASIC_L_LIKE-THIS.tscn" id="14_0qed3"]
+
+[sub_resource type="Resource" id="Resource_yjnvk"]
+script = ExtResource("2_8mj7n")
+_actor_name = "Legumel"
+_actor_description = "Nut boy :3
+"
+_actor_level = 0
 
 [sub_resource type="Resource" id="Resource_1sy5n"]
 script = ExtResource("4_jnq1d")
@@ -67,6 +75,7 @@ size = Vector3(0.648682, 1.38312, 0.651367)
 
 [node name="MonsterActor" type="Node3D" node_paths=PackedStringArray("_visual_manager", "_costume", "_input_manager", "_acts_manager", "_status_effect_manager")]
 script = ExtResource("1_a6srw")
+_metadata = SubResource("Resource_yjnvk")
 _stats = SubResource("Resource_5bwyb")
 _visual_manager = NodePath("ActorVisualManager")
 _costume = NodePath("ActorCostume")

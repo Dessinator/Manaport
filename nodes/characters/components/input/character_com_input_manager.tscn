@@ -11,7 +11,6 @@ unique_name_in_owner = true
 path_desired_distance = 0.5
 target_desired_distance = 0.5
 avoidance_enabled = true
-debug_enabled = true
 
 [node name="RecalculatePathTimer" type="Timer" parent="."]
 unique_name_in_owner = true

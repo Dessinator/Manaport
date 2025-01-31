@@ -27,7 +27,7 @@ func _on_enter(actor: Node, blackboard: BTBlackboard) -> void:
 	stage_camera.start_hold.connect(_on_start_hold.bind(actor, blackboard))
 	stage_camera.hold.connect(_on_hold.bind(actor, blackboard))
 	stage_camera.end_hold.connect(_on_end_hold.bind(actor, blackboard))
-	actor.get_inspect_timer().timeout.connect(_on_inspect_timer_timeout)
+	actor.get_inspect_timer().timeout.connect(_on_inspect_timer_timeout.bind(blackboard))
 	
 	var selecting_target_actors_for_act = blackboard.get_value("selecting_target_actors_for_act")
 	
@@ -217,16 +217,17 @@ func _on_end_hold(result: Dictionary, actor: Node, blackboard: BTBlackboard):
 func _on_inspect_delay_timer_timeout(inspect_timer: Timer, actor_to_inspect: Actor):
 	if inspect_timer.is_stopped() and actor_to_inspect:
 		inspect_timer.start()
-func _on_inspect_timer_timeout():
+func _on_inspect_timer_timeout(blackboard: BTBlackboard):
+	blackboard.set_value("return_event", "return_to_target_selection")
 	get_parent().fire_event("inspect_actor")
 
 # Executes before the state is exited.
 func _on_exit(actor: Node, blackboard: BTBlackboard) -> void:
 	actor = actor as StageInterface
 	
-	blackboard.remove_value("selecting_target_actors_for_act")
-	blackboard.remove_value("selectable_target_actors")
-	blackboard.remove_value("selected_target_actors")
+	#blackboard.remove_value("selecting_target_actors_for_act")
+	#blackboard.remove_value("selectable_target_actors")
+	#blackboard.remove_value("selected_target_actors")
 	
 	var stage_camera = actor.get_stage_camera()
 	var ready_camera = actor.get_ready_camera()

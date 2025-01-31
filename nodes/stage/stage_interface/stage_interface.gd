@@ -20,7 +20,7 @@ const ACTION_ORDER_VISUAL_SCENE = preload("res://nodes/stage/stage_interface/act
 
 @onready var _mini_actor_viewport_container = $MiniActorInfoViewportContainer
 @onready var _main_container = $MarginContainer
-@onready var _inspect_interface_container = $InspectInterface
+@onready var _inspect_interface = $InspectInterface
 
 @onready var _inspect_delay_timer: Timer = $InspectDelayTimer
 @onready var _inspect_timer: Timer = $InspectTimer
@@ -35,6 +35,7 @@ const ACTION_ORDER_VISUAL_SCENE = preload("res://nodes/stage/stage_interface/act
 @onready var _action_order_visual_container = %ActionOrderVisualContainer
 
 func _ready():
+	_blackboard.set_value("actors", get_stage().get_actors())
 	_blackboard.set_value("action_order_visuals", [])
 	
 	_state_machine.start()
@@ -87,6 +88,8 @@ func _process(_delta):
 	_update_hold_circle()
 
 func _update_mini_actor_info_camera():
+	if not _mini_actor_info_camera.is_inside_tree():
+		return
 	_mini_actor_info_camera.global_position = _stage_camera.global_position
 	_mini_actor_info_camera.global_rotation = _stage_camera.global_rotation
 
@@ -112,8 +115,8 @@ func get_mini_actor_viewport_container() -> Control:
 	return _mini_actor_viewport_container
 func get_main_container() -> Control:
 	return _main_container
-func get_inspect_interface_container() -> Control:
-	return _inspect_interface_container
+func get_inspect_interface() -> InspectInterface:
+	return _inspect_interface
 
 func get_inspect_timer() -> Timer:
 	return _inspect_timer

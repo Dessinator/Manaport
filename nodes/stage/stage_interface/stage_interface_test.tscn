@@ -63,6 +63,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+mouse_filter = 2
 stretch = true
 
 [node name="MiniActorInfoContainer" type="SubViewport" parent="MiniActorInfoViewportContainer"]
@@ -230,6 +231,7 @@ text = "||"
 
 [node name="InspectInterface" parent="." instance=ExtResource("6_wvyy4")]
 layout_mode = 1
+mouse_filter = 2
 
 [node name="HoldCircle" parent="." instance=ExtResource("6_627gc")]
 unique_name_in_owner = true
@@ -294,9 +296,13 @@ script = ExtResource("13_rx102")
 [node name="onReturnToActSelection" type="Node" parent="FiniteStateMachine/Inspect Actor" node_paths=PackedStringArray("next_state")]
 script = ExtResource("10_jh8op")
 next_state = NodePath("../../Select Act")
+use_event = true
+event = "return_to_act_selection"
 
 [node name="onReturnToTargetSelection" type="Node" parent="FiniteStateMachine/Inspect Actor" node_paths=PackedStringArray("next_state")]
 script = ExtResource("10_jh8op")
 next_state = NodePath("../../Select Targets")
+use_event = true
+event = "return_to_target_selection"
 
 [connection signal="pressed" from="MarginContainer/PauseButtonContainer/PauseButton" to="PauseMenuController" method="_on_pause"]

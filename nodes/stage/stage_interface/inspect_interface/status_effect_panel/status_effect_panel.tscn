@@ -1,9 +1,9 @@
-[gd_scene load_steps=2 format=3 uid="uid://bqsipp5mo48av"]
+[gd_scene load_steps=2 format=3 uid="uid://d2wviolhlqtmr"]
 
-[ext_resource type="Script" path="res://nodes/stage/stage_interface/inspect_interface/content_panel/content_panel.gd" id="1_b5bxq"]
+[ext_resource type="Script" path="res://nodes/stage/stage_interface/inspect_interface/status_effect_panel/status_effect_panel.gd" id="1_osdxe"]
 
-[node name="ContentPanel" type="PanelContainer"]
-script = ExtResource("1_b5bxq")
+[node name="StatusEffectPanel" type="PanelContainer"]
+script = ExtResource("1_osdxe")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 2
@@ -29,7 +29,7 @@ theme_override_constants/margin_bottom = 4
 unique_name_in_owner = true
 layout_mode = 2
 theme_override_font_sizes/font_size = 20
-text = "Heading"
+text = "Status Effects"
 autowrap_mode = 3
 
 [node name="BodyContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer"]
@@ -42,8 +42,6 @@ theme_override_constants/margin_top = 4
 theme_override_constants/margin_right = 4
 theme_override_constants/margin_bottom = 4
 
-[node name="BodyLabel" type="Label" parent="MarginContainer/VBoxContainer/BodyContainer/MarginContainer"]
+[node name="StatusEffectPanelSectionContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/BodyContainer/MarginContainer"]
 unique_name_in_owner = true
 layout_mode = 2
-text = "Filler Text. Filler Text. Filler Text. Filler Text. Filler Text. Filler Text. "
-autowrap_mode = 3

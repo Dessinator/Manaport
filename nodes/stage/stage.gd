@@ -184,6 +184,8 @@ func _handle_cut():
 		get_tree().quit()
 	
 
+func get_actors() -> Array:
+	return _actors
 func get_alive_actors() -> Array:
 	return _actors.filter(func(actor): return not actor.get_status().is_dead())
 func get_eligible_actors(acting_actor: Actor, act: Act) -> Array:

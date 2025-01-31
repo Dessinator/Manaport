@@ -13,7 +13,7 @@ func _on_enter(actor: Node, blackboard: BTBlackboard) -> void:
 	stage_camera.start_hold.connect(_on_start_hold.bind(actor, blackboard))
 	stage_camera.hold.connect(_on_hold.bind(actor, blackboard))
 	stage_camera.end_hold.connect(_on_end_hold.bind(actor, blackboard))
-	actor.get_inspect_timer().timeout.connect(_on_inspect_timer_timeout)
+	actor.get_inspect_timer().timeout.connect(_on_inspect_timer_timeout.bind(blackboard))
 	
 	var cam_tween = get_tree().create_tween()
 	cam_tween.set_parallel(true)
@@ -103,7 +103,8 @@ func _on_end_hold(result: Dictionary, actor: Node, blackboard: BTBlackboard):
 func _on_inspect_delay_timer_timeout(inspect_timer: Timer, actor_to_inspect: Actor):
 	if inspect_timer.is_stopped() and actor_to_inspect:
 		inspect_timer.start()
-func _on_inspect_timer_timeout():
+func _on_inspect_timer_timeout(blackboard: BTBlackboard):
+	blackboard.set_value("return_event", "return_to_act_selection")
 	get_parent().fire_event("inspect_actor")
 
 # Add custom configuration warnings
