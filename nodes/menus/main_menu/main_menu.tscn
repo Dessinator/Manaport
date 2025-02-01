@@ -1,12 +1,111 @@
-[gd_scene load_steps=5 format=3 uid="uid://cgtfeievbha7r"]
+[gd_scene load_steps=9 format=3 uid="uid://cgtfeievbha7r"]
 
 [ext_resource type="PackedScene" uid="uid://c6k5nnpbypshi" path="res://addons/maaacks_game_template/base/scenes/menus/main_menu/main_menu.tscn" id="1_udxdw"]
 [ext_resource type="Script" path="res://addons/maaacks_game_template/examples/scenes/menus/main_menu/main_menu.gd" id="2_ppvi4"]
 [ext_resource type="PackedScene" uid="uid://cuwob0el7p0to" path="res://nodes/menus/main_menu/options_menu/options_menu.tscn" id="3_nxs7f"]
-[ext_resource type="PackedScene" uid="uid://c1g50h2avck3w" path="res://addons/maaacks_game_template/examples/scenes/credits/credits.tscn" id="4_f7els"]
+[ext_resource type="PackedScene" uid="uid://c3ls2kixn8csl" path="res://nodes/menus/main_menu/credits/credits.tscn" id="4_smur1"]
+[ext_resource type="FontFile" uid="uid://bar1fxsbdlwcr" path="res://resources/fonts/c64esque.ttf" id="5_o8pc3"]
+[ext_resource type="Texture2D" uid="uid://cel3lyjgv48db" path="res://resources/images/manaport_title_logo.png" id="5_xlq6d"]
+
+[sub_resource type="Gradient" id="Gradient_5jyoo"]
+offsets = PackedFloat32Array(0, 0.8, 1)
+colors = PackedColorArray(0.168627, 0.168627, 0.270588, 1, 0.8, 0.184314, 0.482353, 1, 0.968627, 0.313726, 0.458824, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u6yrv"]
+gradient = SubResource("Gradient_5jyoo")
+fill_to = Vector2(0, 1)
 
 [node name="MainMenu" instance=ExtResource("1_udxdw")]
 script = ExtResource("2_ppvi4")
 game_scene_path = "res://nodes/overworld/overworld.tscn"
 options_packed_scene = ExtResource("3_nxs7f")
-credits_packed_scene = ExtResource("4_f7els")
+credits_packed_scene = ExtResource("4_smur1")
+
+[node name="BackgroundTextureRect" parent="." index="2"]
+texture = SubResource("GradientTexture2D_u6yrv")
+expand_mode = 0
+stretch_mode = 0
+
+[node name="VersionLabel" parent="VersionMargin/VersionContainer" index="0"]
+anchors_preset = 2
+anchor_left = 0.0
+anchor_right = 0.0
+offset_left = 0.0
+offset_right = 88.0
+grow_horizontal = 1
+theme_override_fonts/font = ExtResource("5_o8pc3")
+theme_override_font_sizes/font_size = 40
+text = "ver. 0"
+horizontal_alignment = 0
+vertical_alignment = 2
+version_prefix = "ver. "
+
+[node name="SignatureMargin" type="MarginContainer" parent="." index="4"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="SignatureContainer" type="Control" parent="SignatureMargin" index="0"]
+layout_mode = 2
+mouse_filter = 2
+
+[node name="SignatureLabel" type="Label" parent="SignatureMargin/SignatureContainer" index="0"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -88.0
+offset_top = -26.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/font = ExtResource("5_o8pc3")
+theme_override_font_sizes/font_size = 40
+text = "*NON-PUBLIC* Manapotion Studios, 2024"
+vertical_alignment = 2
+
+[node name="TitleLabel" parent="MenuContainer/TitleMargin/TitleContainer" index="0"]
+visible = false
+
+[node name="TextureRect" type="TextureRect" parent="MenuContainer/TitleMargin/TitleContainer" index="1"]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+grow_horizontal = 2
+texture = ExtResource("5_xlq6d")
+stretch_mode = 3
+
+[node name="MenuButtonsBoxContainer" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer" index="0"]
+offset_left = -113.0
+offset_top = -130.0
+offset_right = 113.0
+offset_bottom = 130.0
+
+[node name="NewGameButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="0"]
+theme_override_constants/outline_size = 0
+theme_override_fonts/font = ExtResource("5_o8pc3")
+theme_override_font_sizes/font_size = 50
+text = "[New Game]"
+
+[node name="OptionsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="1"]
+theme_override_fonts/font = ExtResource("5_o8pc3")
+theme_override_font_sizes/font_size = 50
+text = "[Options]"
+
+[node name="CreditsButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="2"]
+theme_override_fonts/font = ExtResource("5_o8pc3")
+theme_override_font_sizes/font_size = 50
+text = "[Credits]"
+
+[node name="ExitButton" parent="MenuContainer/MenuButtonsMargin/MenuButtonsContainer/MenuButtonsBoxContainer" index="3"]
+theme_override_fonts/font = ExtResource("5_o8pc3")
+theme_override_font_sizes/font_size = 50
+text = "[Quit]"
