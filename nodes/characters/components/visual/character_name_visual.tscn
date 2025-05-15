@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://cuheboc3tdsis"]
+
+[ext_resource type="Script" path="res://nodes/characters/components/visual/character_name_visual.gd" id="1_v84ar"]
+
+[sub_resource type="ViewportTexture" id="ViewportTexture_7ualj"]
+viewport_path = NodePath("SubViewport")
+
+[node name="CharacterNameVisual" type="Node3D"]
+script = ExtResource("1_v84ar")
+
+[node name="Sprite3D" type="Sprite3D" parent="."]
+billboard = 1
+texture = SubResource("ViewportTexture_7ualj")
+
+[node name="SubViewport" type="SubViewport" parent="."]
+transparent_bg = true
+
+[node name="CanvasLayer" type="CanvasLayer" parent="SubViewport"]
+
+[node name="Label" type="Label" parent="SubViewport/CanvasLayer"]
+unique_name_in_owner = true
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -38.0
+offset_top = -11.5
+offset_right = 38.0
+offset_bottom = 11.5
+grow_horizontal = 2
+grow_vertical = 2
+text = "Name"
+horizontal_alignment = 1

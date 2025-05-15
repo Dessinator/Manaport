@@ -1,4 +1,4 @@
-[gd_scene load_steps=44 format=3 uid="uid://cxkulf8fdecod"]
+[gd_scene load_steps=58 format=3 uid="uid://cxkulf8fdecod"]
 
 [ext_resource type="Script" path="res://nodes/characters/character.gd" id="1_m0ywq"]
 [ext_resource type="PackedScene" uid="uid://d21crk01708ft" path="res://nodes/actors/actor_prefabs/monsters/monster_actor.tscn" id="2_hn23o"]
@@ -8,17 +8,21 @@
 [ext_resource type="Script" path="res://nodes/characters/components/movement/character_mover.gd" id="5_eblls"]
 [ext_resource type="PackedScene" uid="uid://ck64qyankcs5d" path="res://nodes/characters/components/visual/character_aggro_visual.tscn" id="5_lh6t3"]
 [ext_resource type="PackedScene" uid="uid://buja2j3vs068o" path="res://nodes/characters/components/input/character_com_input_manager.tscn" id="6_qpy51"]
+[ext_resource type="PackedScene" uid="uid://cuheboc3tdsis" path="res://nodes/characters/components/visual/character_name_visual.tscn" id="8_66ebx"]
 [ext_resource type="Script" path="res://addons/beehave/blackboard.gd" id="8_fbe2n"]
-[ext_resource type="Script" path="res://nodes/characters/components/aggro/character_aggro_manager.gd" id="8_sglj1"]
+[ext_resource type="Script" path="res://nodes/characters/components/enemy/aggro/character_aggro_manager.gd" id="8_sglj1"]
 [ext_resource type="PackedScene" uid="uid://4guxmwi5dg8w" path="res://nodes/characters/components/patrol/character_patrol_range.tscn" id="9_fju26"]
 [ext_resource type="PackedScene" uid="uid://cgox4re8bjvki" path="res://nodes/characters/components/detection/character_detection_range.tscn" id="9_rfisy"]
+[ext_resource type="PackedScene" uid="uid://botvxwcr0ic5t" path="res://nodes/characters/party/dynamic_party_range/character_dynamic_party_range.tscn" id="11_quubw"]
 [ext_resource type="PackedScene" uid="uid://uxlrfaw5edxj" path="res://nodes/characters/components/battle/character_battle_handler.tscn" id="11_vvln3"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_aggroed.gd" id="12_dycax"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector_reactive.gd" id="13_ak3ih"]
+[ext_resource type="Script" path="res://nodes/characters/party/party_reference/character_party_reference.gd" id="13_p203t"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_reactive.gd" id="14_7i86b"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_player_in_detection_range.gd" id="14_gsegd"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/build_aggro.gd" id="16_aroxt"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/beehave_tree.gd" id="16_m4ea7"]
+[ext_resource type="Script" path="res://nodes/characters/components/enemy/enemy_reference/character_enemy_reference.gd" id="16_mv6mo"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/decorators/succeeder.gd" id="17_h3272"]
 [ext_resource type="Script" path="res://addons/beehave/nodes/composites/sequence_star.gd" id="18_fjtcx"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/clear_destination.gd" id="18_ji25r"]
@@ -37,6 +41,16 @@
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_touching_player.gd" id="32_rtg6h"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/start_battle.gd" id="33_2n7id"]
 [ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/wait.gd" id="33_3hw5x"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/condition.gd" id="42_5a7sh"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/leaves/action.gd" id="42_nriws"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/is_enemy_in_dynamic_party_range.gd" id="42_xd50c"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/cache_enemy_reference.gd" id="43_rk0ak"]
+[ext_resource type="Script" path="res://addons/beehave/nodes/composites/selector.gd" id="44_ajrtn"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/am_i_in_a_party.gd" id="45_lw107"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/do_i_have_enemy_id_priority.gd" id="46_nwo3s"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/create_party.gd" id="47_td8ps"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/join_party.gd" id="48_iphf1"]
+[ext_resource type="Script" path="res://nodes/characters/character_prefabs/monsters/invite_cached_enemy.gd" id="49_nrryt"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_0uaoh"]
 radius = 0.32
@@ -70,6 +84,7 @@ shader_parameter/resolution = Vector2i(320, 240)
 shader_parameter/albedo = SubResource("GradientTexture1D_k1rwn")
 
 [node name="Monster" type="CharacterBody3D" node_paths=PackedStringArray("_character_visual_manager", "_character_skin", "_character_mover", "_character_input_manager")]
+collision_layer = 3
 script = ExtResource("1_m0ywq")
 _character_visual_manager = NodePath("CharacterVisualManager")
 _character_skin = NodePath("CharacterSkin")
@@ -100,6 +115,10 @@ script = ExtResource("4_n0byt")
 [node name="CharacterAggroVisual" parent="CharacterVisualManager" instance=ExtResource("5_lh6t3")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
 
+[node name="CharacterNameVisual" parent="CharacterVisualManager" node_paths=PackedStringArray("_name_source") instance=ExtResource("8_66ebx")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2, 0)
+_name_source = NodePath("../..")
+
 [node name="CharacterDetectionRange" parent="." instance=ExtResource("9_rfisy")]
 _radius = 4.0
 
@@ -108,12 +127,20 @@ top_level = false
 monitorable = false
 _radius = 10.0
 
+[node name="CharacterDynamicPartyRange" parent="." instance=ExtResource("11_quubw")]
+
 [node name="CharacterAggroManager" type="Node" parent="."]
 script = ExtResource("8_sglj1")
 _decay_speed_seconds = 8.0
 
 [node name="CharacterBattleHandler" parent="." instance=ExtResource("11_vvln3")]
 _actor_scenes = Array[PackedScene]([ExtResource("2_hn23o"), ExtResource("2_hn23o"), ExtResource("2_hn23o")])
+
+[node name="CharacterPartyReference" type="Node" parent="."]
+script = ExtResource("13_p203t")
+
+[node name="CharacterEnemyReference" type="Node" parent="."]
+script = ExtResource("16_mv6mo")
 
 [node name="Blackboard" type="Node" parent="."]
 script = ExtResource("8_fbe2n")
@@ -122,6 +149,7 @@ blackboard = {
 "battle_handler": NodePath("../CharacterBattleHandler"),
 "com_input_manager": NodePath("../CharacterCOMInputManager"),
 "detection_range": NodePath("../CharacterDetectionRange"),
+"dynamic_party_range": NodePath("../CharacterDynamicPartyRange"),
 "patrol_range": NodePath("../CharacterPatrolRange")
 }
 
@@ -299,6 +327,196 @@ _patrol_range_name = "search_patrol_range"
 
 [node name="AwaitArrival" type="Node" parent="BeehaveTree/SelectorReactiveComposite/Search/Decay aggro and patrol last seen player area/Patrol last seen player area"]
 script = ExtResource("31_5l48h")
+
+[node name="FoundFriend" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="IsNotInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend"]
+script = ExtResource("20_imcat")
+
+[node name="IsInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/IsNotInBattle"]
+script = ExtResource("30_8hyhi")
+
+[node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend"]
+script = ExtResource("20_imcat")
+
+[node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/IsNotAggroed"]
+script = ExtResource("12_dycax")
+
+[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend"]
+script = ExtResource("20_imcat")
+
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/IsPlayerOutsideDetectionRange"]
+script = ExtResource("14_gsegd")
+
+[node name="IsEnemyInDynamicPartyRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend"]
+script = ExtResource("42_xd50c")
+
+[node name="AlwaysSucceedDecorator" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend"]
+script = ExtResource("17_h3272")
+
+[node name="CacheEnemyReference" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/AlwaysSucceedDecorator"]
+script = ExtResource("43_rk0ak")
+
+[node name="SelectorComposite" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend"]
+script = ExtResource("44_ajrtn")
+
+[node name="CreatePartyAndInviteFriend" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="AmINotInAParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/CreatePartyAndInviteFriend"]
+script = ExtResource("20_imcat")
+
+[node name="AmIInAParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/CreatePartyAndInviteFriend/AmINotInAParty"]
+script = ExtResource("45_lw107")
+
+[node name="DoIHaveEnemyIDPriority" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/CreatePartyAndInviteFriend"]
+script = ExtResource("46_nwo3s")
+
+[node name="CreateParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/CreatePartyAndInviteFriend"]
+script = ExtResource("47_td8ps")
+
+[node name="JoinParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/CreatePartyAndInviteFriend"]
+script = ExtResource("48_iphf1")
+
+[node name="InviteCachedEnemy" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/CreatePartyAndInviteFriend"]
+script = ExtResource("49_nrryt")
+
+[node name="JoinFriendParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="AmINotInAParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/JoinFriendParty"]
+script = ExtResource("20_imcat")
+
+[node name="AmIInAParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/JoinFriendParty/AmINotInAParty"]
+script = ExtResource("45_lw107")
+
+[node name="DoINotHaveEnemyIDPriority" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/JoinFriendParty"]
+script = ExtResource("20_imcat")
+
+[node name="DoIHaveEnemyIDPriority" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/JoinFriendParty/DoINotHaveEnemyIDPriority"]
+script = ExtResource("46_nwo3s")
+
+[node name="JoinCachedEnemyParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/JoinFriendParty"]
+script = ExtResource("42_nriws")
+
+[node name="LeaveMyPartyAndJoinFriendParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="AmIInAParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/LeaveMyPartyAndJoinFriendParty"]
+script = ExtResource("45_lw107")
+
+[node name="DoINotHaveEnemyIDPriority" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/LeaveMyPartyAndJoinFriendParty"]
+script = ExtResource("20_imcat")
+
+[node name="DoIHaveEnemyIDPriority" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/LeaveMyPartyAndJoinFriendParty/DoINotHaveEnemyIDPriority"]
+script = ExtResource("46_nwo3s")
+
+[node name="LeaveParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/LeaveMyPartyAndJoinFriendParty"]
+script = ExtResource("42_nriws")
+
+[node name="JoinCachedEnemyParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/LeaveMyPartyAndJoinFriendParty"]
+script = ExtResource("42_nriws")
+
+[node name="InviteFriendToMyParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="AmIInAParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/InviteFriendToMyParty"]
+script = ExtResource("45_lw107")
+
+[node name="DoIHaveEnemyIDPriority" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/InviteFriendToMyParty"]
+script = ExtResource("46_nwo3s")
+
+[node name="InviteCachedEnemy" type="Node" parent="BeehaveTree/SelectorReactiveComposite/FoundFriend/SelectorComposite/InviteFriendToMyParty"]
+script = ExtResource("42_nriws")
+
+[node name="PatrolAroundPartyLeader" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="IsInParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader"]
+script = ExtResource("42_5a7sh")
+
+[node name="IsNotPartyLeader" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader"]
+script = ExtResource("20_imcat")
+
+[node name="IsPartyLeader" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader/IsNotPartyLeader"]
+script = ExtResource("42_5a7sh")
+
+[node name="IsNotInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader"]
+script = ExtResource("20_imcat")
+
+[node name="IsInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader/IsNotInBattle"]
+script = ExtResource("30_8hyhi")
+
+[node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader"]
+script = ExtResource("20_imcat")
+
+[node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader/IsNotAggroed"]
+script = ExtResource("12_dycax")
+
+[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader"]
+script = ExtResource("20_imcat")
+
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAroundPartyLeader/IsPlayerOutsideDetectionRange"]
+script = ExtResource("14_gsegd")
+
+[node name="PatrolAsPartyLeader" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
+script = ExtResource("14_7i86b")
+
+[node name="IsInParty" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader"]
+script = ExtResource("42_5a7sh")
+
+[node name="IsPartyLeader" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader"]
+script = ExtResource("42_5a7sh")
+
+[node name="IsNotInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader"]
+script = ExtResource("20_imcat")
+
+[node name="IsInBattle" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/IsNotInBattle"]
+script = ExtResource("30_8hyhi")
+
+[node name="IsNotAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader"]
+script = ExtResource("20_imcat")
+
+[node name="IsAggroed" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/IsNotAggroed"]
+script = ExtResource("12_dycax")
+
+[node name="IsPlayerOutsideDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader"]
+script = ExtResource("20_imcat")
+
+[node name="IsPlayerInDetectionRange" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/IsPlayerOutsideDetectionRange"]
+script = ExtResource("14_gsegd")
+
+[node name="Decay aggro and patrol" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader"]
+script = ExtResource("22_vcrmy")
+delay_mode = true
+
+[node name="DecayAggro" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/Decay aggro and patrol"]
+script = ExtResource("20_v5jko")
+
+[node name="Patrol" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/Decay aggro and patrol"]
+script = ExtResource("18_fjtcx")
+
+[node name="Set random destination within default patrol range" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/Decay aggro and patrol/Patrol"]
+script = ExtResource("30_mudld")
+_patrol_range_name = "patrol_range"
+
+[node name="AwaitArrival" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/Decay aggro and patrol/Patrol"]
+script = ExtResource("31_5l48h")
+
+[node name="Wait random amount of time" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/Decay aggro and patrol/Patrol"]
+script = ExtResource("32_lyxgo")
+
+[node name="Wait 1 Second" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/Decay aggro and patrol/Patrol/Wait random amount of time"]
+script = ExtResource("33_3hw5x")
+
+[node name="Wait 2,5 Seconds" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/Decay aggro and patrol/Patrol/Wait random amount of time"]
+script = ExtResource("33_3hw5x")
+_time_seconds = 2.5
+
+[node name="Wait 5 Seconds" type="Node" parent="BeehaveTree/SelectorReactiveComposite/PatrolAsPartyLeader/Decay aggro and patrol/Patrol/Wait random amount of time"]
+script = ExtResource("33_3hw5x")
+_time_seconds = 5.0
 
 [node name="Patrol" type="Node" parent="BeehaveTree/SelectorReactiveComposite"]
 script = ExtResource("14_7i86b")

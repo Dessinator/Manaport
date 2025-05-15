@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://botvxwcr0ic5t"]
+
+[ext_resource type="Script" path="res://nodes/characters/party/dynamic_party_range/character_dynamic_party_range.gd" id="1_30vbp"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vnkmj"]
+radius = 4.0
+
+[node name="CharacterDynamicPartyRange" type="Area3D"]
+script = ExtResource("1_30vbp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("SphereShape3D_vnkmj")

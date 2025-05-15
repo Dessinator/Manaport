@@ -3,7 +3,7 @@
 [ext_resource type="PackedScene" uid="uid://bjwjj6jb38tb7" path="res://resources/models/test_overworld_environment.fbx" id="1_nfgr6"]
 [ext_resource type="Shader" path="res://resources/shaders/psx_render.gdshader" id="2_3ajji"]
 [ext_resource type="Texture2D" uid="uid://b3itydmnw8lm3" path="res://addons/ThirdPersonTemplate/Environments/Textures/Grid_01_BaseMap.png" id="3_c7hjg"]
-[ext_resource type="Script" path="res://nodes/characters/party/party.gd" id="4_0ysj8"]
+[ext_resource type="Script" path="res://nodes/characters/party/player_party.gd" id="4_3bsyo"]
 [ext_resource type="PackedScene" uid="uid://bymecv7dxhxtg" path="res://nodes/characters/character_prefabs/party_members/laurie_character.tscn" id="5_7cgms"]
 [ext_resource type="PackedScene" uid="uid://3o3qmldlg564" path="res://nodes/characters/character_prefabs/party_members/mirabelle_character.tscn" id="6_jqgqn"]
 [ext_resource type="PackedScene" uid="uid://b2kqja31tsv2g" path="res://nodes/characters/character_prefabs/party_members/winsley_character.tscn" id="7_ybs3j"]
@@ -51,9 +51,8 @@ environment = SubResource("Environment_n5q43")
 surface_material_override/0 = SubResource("ShaderMaterial_8e0el")
 
 [node name="PlayerParty" type="Node" parent="Environment" node_paths=PackedStringArray("_party_camera_manager") groups=["player_party"]]
-script = ExtResource("4_0ysj8")
+script = ExtResource("4_3bsyo")
 _party_camera_manager = NodePath("PartyCameraManager")
-_is_player_party = true
 
 [node name="Laurie" parent="Environment/PlayerParty" instance=ExtResource("5_7cgms")]
 
@@ -69,5 +68,8 @@ _lerp_camera_position = true
 
 [node name="Monster" parent="Environment" instance=ExtResource("9_cxdca")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -15.8236, 1.90735e-06, 15.6047)
+
+[node name="Monster2" parent="Environment" instance=ExtResource("9_cxdca")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -19.0378, 1.90735e-06, 6.57784)
 
 [editable path="Environment/test_overworld_environment"]

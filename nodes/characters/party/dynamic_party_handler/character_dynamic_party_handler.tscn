@@ -1,0 +1,27 @@
+[gd_scene load_steps=4 format=3 uid="uid://ciwf46enbsap5"]
+
+[ext_resource type="Script" path="res://nodes/characters/party/dynamic_party_handler/character_dynamic_party_handler.gd" id="1_va5f0"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_8cud2"]
+radius = 4.0
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_dre5n"]
+radius = 8.0
+
+[node name="CharacterDynamicPartyHandler" type="Node3D"]
+script = ExtResource("1_va5f0")
+
+[node name="JoinPartyArea3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="JoinPartyArea3D"]
+shape = SubResource("SphereShape3D_8cud2")
+
+[node name="PartyMaxDistanceArea3D" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="PartyMaxDistanceArea3D"]
+shape = SubResource("SphereShape3D_dre5n")
+
+[connection signal="body_entered" from="JoinPartyArea3D" to="." method="_on_join_party_area_3d_body_entered"]
+[connection signal="body_exited" from="JoinPartyArea3D" to="." method="_on_join_party_area_3d_body_exited"]
+[connection signal="body_entered" from="PartyMaxDistanceArea3D" to="." method="_on_party_max_distance_area_3d_body_entered"]
+[connection signal="body_exited" from="PartyMaxDistanceArea3D" to="." method="_on_party_max_distance_area_3d_body_exited"]

@@ -9,7 +9,7 @@
 [ext_resource type="PackedScene" uid="uid://ds1bp67gst5d1" path="res://nodes/characters/components/camera/character_camera_manager.tscn" id="9_hn41o"]
 [ext_resource type="PackedScene" uid="uid://uxlrfaw5edxj" path="res://nodes/characters/components/battle/character_battle_handler.tscn" id="10_5hths"]
 [ext_resource type="PackedScene" uid="uid://dav06vxnfhyrt" path="res://nodes/characters/components/input/character_party_input_manager.tscn" id="10_7t8j0"]
-[ext_resource type="Script" path="res://nodes/characters/party/character_party_reference.gd" id="10_osg0m"]
+[ext_resource type="Script" path="res://nodes/characters/party/party_reference/character_party_reference.gd" id="10_osg0m"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_formation.gd" id="10_pxf37"]
 [ext_resource type="Script" path="res://nodes/characters/party/character_party_interface.gd" id="11_nkkr4"]
 

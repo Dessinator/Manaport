@@ -9,7 +9,16 @@ var _current_party: Party
 
 func join_party(party: Party):
 	_current_party = party
+	print(get_parent().name + " joined a party.")
+	if not party is PlayerParty:
+		return
 	_current_party.on_party_leader_set.connect(_on_party_leader_set)
+func leave_party(party: Party):
+	_current_party = null
+	print(get_parent().name + " left a party.")
+	if not party is PlayerParty:
+		return
+	_current_party.on_party_leader_set.disconnect(_on_party_leader_set)
 
 func is_in_party() -> bool:
 	return _current_party != null

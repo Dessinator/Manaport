@@ -7,7 +7,8 @@ const CHARACTER_PATROL_RANGE_SCENE = preload("res://nodes/characters/components/
 
 func tick(actor: Node, blackboard: Blackboard) -> int:
 	if blackboard.has_value(_range_name):
-		var range = blackboard.get_node(blackboard.get_value(_range_name))
+		var range_path = blackboard.get_value(_range_name)
+		var range = blackboard.get_node(range_path)
 		range.global_position = actor.global_position
 		
 		return SUCCESS

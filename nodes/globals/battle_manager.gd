@@ -39,7 +39,7 @@ func start_battle(aggressor: CharacterBattleHandler, victim: CharacterBattleHand
 		print("Aggressor is not in a party.")
 		aggressor_battle_handlers.append(aggressor)
 	else:
-		if aggressor_party.is_player_party():
+		if aggressor_party is PlayerParty:
 			print("Player party is aggressor party.")
 		
 		var party_members = aggressor_party.get_members()
@@ -59,7 +59,7 @@ func start_battle(aggressor: CharacterBattleHandler, victim: CharacterBattleHand
 		print("Victim is not in a party.")
 		victim_battle_handlers.append(victim)
 	else:
-		if victim_party.is_player_party():
+		if victim_party is PlayerParty:
 			print("Player party is victim party.")
 		
 		var party_members = victim_party.get_members()
